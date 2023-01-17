@@ -137,7 +137,7 @@
 
 %% CLASS FILE LOADING
 
-\LoadClass[a4paper,11pt,openright,\paging]{report}
+\LoadClass[b5paper,11pt,openright,\paging]{report}
 
 %% PACKAGE LOADING
 
@@ -186,12 +186,12 @@
 \else
     \RequirePackage[noabbrev]{cleveref}
 \fi
-\RequirePackage[acronym]{glossaries}        % create a glossary and acronym list
+\RequirePackage[automake, acronym, nonumberlist, nogroupskip, stylemods=longextra]{glossaries-extra}
 
 %% CUSTOMISATION
 
 % Page geometry and spacing (same for even and odd pages)
-\geometry{left=4cm, right=4cm, top=4cm, bottom=4.5cm}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=3cm}
 \frenchspacing
 
 % Roman page numbers from the beginning of the document
