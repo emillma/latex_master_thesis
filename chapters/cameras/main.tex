@@ -1,0 +1,48 @@
+\chapter{Cameras}
+
+\section{Synchronization (PPT+PPS)}
+Fast mode \approx $50\mu s$. Accurate mode prohibits $20hz$ refresh rate.
+Verified using oscilloscope and analog output.
+
+\section{Real time image processing}
+Asyncio, subprocessing, queues and a lot of pain.
+
+
+
+\section{Calibration}
+
+
+\section{Network management}
+
+Using network card.
+A lot of configuration has to be done -> Python script.
+\subsection*{Network card}
+\subsection*{Jumbo Frames}
+\subsection*{Receive Buffers}
+\subsection*{Ip Address Assignment}
+Local network for each eth device.
+Assure no overlap.
+\subsection*{LLA}
+\subsection*{Reverse Path Filtering}
+
+
+
+\section{Compression}
+H265 for video, JPEG for images.
+\subsection*{gstreamer}
+\subsection*{Hardware acceleration}
+Verified with \gls{jtop}.
+
+\section{Custom debayering (GPU?)}
+Not needed for now, but could be useful for future work.
+Currently using OpenCV debayering.
+
+An idea is to combine debayering, I420 conversion and polarization representations into one kernel.
+
+\section{Polarization stuff}
+Save all 4 polarization channels.
+Gives more options for postprocessing in cases of ie saturation.
+
+\section{Testing and verification of the system?}
+Check compression loss.
+

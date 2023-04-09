@@ -1,4 +1,4 @@
-\documentclass[british,titlepage]{ntnuthesis}
+\documentclass[british,titlepage, oneside]{ntnuthesis}
 
 \title{An NTNU Thesis \LaTeX{} Document Class}
 \shorttitle{An NTNU Thesis Document Class}
@@ -9,11 +9,12 @@
 \addbibresource{thesis.bib}
 
 \input{glossary.tex} % add glossary and acronym lists before document
+% \oneside
 
 \begin{document}
 
-\input{chapters/0a-abstract.tex}
-\input{chapters/0b-sammendrag.tex}
+\input{example_chapters/0a-abstract.tex}
+\input{example_chapters/0b-sammendrag.tex}
 
 \tableofcontents
 \listoffigures
@@ -23,15 +24,15 @@
 \printglossary[type=\acronymtype] % Print acronyms
 \printglossary                    % Print glossary
 
-\input{chapters/1-introduction}
-\input{chapters/2-usage.tex}
-\input{chapters/3-structure.tex}
-\input{chapters/4-conclusion.tex}
+\input{example_chapters/1-introduction}
+\input{example_chapters/2-usage.tex}
+\input{example_chapters/3-structure.tex}
+\input{example_chapters/4-conclusion.tex}
 
 \chapter*{\bibname}
 \printbibliography[heading=none]
 
-\input{chapters/papers.tex}
+\input{example_chapters/papers.tex}
 
 \appendix
 \input{appendices/a-appendix.tex}
