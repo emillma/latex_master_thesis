@@ -1,0 +1,16 @@
+\begin{listing}[H]
+    \begin{minted}{python}
+      def crc32mpeg2(message_padded):
+        poly = 0x104c11db7
+        crc = 0xffffffff #seed
+        for value in message_padded:
+            crc ^= value << 24
+            for _ in range(8):
+                if crc & 0x80000000:
+                    crc = (crc << 1) ^ poly
+                else:
+                    crc <<= 1
+        return crc
+    \end{minted}
+    \caption{CRC32-MPEG2 algorithm implemented in.}
+\end{listing}
