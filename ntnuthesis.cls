@@ -340,7 +340,7 @@ literate=
 \RequirePackage{fontspec}
 \setmonofont{Fira Code Medium}[
     Contextuals=Alternate,
-    Scale=0.7  % Activate the calt feature
+    Scale=0.65  % Activate the calt feature
 ]
 \RequirePackage{url}
 \RequirePackage{xspace}

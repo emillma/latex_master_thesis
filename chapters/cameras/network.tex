@@ -12,35 +12,50 @@ Increasing the maximal \gls{mtu} size typically leads to improved performance fo
 Both the ethernet card used on the \jx as well as the \cams support Jumbo frames \cite{IntelI350am4Chipa} \cite{TritonMPPolarized2020a}.
 
 \subsection{Receive Buffers}
-When network packets arrive on Linux they are stored in a driver queue as shown in Figure \ref{fig:linux_network} \cite{danQueueingLinuxNetwork2013}.
-The maximal number \gls{skb} can be configured using \mintinline{bash}{ethtool -G} command. \cite{danQueueingLinuxNetwork2013}.
-The default and maximum number of receive buffers on the \jx are 256 and 4096, according to the \mintinline{bash}{ethtool -g eth1} command.
-To avoid starvation and increase performance, it is recommended to use the use the default value to the maximal one \cite{lucidvisionlabsReceiveBuffers2020} \cite{danQueueingLinuxNetwork2013}.
-As we are receiving large amounts of data as jumbo frames it is also recommended to increase the default maximal receive buffer size, which can be done permanently by running the following commands \cite{lucidvisionlabsReceiveBuffers2020}.
-\begin{minted}{bash}
-    $ sudo sh -c "echo 'net.core.rmem_default=1048576' >> /etc/sysctl.conf"
-    $ sudo sh -c "echo 'net.core.rmem_max=1048576' >> /etc/sysctl.conf"
-    $ sudo sysctl -p
-\end{minted}
-
-
-The receive buffer is the system memory used by the Ethernet adapter to receive packets \cite{lucidvisionlabsReceiveBuffers2020}.
-Default receive buffer values set by network adapter drivers or the operating system can be low, leading to decreased performance.
-The default and maximal number of receive buffers on the \jx are 256 and 4096.
-This was found using the \mintinline{bash}{ethtool -g eth1} command.
-It is recommended by the camera manufacturers to increase these values \cite{lucidvisionlabsReceiveBuffers2020}.
-For this to have the desired effect, it is
-The
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{figures/linux_networking.png}
+    \includegraphics[width=0.8\textwidth]{figures/linux_networking.png}
     \caption{Simplified high level overview of the queues on the transmit path of the Linux network stack \cite{danQueueingLinuxNetwork2013}}
     \label{fig:linux_network}
 \end{figure}
+When network packets arrive on Linux they are stored in a driver queue as shown in Figure \ref{fig:linux_network} \cite{danQueueingLinuxNetwork2013}.
+To avoid starvation and increase performance, it is recommended to increase the default number of \glspl{skb}, also known as receive buffers \cite{lucidvisionlabsReceiveBuffers2020} \cite{danQueueingLinuxNetwork2013}.
+This can be done using the \mintinline{bash}{ethtool -G} command \cite{danQueueingLinuxNetwork2013}.
+The maximal allowed number of receive buffers on the \jx are 4096, opposed to the default value of 256, according to the \mintinline{bash}{ethtool -g eth1} command.
+The poetntial downside of increasing the number of \glspl{skb} is that it increases the memory usage and it might introduce more Latency as the Driver Queue gets longer \cite{danQueueingLinuxNetwork2013}. As the current use case for the sensor platform is to record data, this is not a problem, but it should be kept in mind for future work if the sensor platform is used for real-time applications.
+
+As we are receiving large amounts of data as jumbo frames it is also recommended to increase the default and the maximal socket buffer size.
+The default values for the default and maximal receive buffer saize were \todo and \todo, which was found using the \mintinline{bash}{sysctl -a | grep rmem_default} and \mintinline{bash}{sysctl -a | grep rmem_max} commands on a newly booted \jx \cite{sainiUnableReadNet2021}.
+
+\lucid suggests setting both default and max buffer size to $1MiB$ while IBM suggest setting them up to $16MB$ for best performance \cite{lucidvisionlabsReceiveBuffers2020}\cite{ibmIBMDocumentationTCPIP2021}.
+As it is quite cumbersome to perform low level network latency analysis, and memory depletion never seemed to be an issue with the $16GB$ of \gls{ram} available on the \jx, both default and max buffer size was set to $16MiB$.
+To make this change permanent the following command is used \cite{redhat10ChangingNetwork}.
+\begin{minted}{bash}
+    $ sudo sh -c "echo 'net.core.rmem_default=16777216' >> /etc/sysctl.conf"
+    $ sudo sh -c "echo 'net.core.rmem_max=16777216' >> /etc/sysctl.conf"
+    $ sudo sysctl -p
+\end{minted}
+
+\subsection{IP management}
+The discovery and enumeration process of the \lucid cameras is outlined in Figure \ref{fig:lucid_ip_discovery}.
+
+\subsubsection{Reverse Path Filtering}
+\gls{rpf} is a security feature that is designed to prevent IP address spoofing attacks by discarding incoming network traffic that does not have a valid return path \cite{ReversePathFiltering}.
+However, in some cases, such as when discovering cameras over \gls{gigev} using \gls{lla}, disabling \gls{rpf} may be necessary ensure detection \cite{lucidvisionlabsArenaSoftwareDevelopment2020}. This can for example occur if the cameras IP address collides with that of the network adapter \cite{lucidvisionlabsArenaSoftwareDevelopment2020}.
+
+\subsection{Link-Local Adress}
+In computer networking, \gls{lla} refers to an IP address that is used for communication within a logical division or broadcast domain to which the host is connected \cite{annieahujaweb2020LinkLocalAddress2022}.
+\gls{lla} is unique within a network segment, but not across different network segments, and therefore should not be forwarded by routers \cite{annieahujaweb2020LinkLocalAddress2022}.
+
+\gls{lla} is a method of IP address assignment that is commonly used when working with \gls{gigev} cameras \cite{teledyneSettingIPAddress01} \cite{lucidvisionlabsArenaSoftwareDevelopment2020}.
+It allows devices to automatically assign IP addresses without the need for a \gls{dhcp} server \cite{annieahujaweb2020LinkLocalAddress2022}, which makes it possible to connect a \gls{gigev} camera directly to an ethernet adapter, without the need for an intermediate router.
+For this to work properly the network adapter shoud be assigned the IP \code{169.254.0.1} and have netmask \code{255.255.0.0} as \gls{lla} addresses are assigned within the scope of \code{169.254.1.0} \code{169.254.254.255} \cite{annieahujaweb2020LinkLocalAddress2022}\cite{lucidvisionlabsArenaSoftwareDevelopment2020}.
+
+
 
 \begin{figure*}
     \centering
-    \includegraphics[width=\textwidth]{figures/thing.pdf}
-    \caption{Lucid cameras are discovered and enumeration \cite{TritonMPPolarized2020}}
-    \label{fig:lucid_discovery}
+    \includegraphics[height=\textheight]{figures/thing.pdf}
+    \caption{Figure of the descovery and enumeration process of Lucid cameras \cite{TritonMPPolarized2020}}
+    \label{fig:lucid_ip_discovery}
 \end{figure*}
