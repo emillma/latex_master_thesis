@@ -1,17 +1,48 @@
 \section{Network configuration}
-The network configuration is important because each camera produces a lot of data.
-The different network parameters are described in the following sections.
+There are two catecories of network configurations that needs to be done for the sensor platform to operate.
 
 
 
-\subsection{Jumbo Frames}
+\subsection{IP configuration}
+The \jx has a built in etherned adapter and the one osed on the \sr has been equipped with an extra wifi adapter, as well as a network card consisting of four independant ethernet adapters \cite{martensPortableSensorRig2022}.
+The following section describes the different network configurations necessary to connect and communicate with the cameras. First two essential concepts are explained, then a IP configuration setup used to automatically detect the cammeras and assign IP adresses is presented.
+
+
+\subsubsection{Reverse Path Filtering}
+\gls{rpf} is a security feature that is designed to prevent IP address spoofing attacks by discarding incoming network traffic that does not have a valid return path \cite{ReversePathFiltering}.
+However, in some cases, such as when discovering cameras over \gls{gigev} using \gls{lla}, disabling \gls{rpf} may be necessary ensure detection \cite{lucidvisionlabsArenaSoftwareDevelopment2020}. This can for example occur if the cameras IP address collides with that of the network adapter \cite{lucidvisionlabsArenaSoftwareDevelopment2020}. The followinc command can be used to disable \gls{rpf} \code{sudo sysctl -w net.ipv4.conf.eth1.rp_filter=0}.
+
+\subsubsection{Link-Local Adress}
+% In computer networking, \gls{lla} refers to an IP address that is used for communication within a logical division or broadcast domain to which the host is connected \cite{annieahujaweb2020LinkLocalAddress2022}.
+% \gls{lla} is unique within a network segment, but not across different network segments, and therefore should not be forwarded by routers, this is however not relevant for this application \cite{annieahujaweb2020LinkLocalAddress2022}.
+\gls{lla} is a method of IP address assignment that is often used when working with \gls{gigev} cameras \cite{teledyneSettingIPAddress01} \cite{lucidvisionlabsArenaSoftwareDevelopment2020}.
+It allows devices to automatically assign IP addresses without the need for a \gls{dhcp} server or static IP \cite{annieahujaweb2020LinkLocalAddress2022}, which makes it possible to connect a \gls{gigev} camera directly to an ethernet adapter, without the need for an intermediate router.
+For this to work properly the network adapter shoud be assigned the IP \code{169.254.0.1} and have netmask \code{255.255.0.0} as \gls{lla} addresses are assigned within the scope of \code{169.254.1.0} to \code{169.254.254.255} \cite{annieahujaweb2020LinkLocalAddress2022}\cite{lucidvisionlabsArenaSoftwareDevelopment2020}.
+
+\subsubsection{Static IP}
+A static IP address is one that is set up manually on a device, rather than being allocated by a DHCP server. It is referred to as static since it remains constant, in contrast to a dynamic IP address that can vary. \cite{fisherStaticIPAddresses2021}.
+For \gls{gigev} Cameras using statid IP might be usefull as the cameras will power up with the same IP every time \cite{teledyneSettingPersistentIP}.
+
+However I decided not to use static IP for the sensor rig setup, as it requiered the camera to be connected to the same ethernet port every time.
+If the static IP of a camera was outside the IP range (\todo) of the network adapter it was connected to, or the network adapters had ovelapping IP ranges, the discovery process and connection got unstable.
+Thus, to change which ethernet port a camera was connected to it would be necessary to either change the static IP of the camera, a tedious process, or change the IP range of both the current and previous ethernet adaptor.
+An additional rationale for avoiding the use of static IP addresses is to keep the cameras' static configurations (the ones that persists when power cycling) the same as facory default.
+This facilitates the use of the same cameras for a different project by someone else in the future.
+
+\subsubsection{IP configuration Pipeline}
+
+
+The discovery and enumeration process of the \lucid cameras is outlined in Figure \ref{fig:lucid_ip_discovery}.
+\subsection{Network Performance}
+
+\subsubsection{Jumbo Frames}
 An Ethernet frame is a unit of packetized formatted information that includes the Ethernet header, payload, and CRC trailer. \cite{winterCisco3ComApplied2009}.
 The original Ethernet specification, IEEE 802.3 \cite{ieeeIEEEStandardsInterpretation2002}, allowed for a frame size between 64 to 1518 bytes, with a standard header length of 18 bytes.
 Ethernet Jumbo frames carry more payload than the maximum specified by IEEE 802.3, with an \gls{mtu} size of up to 9000 bytes \cite{lucidvisionlabsJumboFramesLUCID2020}.
 Increasing the maximal \gls{mtu} size typically leads to improved performance for high-bandwidth cameras and can also help reduce the CPU load on the host system \cite{lucidvisionlabsJumboFramesLUCID2020}, as there is less protocol overhead \cite{lukeThingsYouShould2018}.
-Both the ethernet card used on the \jx as well as the \cams support Jumbo frames \cite{IntelI350am4Chipa} \cite{TritonMPPolarized2020a}.
+Both the ethernet card used on the \jx as well as the \cams support Jumbo frames \cite{IntelI350am4Chipa} \cite{TritonMPPolarized2020a}. To enable jumbo frames on a device (\code{eth1}) the following command is used \code{ifconfig eth1 mtu 9000}.
 
-\subsection{Receive Buffers}
+\subsubsection{Receive Buffers}
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/linux_networking.png}
@@ -36,20 +67,9 @@ To make this change permanent the following command is used \cite{redhat10Changi
     $ sudo sysctl -p
 \end{minted}
 
-\subsection{IP management}
-The discovery and enumeration process of the \lucid cameras is outlined in Figure \ref{fig:lucid_ip_discovery}.
 
-\subsubsection{Reverse Path Filtering}
-\gls{rpf} is a security feature that is designed to prevent IP address spoofing attacks by discarding incoming network traffic that does not have a valid return path \cite{ReversePathFiltering}.
-However, in some cases, such as when discovering cameras over \gls{gigev} using \gls{lla}, disabling \gls{rpf} may be necessary ensure detection \cite{lucidvisionlabsArenaSoftwareDevelopment2020}. This can for example occur if the cameras IP address collides with that of the network adapter \cite{lucidvisionlabsArenaSoftwareDevelopment2020}.
 
-\subsection{Link-Local Adress}
-In computer networking, \gls{lla} refers to an IP address that is used for communication within a logical division or broadcast domain to which the host is connected \cite{annieahujaweb2020LinkLocalAddress2022}.
-\gls{lla} is unique within a network segment, but not across different network segments, and therefore should not be forwarded by routers \cite{annieahujaweb2020LinkLocalAddress2022}.
 
-\gls{lla} is a method of IP address assignment that is commonly used when working with \gls{gigev} cameras \cite{teledyneSettingIPAddress01} \cite{lucidvisionlabsArenaSoftwareDevelopment2020}.
-It allows devices to automatically assign IP addresses without the need for a \gls{dhcp} server \cite{annieahujaweb2020LinkLocalAddress2022}, which makes it possible to connect a \gls{gigev} camera directly to an ethernet adapter, without the need for an intermediate router.
-For this to work properly the network adapter shoud be assigned the IP \code{169.254.0.1} and have netmask \code{255.255.0.0} as \gls{lla} addresses are assigned within the scope of \code{169.254.1.0} \code{169.254.254.255} \cite{annieahujaweb2020LinkLocalAddress2022}\cite{lucidvisionlabsArenaSoftwareDevelopment2020}.
 
 
 
