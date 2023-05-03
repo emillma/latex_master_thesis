@@ -29,11 +29,14 @@ Thus, to change which ethernet port a camera was connected to it would be necess
 An additional rationale for avoiding the use of static IP addresses is to keep the cameras' static configurations (the ones that persists when power cycling) the same as facory default.
 This facilitates the use of the same cameras for a different project by someone else in the future.
 
-\subsubsection{IP configuration Pipeline}
+\subsubsection{IP configuration pipeline}
+The IP configuration pipeline is adapted to the discovery and enumeration process of the \lucid cameras, which is outlined in Figure \ref{fig:lucid_ip_discovery}.
+The main idea is that as persistant IP is not enabled and there is no DHCP client on the \jx, each camera will initialy use \gls{lla}.
 
 
-The discovery and enumeration process of the \lucid cameras is outlined in Figure \ref{fig:lucid_ip_discovery}.
+
 \subsection{Network Performance}
+As each camera produces close to $1Gb$ of data per second, several network configurations have to be done in order for the \jx to handle all the incoming traffic.
 
 \subsubsection{Jumbo Frames}
 An Ethernet frame is a unit of packetized formatted information that includes the Ethernet header, payload, and CRC trailer. \cite{winterCisco3ComApplied2009}.
@@ -75,7 +78,7 @@ To make this change permanent the following command is used \cite{redhat10Changi
 
 \begin{figure*}
     \centering
-    \includegraphics[height=\textheight]{figures/thing.pdf}
+    \includegraphics[height=\textheight]{figures/lucid_ip_discovery.pdf}
     \caption{Figure of the descovery and enumeration process of Lucid cameras \cite{TritonMPPolarized2020}}
     \label{fig:lucid_ip_discovery}
 \end{figure*}
