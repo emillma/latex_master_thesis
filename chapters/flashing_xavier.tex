@@ -1,0 +1,13 @@
+
+
+\section{Compiling JetPack to enable PPS}
+\gls{pps} is a high precision signal provided by a device, typically a GPS receiver, that is used to adjust the system clock time with high accuracy. The \gls{pps} signal is often used in combination with \gls{ntpd} to synchronize the system clock with sub-millisecond precision to \gls{utc} \cite{giomettiLinuxPPSWikiLinuxPPS2020}.
+
+On a \jx it appears necessary to compile the Unix Kernel to enable \gls{pps}.
+How to enable \gls{pps} on the \jx is outlined in the \preproject, but the method presented there no longer works with the newer version of \gls{jetpack}.
+
+\subsection{Preparation}
+To flash the \jx it is necessary to have a host computer running Ubuntu 16.04 or 18.04 or 20.04 or 22.04 \cite{nvidiaSDKManager2019}.
+Several attempts were made at using the docker image inside \gls{wsl}, communicating with the \jx using usbipd-win, without any success \cite{martensPortableSensorRig2022} \cite{nvidiaSDKManager2019} \cite{dorsselaerUsbipdwin2023}.
+
+
