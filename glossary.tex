@@ -10,42 +10,68 @@
 \setabbreviationstyle{short-nolong}
 
 \renewcommand*{\glsxtruserparen}[2]{%
-  \glsxtrfullsep{#2}% space between long part and parenthetical material
-  (\glshyperlink[#1]{#2})%
+    \glsxtrfullsep{#2}% space between long part and parenthetical material
+    (\glshyperlink[#1]{#2})%
 }
 
 
 \newglossaryentry{latex}{
-  name=latex,
-  description={Is a mark up language specially suited for
-      scientific documents}
+    name=latex,
+    description={Is a mark up language specially suited for
+            scientific documents}
 }
 
 \newglossaryentry{bibliography}{
-  name=bibliography,
-  plural=bibliographies,
-  description={A list of the books referred to in a scholarly work,
-      typically printed as an appendix}
+    name=bibliography,
+    plural=bibliographies,
+    description={A list of the books referred to in a scholarly work,
+            typically printed as an appendix}
 }
 
 \newglossaryentry{maths}{
-  name=mathematics,
-  description={Mathematics is what mathematicians do}
+    name=mathematics,
+    description={Mathematics is what mathematicians do}
 }
 
 \newglossaryentry{jtop}{
-  name=jtop,
-  description={A tool for monitoring the Jetson Nano}
+    name=jtop,
+    description={A tool for monitoring the Jetson Nano}
 }
 
 \newglossaryentry{gigev}{
-  name=GigE Vision,
-  description={\todo}
+    name=GigE Vision,
+    description={\todo}
 }
 
 \newglossaryentry{jetpack}{
-  name=JetPack,
-  description={\todo}
+    name=JetPack,
+    description={\todo}
+}
+
+\newglossaryentry{debayer}{
+    name=JetPack,
+    description={\todo}
+}
+
+\newglossaryentry{igpu}{
+    name=iGPU,
+    description={\todo}
+}
+
+\newglossaryentry{dgpu}{
+    name=dGPU,
+    description={\todo}
+    % https://docs.nvidia.com/cuda/cuda-for-tegra-appnote/index.html?highlight=dgpu#gpu-selection
+}
+
+\newglossaryentry{swap}{
+    name=SWAP,
+    description={\todo}
+}
+
+\newglossaryentry{tegra}{
+    name=Tegra,
+    description={\todo}
 }
 
 
@@ -68,5 +94,6 @@
 \newacronym{ntpd}{NTPD}{Network Time Protocol Daemon}
 \newacronym{utc}{UTC}{Coordinated Universal Time}
 \newacronym{wsl}{WSL}{Windows Subsystem for Linux}
+\newacronym{cfa}{CFA}{color filter array}
 \glsaddall
 

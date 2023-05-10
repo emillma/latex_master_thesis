@@ -344,3 +344,9 @@ literate=
 ]
 \RequirePackage{url}
 \RequirePackage{xspace}
+\RequirePackage[
+    left = \flqq{},% 
+    right = \frqq{},% 
+    leftsub = \flq{},% 
+    rightsub = \frq{} %
+]{dirtytalk}
