@@ -1,5 +1,5 @@
 \section{Memory management on Jetson platform}
-
+\label{sec:jx_memory}
 On \gls{tegra} platforms, there are different types of memory available for use, including device memory, pageable host memory, pinned memory, and unified memory docs.nvidia.com.
 These memory types are allocated on the same physical SoC DRAM but have different accessing and caching behaviors.
 Device memory is used for buffers limited to \gls{igpu} access, pageable host memory is used for buffers limited to CPU access, pinned memory is recommended for small buffers, and unified memory is cached on both \gls{igpu} and CPU \cite{nvidiaCUDAFTegra2023}.

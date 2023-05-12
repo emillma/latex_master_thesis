@@ -1,0 +1,33 @@
+\begin{listing}[H]
+    \begin{minted}{python}
+        import asyncio, threading, time
+
+        def do_nothing(): pass
+        async def do_nothing_async(): pass
+
+        async def test_asyncio():
+            start_time = time.perf_counter()
+            await asyncio.gather(*[do_nothing_async() for _ in range(10000)])
+            end_time = time.perf_counter()
+            print(f"Asyncio took {end_time - start_time:.6f} seconds to complete.")
+
+        def test_threads():
+            threads = [threading.Thread(target=do_nothing) for _ in range(10000)]
+            start_time = time.perf_counter()
+            for thread in threads:
+                thread.start()
+            for thread in threads:
+                thread.join()
+            end_time = time.perf_counter()
+            print(f"Threads took {end_time - start_time:.6f} seconds to complete.")
+
+        if __name__ == "__main__":
+            asyncio.run(test_asyncio())
+            test_threads()
+    \end{minted}
+    \begin{minted}{bash}
+        >>> Asyncio took 0.311703 seconds to complete.
+        >>> Threads took 11.898036 seconds to complete.
+    \end{minted}
+    \caption{Comparison of asyncio and threads running on INTEL i7-11800H @ 2.30GHz.}
+\end{listing}

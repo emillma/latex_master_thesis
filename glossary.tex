@@ -15,24 +15,6 @@
 }
 
 
-\newglossaryentry{latex}{
-    name=latex,
-    description={Is a mark up language specially suited for
-            scientific documents}
-}
-
-\newglossaryentry{bibliography}{
-    name=bibliography,
-    plural=bibliographies,
-    description={A list of the books referred to in a scholarly work,
-            typically printed as an appendix}
-}
-
-\newglossaryentry{maths}{
-    name=mathematics,
-    description={Mathematics is what mathematicians do}
-}
-
 \newglossaryentry{jtop}{
     name=jtop,
     description={A tool for monitoring the Jetson Nano}
@@ -80,7 +62,6 @@
 % --------------------
 
 \newacronym{phd}{PhD}{philosophiae doctor}
-\newacronym{CoPCSE}{CoPCSE@NTNU}{Community of Practice in Computer ScienceEducation at NTNU}
 \newacronym{gcd}{GCD}{Greatest Common Divisor}
 \newacronym{imu}{IMU}{Inertial Measurement Unit}
 \newacronym{ssd}{SSD}{Solid State Drive}
@@ -94,6 +75,33 @@
 \newacronym{ntpd}{NTPD}{Network Time Protocol Daemon}
 \newacronym{utc}{UTC}{Coordinated Universal Time}
 \newacronym{wsl}{WSL}{Windows Subsystem for Linux}
-\newacronym{cfa}{CFA}{color filter array}
+\newacronym{cfa}{CFA}{Color Filter Array}
+\newacronym{gpu}{GPU}{Graphics Processing Unit}
+\newacronym{cpu}{CPU}{Central Processing Unit}
+\newacronym{asic}{ASIC}{Application Specific Integrated Circuit}
+\newacronym{npu}{NPU}{Neural Processing Unit}
+\newacronym{fpga}{FPGA}{Field Programmable Gate Array}
+\newacronym{isp}{ISP}{Image Signal Processor}
+\newacronym{dla}{DLA}{Deep Learning Accelerator}
+\newacronym{nvenc}{NVENC}{NVIDIA Multi-Standard Video Encoder}
+\newacronym{cuda}{CUDA}{ompute Unified Device Architecture}
+\newacronym{simt}{SIMT}{Single Instruction Multiple Threads}
 \glsaddall
+\glsunset{cpu}
+\glsunset{gpu}
 
+% --------------------
+% ----- Shortcuts ----
+% --------------------
+\newcommand{\sr}{Sensor Rig\xspace}
+\newcommand{\jx}{Xavier\xspace}
+\newcommand{\cam}{Triton Polarizin Camera\xspace}
+\newcommand{\cams}{Triton Polarizin Cameras\xspace}
+\newcommand{\lucid}{Lucid Vision\xspace}
+\newcommand{\todo}{TODO\xspace}
+\newcommand{\cuda}{CUDA\xspace}
+\newcommand{\halftwo}{\_\_half2\xspace}
+\newcommand{\preproject}{preproject\xspace}
+\newcommand{\py}{Python\xspace}
+\newcommand{\cpu}{\gls{gpu}\xspace}
+\newcommand{\gpu}{\gls{cpu}\xspace}

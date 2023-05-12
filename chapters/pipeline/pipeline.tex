@@ -1,16 +1,45 @@
-\begin{listing}[H]
-    \begin{minted}{python}
-      def crc32mpeg2(message_padded):
-        poly = 0x104c11db7
-        crc = 0xffffffff #seed
-        for value in message_padded:
-            crc ^= value << 24
-            for _ in range(8):
-                if crc & 0x80000000:
-                    crc = (crc << 1) ^ poly
-                else:
-                    crc <<= 1
-        return crc
-    \end{minted}
-    \caption{CRC32-MPEG2 algorithm implemented in.}
-\end{listing}
+\section{Concurrent execution}
+
+
+\subsection{Parallelism vs Concurrency}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/concurrency/sequential.pdf}
+    \caption{Visualisation of a sequential execution.}
+    \label{fig:concurrency_sequential}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/concurrency/concurrent.pdf}
+    \caption{Visualisation of a concurrent execution.}
+    \label{fig:concurrency_concurrent}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/concurrency/paralell.pdf}
+    \caption{Visualisation of a parallel execution.}
+    \label{fig:concurrency_parallel}
+\end{figure}
+
+\subsection{Context switching}
+
+\subsection{Parallel execution}
+
+\subsection{In python}
+\input{chapters/pipeline/threads_vs_asyncio.tex}
+
+\subsection{Message passing}
+\subsubsection{}
+\begin{itemize}
+    \item Can the task be done in parallel?
+    \item Does the task require a lot of memory?
+    \item Does the order of output matter?
+    \item Is latency an issue?
+    \item Is there any bottlenecks?
+    \item What tasks are resource intensive?
+
+\end{itemize}
