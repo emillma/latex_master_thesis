@@ -1,13 +1,13 @@
 \subsection{Debayering}
 Debayering is the process of estimating complete color information for an image that has been captured through a \gls{cfa}, particularly on the Bayer pattern \cite{getreuerMalvarHeCutlerLinearImage2011}.
 In the Bayer pattern, green pixels cover half the array in a lattice, and the red and blue pixel locations are spaced uniformly every two pixels shown in figure \ref{fig:debayer:bayer_pattern} \cite{getreuerMalvarHeCutlerLinearImage2011}.
-Different orderings of the colors exists, with the most common ones being RGGB, BGGR, GRBG, and GBRG, but the concepts stays the same.
+Different orderings of the colors in the \gls{cfa} exists, with the most common ones being RGGB, BGGR, GRBG, and GBRG.
 
 Debayering involves interpolating the missing color information from the \gls{cfa} data.
 Malvar, He, and Cutler proposed a simple linear method using 5 x 5 filters that shows surprisingly good results \cite{getreuerMalvarHeCutlerLinearImage2011}.
 The method they present is derived as a modification of bilinear interpolation, and it involves adding Laplacian cross-channel corrections to improve the quality of the bilinear method.
 The demosaicking is implemented by convolution with a set of linear filters, and there are eight different filters for interpolating the different color components at different locations as can be shown in figure \ref{fig:debayer:malvar_filters}.
-The method is more suited for parallel execution than many others as discussed in \todo.
+The method is better suited for parallel execution than some others as discussed in \todo.
 
 
 \begin{figure}[tb]
@@ -59,6 +59,7 @@ The method is more suited for parallel execution than many others as discussed i
             \includegraphics[width=0.3\textwidth]{figures/debayer/house_bayer.png}
         }
         \\
+
         \subcaptionbox{Bilinear (PSNR=25.61)}{
             \includegraphics[width=0.3\textwidth]{figures/debayer/house_bilinear.png}
         } &
