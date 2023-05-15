@@ -1,20 +1,21 @@
 from pathlib import Path
 
-chap_dir = Path(__file__).parents[1] / "chapters"
-out_file = chap_dir / "include.tex"
+root_dir = Path(__file__).parents[1]
+chap_dir = root_dir / "chapters"
 index_name = "__include__.tex"
 todo_dir = [chap_dir]
 
 
-def make_index_file(dir: Path):
-    files = [p.relative_to(chap_dir) for p in sorted(dir.glob("[!_][!_].tex"))]
-    (dir / index_name).write_text("\n".join(r"\input{" + str(f) + "}" for f in files))
+def make_index_file(dir_: Path):
+    files = [p.relative_to(root_dir) for p in sorted(dir_.rglob("*[!_][!_].tex"))]
+    (dir_ / index_name).write_text("\n".join(r"\input{" + str(f) + "}" for f in files))
 
 
-dirs = [p for p in chap_dir.glob("*") if p.is_dir()]
-print(dirs)
-for d in dirs:
+out = ""
+for d in sorted([p for p in chap_dir.iterdir() if p.is_dir()]):
     make_index_file(d)
+    out += r"\include{" + str(d.relative_to(root_dir)) + r"/" + index_name + "}\n"
+chap_dir.joinpath(index_name).write_text(out)
 
 # rel_path = .relative_to(chap_dir.parent)
 # out += r"\input{" + str(rel_path) + "}\n"
