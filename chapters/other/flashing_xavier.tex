@@ -67,45 +67,53 @@ However, it significantly consumed work hours due to the need for regular human 
 The negative impact of frequent context switching on productivity for software developers has been acknowledged and should be minimized if feasible \cite{meyerSoftwareDevelopersPerceptions2014}.
 This became evident after several days of minimal tangible progress on this task or any other.
 
+\subsection{Hesitation towards automation}
+The main reason why the whole process was not automated from the begining was that it relied on using the graphical JetPack \gls{sdk} Manager to download and extract the necessary files to the right locations.
+This took care of a lot of the work, but it would not easy to integrate into any automation pipeline.
+To fully automate the process it would be necessary to do all the work the \gls{sdk} Manager does, as well as the rest of the steps.
+After serveral days practically waisted on trying to get the process to work manually, it was decided to try to automate the entire process.
+Another motivation for this was that learning how to flash a Jetson module properly seemed like a useful skill to have.
 
-\subsection{A more systematic approach}
-The main reason why the whole process was not automated from the begining was that it relied on using the graphical JetPack \gls{sdk} Manager.
-After serveral days with little progress on this or any other task, it was decided to try to automate the process.
-The first step was to figure out what files to download and how to extract them as this was handled by the JetPack \gls{sdk} Manager gui.
-The
-\begin{enumerate}
-    \item Make modifications to the kernel.
-\end{enumerate}
+\subsection{Replacint the SDK Manager}
+The first goal was to manage to write a pipeline that would manage to flash the \jx with the latest unmodified version of \gls{jetlinux}.
+Which was what the \gls{sdk} Manager was capable of.
+It was a lot harder than expected, as no documentation that takes you throu the entire process was found, but rather different pieces of information scattered around on the different NVIDIA dociments and on the \gls{nforum}.
 
+Nonexisting environment variables, missing root privileges, wrong compilation flags and other issues also often fails silently.
+Instead of crashing and creating a notification the error was often not detected until the \jx gets stuck in some sort of boot loop, as shown in Figure \ref{fig:stuck_in_boot_loop}.
 
-\pagebreak
-
-making it challengine to do any other work effectively while working on the \cite{sadowskiEnablingPPSJetson2020}.
-Alternating between different tasks, also called context switching, is known to have a significant negative impact on work productivity, which is what I experienced during the first days \cite[25-27]{meyerSoftwareDevelopersPerceptions2014}.
-
-The first couple of days were waisted on trying out different things in a very slow tempo.
-
-After having made no real progress and
-
-
-
-\begin{table}[tbp]
+\begin{figure}[H]
     \centering
-    \caption[A simple example table generated from a CSV file]{A simple example table generated from a CSV file using \texttt{simplecsv} and \texttt{booktab}}
-    \label{tab:examplecsv}
-    \csvautobooktabular{csvtables/forum_posts.csv}
-\end{table}
+    \includegraphics[width=0.8\textwidth]{figures/stuck_in_boot_loop.png}
+    \caption{A recurring error when trying to flash the \jx}
+    \label{fig:stuck_in_boot_loop}
+\end{figure}
+
+
+\subsection{Improving the workflow}
+The second goal was to remove all manual steps from the process.
+After flashing the \jx it is normally necessary to connect the \jx to a monitor, keyboard and mouse, and manually create a user.
+This is annyoing an time consuming but fortunately there is a script circulating on the \gls{nforum} that can be used to automate this process \cite{waynewwwScriptBypassAccountJun2819}.
+Another step that had to be done manually initially was to give the password to different processes to give them sudo persmission.
+A simple solution to this was to use the followind code snippet \code{echo <password> | sudo -S <command>}.
+Doing this is of course not recommended as it is a security risk, but as a separate laptop was used for this task it was deemed acceptable in this particular case.
+
+The third goal was to make the process faster.
+The pipeline was designed to so that it was easy to make checkpoints, so that the entire process did not have to be repeated every time something went wrong.
+The compilation it self was also sped up by using all the cores on the computer.
+
+The final goal was to make it easy to include various modifications in the pipeline.
+This was acheived by simply adding a new step in the pipeline that would copy the modified files to the right location, or making modifications to the pipeline itself.
+
+After having acheived the four goals above, the script only needed to be started and left alone for a couple of hours before one could \gls{ssh} into the \jx to check the result.
+
+\subsection{Brute force solution}
+After having a working automated process for flashing the \jx it was time to start trying to enable \gls{pps} interrupts.
+Goin into detail about all the different attempts that were made is not relevant, but a full list of relevant posts from the \gls{nforum} can be found in the appendix if the reader is interested.
 
 
 
 
-
-
-
-
-
-% On a \jx it appears necessary to compile the Unix Kernel to enable \gls{pps}.
-% How to enable \gls{pps} on the \jx is outlined in the \preproject, but the method presented there no longer works with the newer version of \gls{jetpack}.
 
 \subsection{Preparation}
 To flash the \jx it is necessary to have a host computer running Ubuntu 16.04 or 18.04 or 20.04 or 22.04 \cite{nvidiaSDKManager2019}.
