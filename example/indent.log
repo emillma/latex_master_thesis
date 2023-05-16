@@ -1,11 +1,11 @@
 INFO:  latexindent version 3.15, 2022-01-21, a script to indent .tex files
        latexindent lives here: /usr/share/texlive/texmf-dist/scripts/latexindent/
-       Tue May 16 16:43:09 2023
-       Filename: /workspaces/emillma-sensorrig/submodules/latex_master_thesis/appendices/__latexindent_temp_forum_posts.tex
+       Tue May 16 15:20:41 2023
+       Filename: /workspaces/emillma-sensorrig/submodules/latex_master_thesis/example/example_chapters/__latexindent_temp_2-usage.tex
 INFO:  Processing switches:
        -y|--yaml: YAML settings specified via command line
        -c|--cruft: cruft directory
-INFO:  Directory for backup files and /workspaces/emillma-sensorrig/submodules/latex_master_thesis//indent.log: /workspaces/emillma-sensorrig/submodules/latex_master_thesis/
+INFO:  Directory for backup files and /workspaces/emillma-sensorrig/submodules/latex_master_thesis/example//indent.log: /workspaces/emillma-sensorrig/submodules/latex_master_thesis/example/
 INFO:  YAML settings read: defaultSettings.yaml
        Reading defaultSettings.yaml from /usr/share/texlive/texmf-dist/scripts/latexindent/defaultSettings.yaml
 INFO:  YAML settings read: indentconfig.yaml or .indentconfig.yaml
@@ -13,9 +13,9 @@ INFO:  YAML settings read: indentconfig.yaml or .indentconfig.yaml
        To specify user settings you would put indentconfig.yaml here: /root/indentconfig.yaml
        Alternatively, you can use the hidden file .indentconfig.yaml as: /root/.indentconfig.yaml
 INFO:  YAML settings read: -y switch
-       YAML setting: defaultIndent:'    '
-       single-quoted string found in -y switch: '    ', substitute to     
-       Updating mainSettings with defaultIndent:     
+       YAML setting: defaultIndent:'  '
+       single-quoted string found in -y switch: '  ', substitute to   
+       Updating mainSettings with defaultIndent:   
 INFO:  Phase 1: searching for objects
 INFO:  Phase 2: finding surrounding indentation
 INFO:  Phase 3: indenting objects

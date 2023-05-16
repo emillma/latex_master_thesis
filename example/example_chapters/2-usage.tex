@@ -48,31 +48,31 @@ Simple paragraphs are the lowest structuring elements and should be used the mos
 
 Numbered and unnumbered lists, i.e., the \texttt{enumerate} and \texttt{itemize} environments, are used just as in regular \LaTeX{}, but are typeset somewhat more densely and with other labels. Unnumbered list:
 \begin{itemize}
-    \item first item
-    \item second item
-    \begin{itemize}
-        \item first subitem
-        \item second subitem
+  \item first item
+  \item second item
         \begin{itemize}
-            \item first subsubitem
-            \item second subsubitem
+          \item first subitem
+          \item second subitem
+                \begin{itemize}
+                  \item first subsubitem
+                  \item second subsubitem
+                \end{itemize}
         \end{itemize}
-    \end{itemize}
-    \item last item
+  \item last item
 \end{itemize}
 Numbered list:
 \begin{enumerate}
-    \item first item
-    \item second item
-    \begin{enumerate}
-        \item first subitem
-        \item second subitem
+  \item first item
+  \item second item
         \begin{enumerate}
-            \item first subsubitem
-            \item second subsubitem
+          \item first subitem
+          \item second subitem
+                \begin{enumerate}
+                  \item first subsubitem
+                  \item second subsubitem
+                \end{enumerate}
         \end{enumerate}
-    \end{enumerate}
-    \item last item
+  \item last item
 \end{enumerate}
 
 For description lists, see usage in, e.g., \cref{sec:frontmatter}.
@@ -91,22 +91,22 @@ Figures are placed in the \texttt{figure} environment. An example is shown in \c
 For figures compsed of several sub-figures, the \texttt{caption} and \texttt{subcaption} packages have been preloaded. See \cref{fig:subfig} with \cref{sfig:a,sfig:b} for an example. For more details on alignment etc., see the Overleaf documentation.\footnote{\url{https://www.overleaf.com/learn/latex/How_to_Write_a_Thesis_in_LaTeX_(Part_3):_Figures,_Subfigures_and_Tables}}
 
 \begin{figure}
+  \centering
+  \begin{subfigure}[b]{.45\textwidth}
     \centering
-    \begin{subfigure}[b]{.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/kart_student.png}
-        \caption{First sub-figure}
-        \label{sfig:a}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/kart_student.png}
-        \caption{Second sub-figure}
-        \label{sfig:b}
-    \end{subfigure}
-    \caption{A figure composed of two sub-figures. It has a long caption in order to demonstrate how that is typeset.}
-    \label{fig:subfig}
+    \includegraphics[width=\textwidth]{figures/kart_student.png}
+    \caption{First sub-figure}
+    \label{sfig:a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/kart_student.png}
+    \caption{Second sub-figure}
+    \label{sfig:b}
+  \end{subfigure}
+  \caption{A figure composed of two sub-figures. It has a long caption in order to demonstrate how that is typeset.}
+  \label{fig:subfig}
 \end{figure}
 
 You can make nice graphs directly from data files using \texttt{gnuplot}, but it is expensive on every compilation.  The code is included in the
@@ -138,13 +138,13 @@ Tables are placed in the \texttt{table} environment. An example is given in \cre
   \label{tab:example1}
   \begin{tabular}{cc}
     \hline
-    age  & IQ \\
+    age & IQ  \\
     \hline
-    10   & 110 \\
-    20   & 120 \\
-    30   & 145 \\
-    40   & 120 \\
-    50   & 100 \\
+    10  & 110 \\
+    20  & 120 \\
+    30  & 145 \\
+    40  & 120 \\
+    50  & 100 \\
     \hline
   \end{tabular}
 \end{table}
@@ -163,16 +163,16 @@ Tables can also be automatically generated from CSV files using the \texttt{simp
 Code listings are included by means of the \texttt{listings} package. Code examples can be read from file or provided inline, and should be given a caption for cross referencing and for appearance in the list of code listings in the thesis frontmatter. If all your code examples are written in the same programming language, you can use, e.g., \texttt{\textbackslash lstset\{language=Python\}} to set the language once and for all. The code is set with the monospace font, and the font size is reduced to allow for code lines up to at least 80 characters without causing line breaks. Options for programming languages, line numbering etc. are provided. Unlike figures and tables, code listings are not floating objects, and will appear at the same position in the typeset document as in the \texttt{.tex} file. If the caption consists of a single sentence fragment (incomplete sentence), it should not be punctuated.
 
 \lstinputlisting[
-    caption={Python example from file},
-    label=lst:pythonfile,
-    language=Python
+  caption={Python example from file},
+  label=lst:pythonfile,
+  language=Python
 ]{listings/example.py}
 
 \lstinputlisting[%
-    caption={C++ example from file},
-    label=lst:cppfile,
-    language=C++,
-    numbers=left
+  caption={C++ example from file},
+  label=lst:cppfile,
+  language=C++,
+  numbers=left
 ]{listings/example.cc}
 
 \begin{lstlisting}[
@@ -207,8 +207,8 @@ int main()
 
 Equations are typeset as normally in \LaTeX{}. It is common to consider equations part of the surrounding sentences, and include punctuation in the equations accordingly, e.g.,
 \begin{equation}
-    f(x) = \int_1^x \frac{1}{y}\,dy = \ln x\,.
-    \label{eq:logarithm}
+  f(x) = \int_1^x \frac{1}{y}\,dy = \ln x\,.
+  \label{eq:logarithm}
 \end{equation}
 For more advanced symbols like, e.g., $\mathbb{R}, \mathbb{Q}$, the \texttt{amssymb} package is preloaded, and for more advanced mathematical layout the \texttt{amsmath} behaviour is obtained through the \texttt{mathdesign} package. Confer the overleaf documentation for details.\footnote{\url{https://www.overleaf.com/learn/latex/Mathematical_expressions}}
 

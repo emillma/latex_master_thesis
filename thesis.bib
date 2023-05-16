@@ -732,6 +732,13 @@
   file = {C\:\\Users\\emilm\\Zotero\\storage\\K4WISKMV\\doku.html}
 }
 
+@online{EnablePpsSupporta,
+  title = {Enable\_pps\_support\_raspian [{{Fish Otter Project Documentation}}]},
+  url = {https://otter.itk.ntnu.no/doku.php?id=enable_pps_support_raspian},
+  urldate = {2023-05-16},
+  file = {C\:\\Users\\emilm\\Zotero\\storage\\9R2Z4ZWK\\doku.html}
+}
+
 @online{engelDirectSparseOdometry2016,
   title = {Direct {{Sparse Odometry}}},
   author = {Engel, Jakob and Koltun, Vladlen and Cremers, Daniel},
@@ -936,11 +943,11 @@
   file = {C\:\\Users\\emilm\\Zotero\\storage\\V6QDUN7Z\\Getreuer - 2011 - Malvar-He-Cutler Linear Image Demosaicking.pdf}
 }
 
-@online{giomettiLinuxPPSWikiLinuxPPS2020,
+@online{giomettiLinuxPPSWikiLinuxPPS2007,
   title = {{{LinuxPPS}} Wiki [{{LinuxPPS}}]},
   author = {{giometti}},
-  date = {2020-11-26},
-  url = {http://linuxpps.org/doku.php},
+  date = {2007},
+  url = {https://www.kernel.org/doc/html/next/driver-api/pps.html},
   urldate = {2023-05-04},
   file = {C\:\\Users\\emilm\\Zotero\\storage\\7DNNM6H7\\doku.html}
 }
@@ -1184,11 +1191,34 @@
   file = {C\:\\Users\\emilm\\Zotero\\storage\\D938SASG\\224203.html}
 }
 
+@online{JetsonLinux352023,
+  title = {Jetson {{Linux}} 35.3.1},
+  date = {2023-03-28T15:37:45-07:00},
+  url = {https://developer.nvidia.com/embedded/jetson-linux-r3531},
+  urldate = {2023-05-16},
+  abstract = {NVIDIA® Jetson™ Linux Driver Package is the board support package for Jetson. It includes Linux Kernel, UEFI bootloader, NVIDIA drivers, flashing utilities, sample filesystem based on Ubuntu, and more for the Jetson platform. NVIDIA Jetson Linux 35.3.1 Jetson Linux 35.3.1 is a production quality release which brings support for Jetson Orin Nano Developer Kit, Jetson Orin NX 8GB, Jetson Orin Nano series and Jetson AGX Orin 64GB modules. It includes Linux Kernel 5.10, an Ubuntu 20.04 based root file system, a UEFI based bootloader, and OP-TEE as Trusted Execution Environment.},
+  langid = {american},
+  organization = {{NVIDIA Developer}},
+  file = {C\:\\Users\\emilm\\Zotero\\storage\\Y8P2RLMM\\jetson-linux-r3531.html}
+}
+
 @online{JetsonLinuxAPI,
   title = {Jetson {{Linux API Reference}}: {{NvVideoEncoder Class Reference}} | {{NVIDIA Docs}}},
   url = {https://docs.nvidia.com/jetson/l4t-multimedia/classNvVideoEncoder.html#a627a6d299d913c10aa56720d4b690b32},
   urldate = {2023-05-01},
   file = {C\:\\Users\\emilm\\Zotero\\storage\\XD99M687\\classNvVideoEncoder.html}
+}
+
+@online{JetsonNanoPPS2021,
+  title = {Jetson Nano: {{PPS GPIO}} Interrupt Not Getting Registered},
+  shorttitle = {Jetson Nano},
+  date = {2021-12-15T09:25:13+00:00},
+  url = {https://forums.developer.nvidia.com/t/jetson-nano-pps-gpio-interrupt-not-getting-registered/198085},
+  urldate = {2023-05-16},
+  abstract = {Hello,  We are using gpio(B,7) i.e. physical pin 18 in J41 as PPS input from ardusimple simpleRTK2B.  Below is our environment:  Board: Jetson Nano Developer kit B01 Model: P3450 L4T 32.6.1  Kernel 4.9 (L4T Driver Package (BSP) Sources)  I have followed steps in Enabling PPS on Jetson Nano and configured the device tree \& enabled PPS.  \# \# PPS support \# CONFIG\_PPS=y \# CONFIG\_PPS\_DEBUG is not set  \# \# PPS clients support \# CONFIG\_PPS\_CLIENT\_KTIMER=y CONFIG\_PPS\_CLIENT\_LDISC=y CONFIG\_PPS\_CLIENT\_GPI...},
+  langid = {english},
+  organization = {{NVIDIA Developer Forums}},
+  file = {C\:\\Users\\emilm\\Zotero\\storage\\K8H3IJZ6\\198085.html}
 }
 
 @online{JohnsonCinchBel,
@@ -1274,6 +1304,18 @@
   url = {https://www.norgeskart.no/},
   urldate = {2023-05-15},
   file = {C\:\\Users\\emilm\\Zotero\\storage\\MGNDH4C5\\www.norgeskart.no.html}
+}
+
+@inreference{KernelOperatingSystem2023,
+  title = {Kernel (Operating System)},
+  booktitle = {Wikipedia},
+  date = {2023-05-14T19:44:54Z},
+  url = {https://en.wikipedia.org/w/index.php?title=Kernel_(operating_system)&oldid=1154807052},
+  urldate = {2023-05-16},
+  abstract = {The kernel is a computer program at the core of a computer's operating system and generally has complete control over everything in the system. It is the portion of the operating system code that is always resident in memory and facilitates interactions between hardware and software components. A full kernel controls all hardware resources (e.g. I/O, memory, cryptography) via device drivers, arbitrates conflicts between processes concerning such resources, and optimizes the utilization of common resources e.g. CPU \& cache usage, file systems, and network sockets. On most systems, the kernel is one of the first programs loaded on startup (after the bootloader). It handles the rest of startup as well as memory, peripherals, and input/output (I/O) requests from software, translating them into data-processing instructions for the central processing unit. The critical code of the kernel is usually loaded into a separate area of memory, which is protected from access by application software or other less critical parts of the operating system. The kernel performs its tasks, such as running processes, managing hardware devices such as the hard disk, and handling interrupts, in this protected kernel space. In contrast, application programs such as browsers, word processors, or audio or video players  use a separate area of memory, user space. This separation prevents user data and kernel data from interfering with each other and causing instability and slowness, as well as preventing malfunctioning applications from affecting other applications or crashing the entire operating system. Even in systems where the kernel is included in application address spaces, memory protection is used to prevent unauthorized applications from modifying the kernel. The kernel's interface is a low-level abstraction layer. When a process requests a service from the kernel, it must invoke a system call, usually through a wrapper function. There are different kernel architecture designs. Monolithic kernels run entirely in a single address space with the CPU executing in supervisor mode, mainly for speed. Microkernels run most but not all of their services in user space, like user processes do, mainly for resilience and modularity. MINIX 3 is a notable example of microkernel design. Instead, the Linux kernel is monolithic, although it is also modular, for it can insert and remove loadable kernel modules at runtime. This central component of a computer system is responsible for executing programs. The kernel takes responsibility for deciding at any time which of the many running programs should be allocated to the processor or processors.},
+  langid = {english},
+  annotation = {Page Version ID: 1154807052},
+  file = {C\:\\Users\\emilm\\Zotero\\storage\\3XVCMZ2E\\Kernel_(operating_system).html}
 }
 
 @article{kuphaldtLessonsElectricCircuits2007,
@@ -1535,6 +1577,17 @@
   date = {2022-06}
 }
 
+@online{martensPostsRedEmil,
+  title = {Posts Red by Emil.Martens},
+  author = {Martens, Emil and NVIDIA},
+  url = {https://forums.developer.nvidia.com/},
+  urldate = {2023-05-16},
+  abstract = {NVIDIA Developer Forums},
+  langid = {english},
+  organization = {{NVIDIA Developer Forums}},
+  file = {C\:\\Users\\emilm\\Zotero\\storage\\VXCUMBZV\\read.html}
+}
+
 @book{martinCleanCodeHandbook2009,
   title = {Clean Code: A Handbook of Agile Software Craftsmanship},
   shorttitle = {Clean Code},
@@ -1590,6 +1643,23 @@
   langid = {english},
   annotation = {Page Version ID: 1147663988},
   file = {C\:\\Users\\emilm\\Zotero\\storage\\H3VNBT5A\\Memory_paging.html}
+}
+
+@inproceedings{meyerSoftwareDevelopersPerceptions2014,
+  title = {Software Developers' Perceptions of Productivity},
+  booktitle = {Proceedings of the 22nd {{ACM SIGSOFT International Symposium}} on {{Foundations}} of {{Software Engineering}}},
+  author = {Meyer, André N. and Fritz, Thomas and Murphy, Gail C. and Zimmermann, Thomas},
+  date = {2014-11-11},
+  pages = {19--29},
+  publisher = {{ACM}},
+  location = {{Hong Kong China}},
+  doi = {10.1145/2635868.2635892},
+  url = {https://dl.acm.org/doi/10.1145/2635868.2635892},
+  urldate = {2023-05-16},
+  eventtitle = {{{SIGSOFT}}/{{FSE}}'14: 22nd {{ACM SIGSOFT Symposium}} on the {{Foundations}} of {{Software Engineering}}},
+  isbn = {978-1-4503-3056-5},
+  langid = {english},
+  file = {C\:\\Users\\emilm\\Zotero\\storage\\DCK7JKNL\\Meyer et al. - 2014 - Software developers' perceptions of productivity.pdf}
 }
 
 @online{MicroSD3D,
@@ -1808,6 +1878,15 @@
   url = {https://docs.nvidia.com/jetson/archives/l4t-archived/l4t-325/index.html#page/Tegra%20Linux%20Driver%20Package%20Development%20Guide/part_config.html},
   urldate = {2023-05-12},
   file = {C\:\\Users\\emilm\\Zotero\\storage\\L837ZDHT\\index.html}
+}
+
+@online{nvidiaKernelCustomizationJetson2023,
+  title = {Kernel {{Customization}} — {{Jetson Linux Developer Guide}} Documentation},
+  author = {NVIDIA},
+  date = {2023},
+  url = {https://docs.nvidia.com/jetson/archives/r35.3.1/DeveloperGuide/text/SD/Kernel/KernelCustomization.html#to-build-the-real-time-kernel},
+  urldate = {2023-05-16},
+  file = {C\:\\Users\\emilm\\Zotero\\storage\\WUSBMX7K\\KernelCustomization.html}
 }
 
 @misc{nvidiaNVIDIAJetsonAGX2019,
@@ -2814,6 +2893,14 @@
   url = {https://www.digikey.no/en/products/detail/texas-instruments/DS8921AMX-NOPB/366600},
   urldate = {2022-05-12},
   file = {C\:\\Users\\emilm\\Zotero\\storage\\C9SXB89F\\ds8921.pdf;C\:\\Users\\emilm\\Zotero\\storage\\AVR2IYTQ\\366600.html}
+}
+
+@online{thekerneldevelopmentcommunityInterruptsLinuxKernel,
+  title = {Interrupts — {{The Linux Kernel}} Documentation},
+  author = {The kernel development community},
+  url = {https://linux-kernel-labs.github.io/refs/heads/master/lectures/interrupts.html},
+  urldate = {2023-05-16},
+  file = {C\:\\Users\\emilm\\Zotero\\storage\\BN796HDV\\interrupts.html}
 }
 
 @book{therrienDecisionEstimationClassification1989,

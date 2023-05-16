@@ -1,43 +1,100 @@
 
 
-\section{Compiling JetPack to enable PPS}
+\section{Compiling NVIDIA Jetson Linux with PPS}
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/cautionary.png}
     \caption{Cautionary by XKCD \cite{xkcdCautionary}}
+    \label{fig:xkcd_cautionary}
 \end{figure}
+\subsection{Background}
+\gls{pps} is a high precision signal that repeats every seconds provided by a device, typically a GPS receiver, that is used to adjust the system clock time with high accuracy \cite{giomettiLinuxPPSWikiLinuxPPS2007}.
+The \gls{pps} signal is often used in combination with \gls{ntpd} to synchronize the system clock with to \gls{utc} with sub millisecond accuracy \cite{giomettiLinuxPPSWikiLinuxPPS2007}.
+As \gls{pps} interrupts are hardware based it appears necessary to configure the Linux Kernel as it is responsible for handling interrupts \cite{giomettiLinuxPPSWikiLinuxPPS2007}.
+The kernel is the core software component of an operating system that manages system resources and provides a bridge between software applications and hardware devices as visuzlized in Figure \ref{fig:kernel_visualization} \cite{thekerneldevelopmentcommunityInterruptsLinuxKernel}.
+
+
+The \jx runs an operating system called \gls{jetlinux} which is built on the Linux Kernel \cite{JetsonLinux352023}.
+A \gls{pps} signal from one of the \glsps{f9p} is used to sunchronize the clock on the \sr to \gls{utc}, which again is used to synchronize of the cameras using \gls{ptp} \cite{martensPortableSensorRig2022}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/kernel.pdf}
+    \caption{An oversimplification of who the kernel interacts with the hardware and software}
+    \label{fig:kernel_visualization}
+\end{figure}
+
+\subsection{Results from the \preproject}
 During the \preproject \gls{pps} interrupts were enabled on the \jx by following a guide from Mateusz Sadowski \cite{sadowskiEnablingPPSJetson2020} \cite[26]{martensPortableSensorRig2022}.
-Althogh the guide waw written for Jetson Nano running \gls{jetpack} 4.3, it worked on the \jx running \gls{jetpack} 4.5.1 as well after some minor modifications \cite{sadowskiEnablingPPSJetson2020} \cite[26]{martensPortableSensorRig2022}.
-As the \gls{deepstream} \gls{sdk} requires \gls{jetpack} 5.1 or newer, flashing the \jx with the newer version, \gls{jetpack} 5.1.1, while maintaining \gls{pps} interrupts was necessary \cite{nvidiaDeepStreamSDKGet2019}.
-The assumption was that this would not be more difficult than doing it with \gls{jetpack} 4.5.1.
-This turned out to be wrong.
+Althogh the guide was written for Jetson Nano running \gls{jetpack} 4.3, it worked on the \jx running \gls{jetpack} 4.5.1 as well after minor modifications \cite{sadowskiEnablingPPSJetson2020} \cite[26]{martensPortableSensorRig2022}.
+The \gls{deepstream} \gls{sdk} is used in the \master and requires the new version of \gls{jetpack}, which is build on the new version of \gls{jetlinux}\cite{nvidiaDeepStreamSDKGet2019} \cite{nvidiaJetPackSDK2023}.
+The assumption was that this would not be more difficult to enable \gls{pps} than it was with \gls{jetpack} 4.5.1.
+This assumption turned out to be wrong, and the over all experience is vusialized in Figure \ref{fig:xkcd_cautionary}.
 
-\subsection{Why it no longer worked}
-A significant difference between \gls{jetpack} 4.x.x and \gls{jetpack} 5.x.x is that the former built on the Linux Kernel 4.9 and Ubuntu 18.04
-while the latter is built on the Linux Kernel 5.10 and Ubuntu 20.04 \cite{nvidiaJetPackSDK2022}\cite{nvidiaJetPackSDK2023}.
-It's hypothesized that the issue is related to this major change, but it is not clear how.
-The final solution did not provide much insight either, as it was a combination of several small hacks collected from different sources.
+\subsection{Differences between current and previous version of \gls{jetpack}}
+A significant difference between the two versions of \gls{jetpack} is that they are build on different versions of the Linux Kernel as well as different version of Ubuntu \cite{nvidiaJetPackSDK2022}\cite{nvidiaJetPackSDK2023}.
+It is likely that the issues experienced when trying to compile the kernel are related to this major change.
+There might be some other root cause, but this remains unknown.
+The final solution did not provide much insight either, as it is a combination of several small hacks collected from different sources.
 
-\subsection{The setup}
-To flash the \jx it is necessary to have a host computer running Ubuntu 16.04 or 18.04 or 20.04 or 22.04 \cite{nvidiaSDKManager2019}.
+\subsection{Physical setup during compilation}
+To flash the \jx it is necessary to have a host computer running Ubuntu \cite{nvidiaSDKManager2019}.
 During the \preproject I attempted to flash the \jx using a docker image inside \gls{wsl} and communicationg with the \jx over usbipd-win, without success \cite{martensPortableSensorRig2022} \cite{nvidiaSDKManager2019} \cite{dorsselaerUsbipdwin2023}.
-Since then some people claim to have acheived this but I was not able to reproduce their result \jx \cite{makinbacon21TUTORIALUsingSdkmanager2022}.
+Since then people claim to have acheived this but I was not able to reproduce their result \jx \cite{makinbacon21TUTORIALUsingSdkmanager2022}.
 Other posts on the forum appear to confirm my results \cite{2008PleaseProvideMore2022}.
-I did however managed to build everything in a docker container on my main computer, copy the files to a local computer and flashing the \jx from there,
-but the time saved using a more powerful computer did not outweigh the extra work needed to copy all the files.
+It was possible however to build everything in a docker container on a windows computer, copy the files to a local computer and flashing the \jx from there,
+but the time saved from using a more powerful computer did not outweigh the extra work needed to copy all the files.
 
-Without the possibility to flash from a windows machine, I defaulted to using the same spare laptop as during the \preproject \cite{martensPortableSensorRig2022}.
+Without the possibility to flash from a windows machine, the same spare laptop was used as during the \preproject, equiped with an Intel i7-7700HQ \gls{cpu} \cite{martensPortableSensorRig2022}.
+The laptop was directly connected to the \jx using a usb-c cable.
 
 
-\subsection{The solution}
-Downloading all the necessary files, unpacking them and flashing the \jx took about 2 hours.
-With human input requiered every 10-15 minutes on average, it was not really possible to work on finding a solution while doing other work.
+
+\subsection{Initial attempts}
+After discovering that the guide from Mateusz Sadowski not longer worked, a couple of days were spent trying out different suggestions from the \gls{nforum}, without any success \cite{martensPortableSensorRig2022}.
+The process can be summarized in the following steps:
+\begin{enumerate}
+    \item Clean up the environment after the last failed attempt.
+    \item Download and extrace everything through the JetPack \gls{sdk} Manager gui.
+    \item Follow the first part of the guide from Mateusz Sadowski \cite{sadowskiEnablingPPSJetson2020}.
+    \item Add some suggested modifications from the \gls{nforum}.
+    \item Compile the kernel.
+    \item Follow the second part of the guide from Mateusz Sadowski \cite{sadowskiEnablingPPSJetson2020}.
+    \item Try to debug why it does not work.
+\end{enumerate}
+The entire procedure lasted approximately three hours, during which most of the time was spent waiting.
+However, it significantly consumed work hours due to the need for regular human interaction, causing disruptions in the workflow for other tasks.
+The negative impact of frequent context switching on productivity for software developers has been acknowledged and should be minimized if feasible \cite{meyerSoftwareDevelopersPerceptions2014}.
+This became evident after several days of minimal tangible progress on this task or any other.
+
+
+\subsection{A more systematic approach}
+The main reason why the whole process was not automated from the begining was that it relied on using the graphical JetPack \gls{sdk} Manager.
+After serveral days with little progress on this or any other task, it was decided to try to automate the process.
+The first step was to figure out what files to download and how to extract them as this was handled by the JetPack \gls{sdk} Manager gui.
+The
+\begin{enumerate}
+    \item Make modifications to the kernel.
+\end{enumerate}
+
+
+\pagebreak
+
+making it challengine to do any other work effectively while working on the \cite{sadowskiEnablingPPSJetson2020}.
+Alternating between different tasks, also called context switching, is known to have a significant negative impact on work productivity, which is what I experienced during the first days \cite[25-27]{meyerSoftwareDevelopersPerceptions2014}.
+
 The first couple of days were waisted on trying out different things in a very slow tempo.
 
 After having made no real progress and
 
 
 
+\begin{table}[tbp]
+    \centering
+    \caption[A simple example table generated from a CSV file]{A simple example table generated from a CSV file using \texttt{simplecsv} and \texttt{booktab}}
+    \label{tab:examplecsv}
+    \csvautobooktabular{csvtables/forum_posts.csv}
+\end{table}
 
 
 
@@ -46,7 +103,6 @@ After having made no real progress and
 
 
 
-% \gls{pps} is a high precision signal provided by a device, typically a GPS receiver, that is used to adjust the system clock time with high accuracy. The \gls{pps} signal is often used in combination with \gls{ntpd} to synchronize the system clock with sub-millisecond precision to \gls{utc} \cite{giomettiLinuxPPSWikiLinuxPPS2020}.
 
 % On a \jx it appears necessary to compile the Unix Kernel to enable \gls{pps}.
 % How to enable \gls{pps} on the \jx is outlined in the \preproject, but the method presented there no longer works with the newer version of \gls{jetpack}.
