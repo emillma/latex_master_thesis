@@ -39,7 +39,7 @@ parser = MyHTMLParser()
 file = Path(__file__).parent / "forum_history.html"
 parser.feed(file.read_text())
 posts = parser.data
-keywords = [r"[^\w]pps", "flash", "boot", "compil", "kernel"]
+keywords = [r"[^\w]pps", "flash", "boot", "kernel"]
 posts_pps = [
     p for p in posts if any(re.search(k, p["title"].lower()) for k in keywords)
 ]
@@ -75,3 +75,4 @@ Title & Comments & ID \\\\
 \\end{{longtable}}
 """
 Path(__file__).parent.joinpath("forum_history.tex").write_text(out)
+print(len(replies), sum(int(i) for i in replies))
