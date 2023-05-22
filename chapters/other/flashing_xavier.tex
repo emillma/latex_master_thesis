@@ -65,58 +65,113 @@ The process can be summarized in the following steps:
 The entire procedure lasted approximately three hours, during which most of the time was spent waiting.
 However, it significantly consumed work hours due to the need for regular human interaction, causing disruptions in the workflow for other tasks.
 The negative impact of frequent context switching on productivity for software developers has been acknowledged and should be minimized if feasible \cite{meyerSoftwareDevelopersPerceptions2014}.
-This became evident after several days of minimal tangible progress on this task or any other.
+This became evident after several days of minimal tangible progress on this task or any other task.
 
-\subsection{Hesitation towards automation}
-The main reason why the whole process was not automated from the begining was that it relied on using the graphical JetPack \gls{sdk} Manager to download and extract the necessary files to the right locations.
-This took care of a lot of the work, but it would not easy to integrate into any automation pipeline.
-To fully automate the process it would be necessary to do all the work the \gls{sdk} Manager does, as well as the rest of the steps.
-After serveral days practically waisted on trying to get the process to work manually, it was decided to try to automate the entire process.
-Another motivation for this was that learning how to flash a Jetson module properly seemed like a useful skill to have.
-
-\subsection{Replacint the SDK Manager}
-The first goal was to manage to write a pipeline that would manage to flash the \jx with the latest unmodified version of \gls{jetlinux}.
-Which was what the \gls{sdk} Manager was capable of.
-It was a lot harder than expected, as no documentation that takes you throu the entire process was found, but rather different pieces of information scattered around on the different NVIDIA dociments and on the \gls{nforum}.
-
-Nonexisting environment variables, missing root privileges, wrong compilation flags and other issues also often fails silently.
-Instead of crashing and creating a notification the error was often not detected until the \jx gets stuck in some sort of boot loop, as shown in Figure \ref{fig:stuck_in_boot_loop}.
+\subsection{Challenges}
+A challenging aspect of the development of the pipeline was that the compilation process had a tendency to fail silently.
+Wrong environment variables, wrong file locations, wrong privileges, wrong compilation flags or wrong file contents would often not cause the pipeline to crash and throw an error.
+Instead everything would appear normal and the errors would not be detected until the \jx gets stuck in some sort of boot loop after the whole process was complete, as shown in Figure \ref{fig:stuck_in_boot_loop}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/stuck_in_boot_loop.png}
+    \includegraphics[width=1\textwidth]{figures/stuck_in_boot_loop.png}
     \caption{A recurring error when trying to flash the \jx}
     \label{fig:stuck_in_boot_loop}
 \end{figure}
 
+\subsection{Hesitation towards automation}
+The main reason why the whole process was not automated from the begining was that it relied on using the graphical JetPack \gls{sdk} Manager to download and extract the necessary files to the right locations.
+This took care of a lot obscure work that would otherwise have to be identified, but as it relied on a graphical interface it would not easy to integrate into any automation pipeline.
+To fully automate the process it would be necessary to do all the work the \gls{sdk} Manager does, as well as the rest of the steps.
 
-\subsection{Improving the workflow}
-The second goal was to remove all manual steps from the process.
+Still, after serveral days practically waisted on trying to get the process to work manually, it was decided to try to automate the entire process.
+Another motivation for this was that learning how to flash a Jetson module properly seemed like a useful skill to aquire.
+
+\subsection{Replacing the SDK Manager}
+The first goal was to write a pipeline that could replace the visual \gls{sdk} Manager.
+That is to write a pipaline capable of flashing the \jx with the latest unmodified version of \gls{jetlinux}.
+This was harder than expected, as no documentation that takes you through the entire process was found.
+Rather, different pieces of information scattered around on the different NVIDIA documents and on the \gls{nforum} were combined to get through the process.
+
+
+\subsection{Removing all manual steps}
+After having managed to flash the \jx with the latest unmodified version of \gls{jetlinux} it was time to improve the workflow.
+
 After flashing the \jx it is normally necessary to connect the \jx to a monitor, keyboard and mouse, and manually create a user.
-This is annyoing an time consuming but fortunately there is a script circulating on the \gls{nforum} that can be used to automate this process \cite{waynewwwScriptBypassAccountJun2819}.
-Another step that had to be done manually initially was to give the password to different processes to give them sudo persmission.
-A simple solution to this was to use the followind code snippet \code{echo <password> | sudo -S <command>}.
+This is annyoing an time consuming but fortunately there was a script posted on the \gls{nforum} that can be used to automate this process \cite{waynewwwScriptBypassAccountJun2819}.
+
+Another step that had to be done manually initially was to give the the user password to different processes to give them sudo persmission.
+A simple solution to this was to use the followind code snippet:
+\begin{minted}{bash}
+    echo <password> | sudo -S <command>
+\end{minted}
 Doing this is of course not recommended as it is a security risk, but as a separate laptop was used for this task it was deemed acceptable in this particular case.
 
-The third goal was to make the process faster.
-The pipeline was designed to so that it was easy to make checkpoints, so that the entire process did not have to be repeated every time something went wrong.
-The compilation it self was also sped up by using all the cores on the computer.
+\subsection{Making the iteration speed faster}
+As the compilation process took quite a while, it was important to make it as fast as possible to increase the iteration speed of the debugging process.
+Firstly the compilation it self was also sped up by using all the cores on the computer.
+Secondly the pipeline was designed to make it easy to have various checkpoints.
+This removed the need to execute the whole process from start to end every time something went wrong.
+For instance it was possible to cache the files that would be downloaded or skip the compilation step while development was done on the flashing process.
+Lastly the \code{stderr} of every process was checked, which removed some of the silent failures.
 
-The final goal was to make it easy to include various modifications in the pipeline.
-This was acheived by simply adding a new step in the pipeline that would copy the modified files to the right location, or making modifications to the pipeline itself.
-
-After having acheived the four goals above, the script only needed to be started and left alone for a couple of hours before one could \gls{ssh} into the \jx to check the result.
+\subsection{Gathering all manual steps}
+The final goal in the automation process was to make it easy to include various modifications in the pipeline, so that different suggestions from the forums could be added implemented the beginning of the pipeline.
+This was acheived by adding a new step in the pipeline that would copy modified files to given locations, and by making it easy to execute various defined shell commands at designated times.
+This made it so that modifications and scipts could be defined ahead of the flashing, and the pipeline would add or execute them at the designated times, removing the need for any manual labour during the compilation and flashing process.
 
 \subsection{Brute force solution}
-After having a working automated process for flashing the \jx it was time to start trying to enable \gls{pps} interrupts.
-Goin into detail about all the different attempts that were made is not relevant, but a full list of relevant posts from the \gls{nforum} can be found in the appendix if the reader is interested.
+After having replaced the \gls{sdk} Manager with a pipeline capable of flashing the \jx with modified version of
+\gls{jetlinux} in an effieicnt and automated way, it was time to try to enable \gls{pps} interrupts.
+
+
+The process now looked like this:
+\begin{enumerate}
+    \item Define modifications and scripts that would run during the compilation.
+    \item Select checkpoint to start from.
+    \item Run the pipeline.
+    \item Try to debug why it does not work.
+\end{enumerate}
+With this pipeline in place it was possible to test various suggestions from the \gls{nforum} in a systematic way.
+As the all the manual steps were collected at the beginning or end of the process, it left up to two hours of uninterupted work time between each iteration that could be used for other tasks.
+
+\subsection{Solution}
+After days of using the new pipeline to try out different suggestions from the \gls{nforum} it was finally possible to enable \gls{pps} interrupts.
+Goin into detail about all the different attempts that were made to enable \gls{pps} interrupts is beyond the scope of this thesis as 89 different forum posts from the \gls{nforum} with a total of 1092 replies, as well as several other blog posts and guides were consulted \cite{nvidiaNVIDIAJetsonLinux2023} \cite{nvidiaNVIDIATEGRALINUX} \cite{nvidiaNVIDIAJetsonLinux} \cite{nulizhuanzhuAGXXavier35} \cite{fishotterprojectEnablePpsSupport}.
+The full list of relevant posts from the \gls{nforum} can be found in the appendix.
+I also contacted and got response from a user on the \gls{nforum} facing similar problems \cite{mhtechdevProgressPPS2023} and made a post that was replied to \cite{martensEnablePPSJetson2023}.
+After solving my problems I posted my solution to contribute to the community \cite{martensEnablePPSJetson2023}.
+
+The final key modifications are listed below.
+\begin{itemize}
+    \item Use Bootlin Toolchain gcc 9.3
+    \item Modify the \textit{defconfig} file directly instead of the \textit{.config} file
+    \item Make changes to the \code{pps_gpio_setup} function in \textit{pps-gpio.c}.
+          % \item Set \code{CONFIG_PPS_DEBUG=y}
+    \item Use \code{GPIO_ACTIVE_HIGH} not \code{GPIO_ACTIVE_LOW}
+\end{itemize}
 
 
 
 
+\subsection{Booting from SSD}
+The non-cached read speed of the internal \gls{emmc} is significantly slower than the read speed of the \gls{ssd}.
+This was evaluated using \code{hdparm}, a linux tool that can be used to test read spiied of a drive \cite{lordHdparmLinuxManual2018}.
+The the folliwing two commands were run 3 times to get the average read speed of each device:
+\begin{minted}{bash}
+    sudo hdparm -Ttv /dev/mmcblk0 
+    sudo hdparm -Ttv /dev/nvme0n1 
+\end{minted}
+With \gls{jetsonclocks} running and \gls{nvpmodel}=0, the buffered read speed of the \gls{emmc} is approximately 285MB while the buffered read speed of the \gls{ssd} is approximately 1010MB.
+The built in \gls{emmc} also only has 32GB of storage \cite{nvidiaNVIDIAJetsonAGX2019} wich might be to small for the root partition in the future.
 
-\subsection{Preparation}
-To flash the \jx it is necessary to have a host computer running Ubuntu 16.04 or 18.04 or 20.04 or 22.04 \cite{nvidiaSDKManager2019}.
-Several attempts were made at using the docker image inside \gls{wsl}, communicating with the \jx using usbipd-win, without any success \cite{martensPortableSensorRig2022} \cite{nvidiaSDKManager2019} \cite{dorsselaerUsbipdwin2023}.
+Based on this it was decided to write the \gls{jetlinux} to the Micron® 2300 SSD with NVMe™ 512GB \gls{ssd} and boot from there to increase performance \cite{microntechnologyMicron2300SSD2020}.
+This was also challenging as a new flashing utility, called \code{intrid} was needed to acheive this \cite{rigerunNVIDIAJetpackFlashing2021}, and a compatible partitioning table had to be created \cite{nvidiaPartitionConfigurationJetson2022}.
+Fortunately the established flashing pipeline made it considerably easier to aceive this than it would have been otherwise.
+
+The performance difference between having the root partition on the \gls{emmc} and the \gls{ssd} remains to be evaluated properly.
+
+
+\subsection{Reflections on the process}
 
 
