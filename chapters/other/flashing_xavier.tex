@@ -4,7 +4,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/cautionary.png}
-    \caption{Cautionary by XKCD \cite{xkcdCautionary}}
+    \caption{Cautionary by XKCD \cite{xkcdCautionary2008}}
     \label{fig:xkcd_cautionary}
 \end{figure}
 \subsection{Background}
@@ -12,10 +12,9 @@
 The \gls{pps} signal is often used in combination with \gls{ntpd} to synchronize the system clock with to \gls{utc} with sub millisecond accuracy \cite{giomettiLinuxPPSWikiLinuxPPS2007}.
 As \gls{pps} interrupts are hardware based it appears necessary to configure the Linux Kernel as it is responsible for handling interrupts \cite{giomettiLinuxPPSWikiLinuxPPS2007}.
 The kernel is the core software component of an operating system that manages system resources and provides a bridge between software applications and hardware devices as visuzlized in Figure \ref{fig:kernel_visualization} \cite{thekerneldevelopmentcommunityInterruptsLinuxKernel}.
+On the \sr a \gls{pps} signal from one of the \glsps{f9p} is used to sunchronize the clock on the \jx to \gls{utc}, which again is used to synchronize of the cameras using \gls{ptp} \cite{martensPortableSensorRig2022}.
 
 
-The \jx runs an operating system called \gls{jetlinux} which is built on the Linux Kernel \cite{JetsonLinux352023}.
-A \gls{pps} signal from one of the \glsps{f9p} is used to sunchronize the clock on the \sr to \gls{utc}, which again is used to synchronize of the cameras using \gls{ptp} \cite{martensPortableSensorRig2022}.
 
 \begin{figure}[H]
     \centering
@@ -24,18 +23,30 @@ A \gls{pps} signal from one of the \glsps{f9p} is used to sunchronize the clock 
     \label{fig:kernel_visualization}
 \end{figure}
 
+\subsection{Jetpack}
+The \jx runs an operating system called \gls{jetlinux} which is built on the Linux Kernel \cite{JetsonLinux352023}.
+This operating system is part of a software suite called \gls{jetpack} which also includes things \cuda drivers and multimedia \gls{api} \cite{nvidiaJetPackSDK2023}.
+The hierarcy is visualized in Figure \ref{fig:jetpack_hierarchy}.
+
 \subsection{Results from the \preproject}
 During the \preproject \gls{pps} interrupts were enabled on the \jx by following a guide from Mateusz Sadowski \cite{sadowskiEnablingPPSJetson2020} \cite[26]{martensPortableSensorRig2022}.
-Althogh the guide was written for Jetson Nano running \gls{jetpack} 4.3, it worked on the \jx running \gls{jetpack} 4.5.1 as well after minor modifications \cite{sadowskiEnablingPPSJetson2020} \cite[26]{martensPortableSensorRig2022}.
-The \gls{deepstream} \gls{sdk} is used in the \master and requires the new version of \gls{jetpack}, which is build on the new version of \gls{jetlinux}\cite{nvidiaDeepStreamSDKGet2019} \cite{nvidiaJetPackSDK2023}.
-The assumption was that this would not be more difficult to enable \gls{pps} than it was with \gls{jetpack} 4.5.1.
+Althogh the guide was written for \jetson Nano running \gls{jetpack} 4.3, it worked on the \jx running \gls{jetpack} 4.6 as well after minor modifications \cite{sadowskiEnablingPPSJetson2020} \cite[26]{martensPortableSensorRig2022}.
+The \gls{deepstream} \gls{sdk} is used in the \master and requires the new version of \gls{jetpack}, 5.1, with CUDA 11.4 \cite{nvidiaDeepStreamSDKGet2019}.
+The assumption was that it would not be more difficult to enable \gls{pps} on this version than it was with \gls{jetpack} 4.6.
 This assumption turned out to be wrong, and the over all experience is vusialized in Figure \ref{fig:xkcd_cautionary}.
 
 \subsection{Differences between current and previous version of \gls{jetpack}}
-A significant difference between the two versions of \gls{jetpack} is that they are build on different versions of the Linux Kernel as well as different version of Ubuntu \cite{nvidiaJetPackSDK2022}\cite{nvidiaJetPackSDK2023}.
-It is likely that the issues experienced when trying to compile the kernel are related to this major change.
+A significant difference between the two versions of \gls{jetpack} is that they are build on different versions of the Linux Kernel as well as file systems based on different version of Ubuntu \cite{nvidiaJetPackSDK2022} \cite{nvidiaJetPackSDK2023}.
+The differences are visualized in Figure \ref{fig:jetpack_hierarchy}.
+It is likely that the issues experienced when trying to compile the kernel are related to these major changes.
 There might be some other root cause, but this remains unknown.
-The final solution did not provide much insight either, as it is a combination of several small hacks collected from different sources.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/jetpack_hierarchy/hierarchy.pdf}
+    \caption{Visualization of the Jetpack hierarchy \cite{nvidiaJetPackSDK2022}\cite{nvidiaJetPackSDK2023}}
+    \label{fig:jetpack_hierarchy}
+\end{figure}
 
 \subsection{Physical setup during compilation}
 To flash the \jx it is necessary to have a host computer running Ubuntu \cite{nvidiaSDKManager2019}.
@@ -60,10 +71,10 @@ The process can be summarized in the following steps:
     \item Add some suggested modifications from the \gls{nforum}.
     \item Compile the kernel.
     \item Follow the second part of the guide from Mateusz Sadowski \cite{sadowskiEnablingPPSJetson2020}.
-    \item Try to debug why it does not work.
+    \item Debug the result.
 \end{enumerate}
 The entire procedure lasted approximately three hours, during which most of the time was spent waiting.
-However, it significantly consumed work hours due to the need for regular human interaction, causing disruptions in the workflow for other tasks.
+It still consumed a significant amount work hours due to the need for regular human interaction, causing disruptions in the workflow on other tasks.
 The negative impact of frequent context switching on productivity for software developers has been acknowledged and should be minimized if feasible \cite{meyerSoftwareDevelopersPerceptions2014}.
 This became evident after several days of minimal tangible progress on this task or any other task.
 
@@ -85,7 +96,7 @@ This took care of a lot obscure work that would otherwise have to be identified,
 To fully automate the process it would be necessary to do all the work the \gls{sdk} Manager does, as well as the rest of the steps.
 
 Still, after serveral days practically waisted on trying to get the process to work manually, it was decided to try to automate the entire process.
-Another motivation for this was that learning how to flash a Jetson module properly seemed like a useful skill to aquire.
+Another motivation for this was that learning how to flash a \jetson module properly seemed like a useful skill to aquire.
 
 \subsection{Replacing the SDK Manager}
 The first goal was to write a pipeline that could replace the visual \gls{sdk} Manager.
@@ -119,29 +130,32 @@ Lastly the \code{stderr} of every process was checked, which removed some of the
 The final goal in the automation process was to make it easy to include various modifications in the pipeline, so that different suggestions from the forums could be added implemented the beginning of the pipeline.
 This was acheived by adding a new step in the pipeline that would copy modified files to given locations, and by making it easy to execute various defined shell commands at designated times.
 This made it so that modifications and scipts could be defined ahead of the flashing, and the pipeline would add or execute them at the designated times, removing the need for any manual labour during the compilation and flashing process.
+Writing autmated tests that could be executed over \gls{ssh} after flashing was concidered, but not consideret to be worth the time as different posts on the \gls{nforum} recommended checking different things.
+Examples of this are searching for different keywords in the output from the \code{dmesg} command and checking the variables defined in \textit{/proc/config.gz}.
 
 \subsection{Brute force solution}
 After having replaced the \gls{sdk} Manager with a pipeline capable of flashing the \jx with modified version of
 \gls{jetlinux} in an effieicnt and automated way, it was time to try to enable \gls{pps} interrupts.
 
-
-The process now looked like this:
+The workflow now looked like this:
 \begin{enumerate}
     \item Define modifications and scripts that would run during the compilation.
     \item Select checkpoint to start from.
     \item Run the pipeline.
-    \item Try to debug why it does not work.
+    \item Debug the result.
 \end{enumerate}
-With this pipeline in place it was possible to test various suggestions from the \gls{nforum} in a systematic way.
-As the all the manual steps were collected at the beginning or end of the process, it left up to two hours of uninterupted work time between each iteration that could be used for other tasks.
+
+The final pipeline defines environment variables, executes 21 shell commands and modifies 3 of the source files.
+With this workflow in place it was possible to test various suggestions from the \gls{nforum} in a more systematic way.
+Having a profile on the \gls{nforum} was very useful, as it made it easy to filter out posts that I had already consulted when searching for solutions and bookmark the most relevant ones \cite{nvidiaNvidiaForumExtended2023}
+As the all the manual steps were collected at the beginning or end of the process, it left up to two hours of uninterupted work time between each iteration that could be used to look for new suggesions or work on other tasks.
 
 \subsection{Solution}
 After days of using the new pipeline to try out different suggestions from the \gls{nforum} it was finally possible to enable \gls{pps} interrupts.
 Goin into detail about all the different attempts that were made to enable \gls{pps} interrupts is beyond the scope of this thesis as 89 different forum posts from the \gls{nforum} with a total of 1092 replies, as well as several other blog posts and guides were consulted \cite{nvidiaNVIDIAJetsonLinux2023} \cite{nvidiaNVIDIATEGRALINUX} \cite{nvidiaNVIDIAJetsonLinux} \cite{nulizhuanzhuAGXXavier35} \cite{fishotterprojectEnablePpsSupport}.
 The full list of relevant posts from the \gls{nforum} can be found in the appendix.
-I also contacted and got response from a user on the \gls{nforum} facing similar problems \cite{mhtechdevProgressPPS2023} and made a post that was replied to \cite{martensEnablePPSJetson2023}.
+I also contacted and got response from a user on the \gls{nforum} who faced similar problems \cite{mhtechdevProgressPPS2023} and made a post that got relevant replies \cite{martensEnablePPSJetson2023}.
 After solving my problems I posted my solution to contribute to the community \cite{martensEnablePPSJetson2023}.
-
 The final key modifications are listed below.
 \begin{itemize}
     \item Use Bootlin Toolchain gcc 9.3
@@ -150,6 +164,7 @@ The final key modifications are listed below.
           % \item Set \code{CONFIG_PPS_DEBUG=y}
     \item Use \code{GPIO_ACTIVE_HIGH} not \code{GPIO_ACTIVE_LOW}
 \end{itemize}
+
 
 
 
@@ -171,7 +186,18 @@ Fortunately the established flashing pipeline made it considerably easier to ace
 
 The performance difference between having the root partition on the \gls{emmc} and the \gls{ssd} remains to be evaluated properly.
 
+\subsection{Reflections on the automation process}
+The estimated cost and benefit of automation can often be very optimistic, as illustrated in Figure \ref{fig:xkcd_automation}.
+It is not possible to know the effort it would have taken to find a working solution wihtout automating the process, but the current hypothesis is that the extra time spent on automation is equivalent to the time saved, if not slightly less.
+If it was certain that this was the last time ever compiling an \jx, or a related \jetson product like the \jo, defending the time spent on automation would be hard.
+However as this was a necessery part during the \preproject and remained necessary to repeat again here, it seems likely that this will not be the last time kernel configurations will be requiered in my work.
+This is also supported by the fact that the \nvidia celebrated one million developers using the \nvidia \jetson platform, making it likely to remain a relevant platform in the foreseeable future \cite{blackNVIDIACelebratesMillion2023}.
+Having this working pipeline will make future modifications easier, and also serve as a full pragmatic walkthrough  on how to modify, compile and flash a \jetson product.
 
-\subsection{Reflections on the process}
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/xkcd_automation.png}
+    \caption{Automation by XKCD \cite{xkcdAutomation2014}}
+    \label{fig:xkcd_automation}
+\end{figure}
 
