@@ -35,7 +35,7 @@ The \gls{deepstream} \gls{sdk} is used in the \master and requires the new versi
 The assumption was that it would not be more difficult to enable \gls{pps} on this version than it was with \gls{jetpack} 4.6.
 This assumption turned out to be wrong, and the over all experience is vusialized in Figure \ref{fig:xkcd_cautionary}.
 
-\subsection{Differences between current and previous version of \gls{jetpack}}
+\subsection{Differences between current and previous version of Jetpack}
 A significant difference between the two versions of \gls{jetpack} is that they are build on different versions of the Linux Kernel as well as file systems based on different version of Ubuntu \cite{nvidiaJetPackSDK2022} \cite{nvidiaJetPackSDK2023}.
 The differences are visualized in Figure \ref{fig:jetpack_hierarchy}.
 It is likely that the issues experienced when trying to compile the kernel are related to these major changes.
@@ -44,7 +44,7 @@ There might be some other root cause, but this remains unknown.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/jetpack_hierarchy/hierarchy.pdf}
-    \caption{Visualization of the Jetpack hierarchy \cite{nvidiaJetPackSDK2022}\cite{nvidiaJetPackSDK2023}}
+    \caption{Visualization of the hierarchy of two versions of the Jetpack\cite{nvidiaJetPackSDK2022}\cite{nvidiaJetPackSDK2023}}
     \label{fig:jetpack_hierarchy}
 \end{figure}
 
@@ -186,6 +186,13 @@ Fortunately the established flashing pipeline made it considerably easier to ace
 
 The performance difference between having the root partition on the \gls{emmc} and the \gls{ssd} remains to be evaluated properly.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/xkcd_automation.png}
+    \caption{Automation by XKCD \cite{xkcdAutomation2014}}
+    \label{fig:xkcd_automation}
+\end{figure}
+
 \subsection{Reflections on the automation process}
 The estimated cost and benefit of automation can often be very optimistic, as illustrated in Figure \ref{fig:xkcd_automation}.
 It is not possible to know the effort it would have taken to find a working solution wihtout automating the process, but the current hypothesis is that the extra time spent on automation is equivalent to the time saved, if not slightly less.
@@ -194,10 +201,4 @@ However as this was a necessery part during the \preproject and remained necessa
 This is also supported by the fact that the \nvidia celebrated one million developers using the \nvidia \jetson platform, making it likely to remain a relevant platform in the foreseeable future \cite{blackNVIDIACelebratesMillion2023}.
 Having this working pipeline will make future modifications easier, and also serve as a full pragmatic walkthrough  on how to modify, compile and flash a \jetson product.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/xkcd_automation.png}
-    \caption{Automation by XKCD \cite{xkcdAutomation2014}}
-    \label{fig:xkcd_automation}
-\end{figure}
 
