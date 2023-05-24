@@ -196,7 +196,9 @@ The performance difference between having the root partition on the \gls{emmc} a
 \subsection{Reflections on the automation process}
 The estimated cost and benefit of automation can often be very optimistic, as illustrated in Figure \ref{fig:xkcd_automation}.
 It is not possible to know the effort it would have taken to find a working solution wihtout automating the process, but the current hypothesis is that the extra time spent on automation is equivalent to the time saved, if not slightly less.
-If it was certain that this was the last time ever compiling an \jx, or a related \jetson product like the \jo, defending the time spent on automation would be hard.
+That is including the time saved from reducing the amount of context switching.
+If it was certain that this was the last time ever compiling an \jx, or a related \jetson product like the \jo, defending the time spent on automation would therefore be hard.
+
 However as this was a necessery part during the \preproject and remained necessary to repeat again here, it seems likely that this will not be the last time kernel configurations will be requiered in my work.
 This is also supported by the fact that the \nvidia celebrated one million developers using the \nvidia \jetson platform, making it likely to remain a relevant platform in the foreseeable future \cite{blackNVIDIACelebratesMillion2023}.
 Having this working pipeline will make future modifications easier, and also serve as a full pragmatic walkthrough  on how to modify, compile and flash a \jetson product.

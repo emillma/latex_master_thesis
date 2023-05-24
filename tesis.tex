@@ -17,8 +17,8 @@
 % \listoffigures
 % \listoftables
 % \lstlistoflistings
-\printglossary[type=\acronymtype] % Print acronyms
-\printglossary                    % Print glossary
+% \printglossary[type=\acronymtype] % Print acronyms
+% \printglossary                    % Print glossary
 \pagebreak
 \chapter{Stuff}
 
@@ -34,10 +34,11 @@ hsllo
 \chapter*{\bibname}
 \printbibliography[heading=none]
 
-\appendix
-\input{appendices/forum_posts.tex}
-\input{appendices/compilation.tex}
-% \include{preproject/main}
-% \includepdf[trim=1.5cm 1.5cm 1.5cm 1.5cm, pages=-]{preproject.pdf}
+% \appendix
+% \chapter{Stuff}
+\include{appendices/index_table.tex}
+\include{appendices/forum_posts.tex}
+\include{appendices/compilation.tex}
+% \include{appendices/preproject.tex}
 
 \end{document}
