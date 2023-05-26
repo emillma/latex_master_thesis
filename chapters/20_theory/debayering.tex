@@ -70,6 +70,7 @@ If the
 \end{figure}
 
 With a runtime of $1 ms \pm 1 \mu s$
+Nsight compute not working for memory
 
 \subsubsection{Contiguous acces using warp level primitives} \label{sec:contuguous_access}
 As we want to operate on 32-bit values and each pixel is stored as a 10bit value, each thread is processing 160 bits, or five words as it is the lowest common multiple of 32 and 10.
@@ -94,13 +95,13 @@ As the data exchange is performed directly between registers this is faster than
 However instead of specifiying what data to read from what thread, as in Eq. \ref{eq:contiguous_reading}, you need specity what data to send and what thread to read from, which is more difficult.
 \begin{align}
     c_T[i] & = d[i*32+T],       &   &                 & i & \in (0,1,2,3,4) \\
-    c_T[j] & \rightarrow a_x[i] & j & = \todo        & i & \in (0,1,2,3,4) \\
+    c_T[j] & \rightarrow a_x[i] & j & = \todo         & i & \in (0,1,2,3,4) \\
     a_T[i] & \leftarrow c_j[x]  & j & = (T*5 + i)\%32 & i & \in (0,1,2,3,4)
     \label{eq:contiguous_reading}
 \end{align}
 Where $x$ represents some locally unknown variable.
 
-
+\todo cache stuff test
 
 
 

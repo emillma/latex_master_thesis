@@ -1,0 +1,103 @@
+
+\section{Sending video over network}
+Several different methods were tested to provide a livestream of the images taken by the cameras.
+Ideally a separate variable bitrate video encoder would be used to encode the images into a video stream and serve it over the network to a video streaming client in a web browser on the phone.
+This would allow the user to view the video stream with maximum quality given the available bandwidth.
+
+\subsection{Streaming MP4 videos}
+Streaming existing \gls{mp4} video files can easily be done by serving the file over \gls{http} using a simple Python web server and the default video player in \chrome.
+Unfortunately it proved more difficult to live stream video in real time.
+
+The first attempt at streaming video in realtime was to serve \gls{mp4} data from \gs as if it was a file and using the \gls{dash} Player to automatically go to the next video segment when the previous one was finished.
+This worked to some degree, but requiered a latency of several seconds and had notiable jumps between segments.
+
+The secont approach was done following a blog post from Dusan Kovacevic on how to stream video to a web broser over \gls{hls}, but did not yield a working result \cite{kovacevicStreamLiveVideo2020}.
+
+The third approach was using \gls{rtsp}.
+It was however possible to stream video to \gls{vlc} over \gls{rtsp} but it did not work in the web browser.
+
+\subsection{Streaming JPEGs}
+As it proved difficult to stream videostreams, the next approach was to stream \glspl{jpeg} over the network instead.
+For the current usecase, which is to veryify that the camera is working properly, compression loss or reduced framerate it not viewed as a major problem.
+The first attempt was to simply serve image data from a Python web server and ruotinely update the image on the web page.
+This worked fine but resulted in a non-smooth framerate as the the same image was sometimes served twice in a row.
+To solve this \glspl{ws} were used to serve the images instead.
+They made it possible for the server to push data to the client when new images were available, rather than relying on the client polling the server for new data.
+
+\subsubsection{Base64 encoding}
+An easy way to serve \glspl{jpeg} is to encode them as base64 strings and serve them as text \cite{rAnswerHowDisplay2013}
+Initially this encoding was done serverside but as base64 encoding has an overhead of at least 33\% a small \gls{js} scripted was written to do the encoding clientside instead, shown in Listing \ref{lst:js_base65}.
+Surely it is possible to update the image from the raw \gls{jpeg} bytes, but this was not prioritized as the base64 encoding was easy to implement and worked well enough.
+\begin{listing}
+    \begin{minted}{js}
+        if (message) {
+        return message.data.arrayBuffer().then(buffer => {
+            let b64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+            return "data:image/jpeg;base64," + b64; });
+        } else {return no_update};
+    \end{minted}
+    \label{lst:js_base64}
+    \caption{JavaScript code for encoding \gls{jpeg} data as base64 strings}
+\end{listing}
+
+\subsubsection{Parsing of bytestream}
+Initially the data generated from \gs was piped through \code{stdout}.
+The following binary \gls{regex} was used in to separate the images.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/jpeg_regex.pdf}
+\end{figure}
+It looked for the beginning marker followed by data followed by the end marker and with a lookahead for the beginning marker of the next image.
+The final lookahead was used to minimize the chance of parsing data bytes as the end marker as it was believed that could happen.
+After analyzing the \gls{jpeg} standard however it was discovered that they use a technique called byte stuffing which ensures this never happens \cite[91]{ccittINFORMATIONTECHNOLOGYDIGITAL1992}.
+Byte stuffing is a technique used in data transmission where special control characters are inserted into the data stream to distinguish between data and control information.
+For \glspl{jpeg}, the zero byte is inserted after every control character that appears in the data \cite[91]{ccittINFORMATIONTECHNOLOGYDIGITAL1992}.
+This made the parsing could be done both easier and faster by simply reading until the end-of-image marker.
+
+\subsection{Future work: Streaming video using WebRTC}
+Minor attempts were also made at getting an example project from \gs using \gls{webrtc} to work \cite{gstreamerWebrtcMasterGStreamer2021}.
+This was done after a working solution using \glspl{jpeg} was implemented and was therefore not prioritized.
+In future work getting the example project to work and integrating it with the current pipeline on the \sr is probably the best approach as \gls{webrtc} is designed for low latency communication and has low latency compared to other protocols as shown in Figure \ref{fig:streaming_latency} \cite{doughertyUltraLowLatency2022}.
+\gls{webrtc} is built for low latency peer-to-peer communication, supports \gls{h265} encoding and will support \gls{av1} in the future \cite[1]{loretoRealTimeCommunicationWebRTC2014} \cite{mekyaFirstHEVC2652020}
+\cite{red5proKeyReasonsAV12023}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/webrtc_latency.png}
+    \caption{Latency comparison of different streaming protocols \cite{doughertyUltraLowLatency2022}}
+    \label{fig:straming_latency}
+\end{figure}
+
+
+
+
+\subsection{Communicating with GStreamer Pipeline}
+By far the easiest way to use \gs is to run the \code{gst-launch-1.0} command from the terminal.
+Different approaches were tested for communicating with the generated pipeline from Python.
+
+\subsubsection{Using files}
+A very simple and naive way to communicate with the pipeline is to use files.
+The imput images were saved to files and the pipeline was set up to read from that file.
+The opposite was done to get the output images.
+When using regular files this approach was slow and not very reliable.
+Using \gls{tmpfs}, which makes it possible to store temporary files in \gls{ram} instead of on disk improved the performance, but it still felt like a very naive approach \cite{dickinsTmpfsLinuxKernel2010}.
+
+\subsubsection{Piping over network}
+The first approach to transfer the images was to send and receive data over the network.
+\gs has both a \gls{tcp} client source and \gls{tcp} server sink that can be used to pipe data to the pipeline as well as from the pipeline.
+Using \gls{tcp} was easy to set up and worked quite well as the pipeline could run independently in one process while a server serving input data and a output data client could run anywhere else, even on another computer on the same network.
+The server an client were implemented in Python using the \gls{asyncio} library.
+Using \gls{udp} was also tested and appeared to perform equally well, but made it impossible to monitor weither the pipeline was running properly and if any client were actually receiving data.
+
+
+\subsubsection{Using STDIN and STDOUT}
+Another approach was to use \gls{stdin} and \gls{stdout} to pipe data to and from the pipeline.
+\gls{asyncio}.
+This approach is very similar in nature as using files, as \gls{stdin} and \gls{stdout}, like almost everything else in Linux, are represented as files \cite{mckayWhatAreStdin2020}.
+However this approach is more elegant as it does not require any files and designed for this exact purpose.
+The \gs process was started using \gls{asyncio} to be able to read and write to \gls{stdin} and \gls{stdout} asynchronously.
+
+
+
+
+\
+

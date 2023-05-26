@@ -21,3 +21,4 @@ chap_dir.joinpath(index_name).write_text(out)
 # out += r"\input{" + str(rel_path) + "}\n"
 
 # out_file.write_text(out)
+a = 1
