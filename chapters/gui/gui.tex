@@ -1,0 +1,48 @@
+\chapter{Graphical User Interface}
+
+\section{Motivation}
+A \gls{gui} framework has been developed during the master thesis.
+There were two main motivations behind this.
+
+In order to operate a camera system in real time it is pretty usefull to be able to see what the camera sees.
+During the \preproject a simple way of interacting with the system from a phone over \gls{ssh} through an app called juiceSSH was tested \cite[32]{martensPortableSensorRig2022}.
+This app was tested more in the beginning of the master thesis, and several usefull snippets were saved in the app.
+Although the text interface was sufficient to start and stop the recording and verify that images were saved, the lack of a graphical interface made it difficult to verify that the camera was recording what it was supposed to.
+Thus a \gls{gui} is needed.
+
+In a more general context a need for an efficient way to interact with programs and visualize data on remote computers was identified.
+The \jx has been the current platform for the master thesis, but during future work other remote computers will be used.
+A powerful workstation with a \todo was aquired last fall to be used for training and inference of \gls{ai} models during future Ph.D. work.
+The workstation is headless, that is it has no monitor, keyboard or mouse, as we are a couple of people that will be using it.
+
+\subsection{Specifications}
+There are a lot of different options to choose from when it comes to \gls{gui} frameworks.
+But the following requirements were identified:
+\begin{itemize}
+    \item Access from all devices including smartphone
+    \item Easy to develop
+    \item Capable of real time visualization
+    \item Reasonably efficient
+    \item Easily customizable
+\end{itemize}
+From the forst requirement it was clear that the solution would be web based as this it is the easiest way to make a \gls{gui} that is accessible from different types of devices.
+Using a \gls{js} framework like React, Vue or Svelte would probably have been a good choice, but with very little personal experience using \gls{js} it appeared too ambitious to learn a new framework in a new language.
+\dash was chosen as it is based on \py, making the learning curve less steep.
+
+
+\dash is not designed for real time applications and lacks native support for \glsps{websocket}.
+Fortunately a group of people have developed a package called \texttt{dash-extensions} that adds support for \glsps{websocket} to \dash \cite{eriksenDashExtensions}.
+To improve performance the thread baced backend of \dash, Flask, was replaced with asynchronous Quart.
+
+\subsection{Replacing Flask backend with Quart}
+ 
+\subsection{Adding support for websockets}
+
+\subsection{Websockets through Quart and Dash-Extentions}
+
+\subsection{Custon JS handlers}
+
+
+\subsection{Watchdog}
+\subsection{Java Script handler}
+\subsection{Pages}

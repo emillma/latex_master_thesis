@@ -331,7 +331,7 @@ literate=
 \RequirePackage[outputdir=build]{minted}
 \definecolor{code_background}{rgb}{1.,1.,1.}
 
-\setminted{autogobble, style=friendly, bgcolor=code_background, numbersep=1pt, fontsize=\small}
+\setminted{autogobble, style=friendly, bgcolor=code_background, numbersep=10pt, linenos=true, fontsize=\small}
 % \newminted{python}{autogobble, style=friendly, bgcolor=red}
 % \newmint{python}{autogobble, style=friendly, bgcolor=red}
 % \newmintinline{python}{autogobble, style=friendly, bgcolor=code_background, numbersep=-10pt,linenos, fontsize=\large}
@@ -344,6 +344,8 @@ literate=
 ]
 \RequirePackage{url}
 \RequirePackage{xspace}
+\RequirePackage{multicol}
+\RequirePackage{epigraph}
 \RequirePackage[
     left = \flqq{},% 
     right = \frqq{},% 

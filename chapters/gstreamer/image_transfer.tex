@@ -26,9 +26,9 @@ They made it possible for the server to push data to the client when new images 
 
 \subsubsection{Base64 encoding}
 An easy way to serve \glspl{jpeg} is to encode them as base64 strings and serve them as text \cite{rAnswerHowDisplay2013}
-Initially this encoding was done serverside but as base64 encoding has an overhead of at least 33\% a small \gls{js} scripted was written to do the encoding clientside instead, shown in Listing \ref{lst:js_base65}.
-Surely it is possible to update the image from the raw \gls{jpeg} bytes, but this was not prioritized as the base64 encoding was easy to implement and worked well enough.
-\begin{listing}
+Initially this encoding was done serverside but as base64 encoding at least 33\% overhead a small \gls{js} scripted was written to do the encoding clientside instead, shown in Listing \ref{listing:base64}.
+It is expeted to possible to update the image from raw \gls{jpeg} bytes, but this was not prioritized as the base64 encoding was easy to implement and worked well enough.
+\begin{listing}[H]
     \begin{minted}{js}
         if (message) {
         return message.data.arrayBuffer().then(buffer => {
@@ -36,8 +36,8 @@ Surely it is possible to update the image from the raw \gls{jpeg} bytes, but thi
             return "data:image/jpeg;base64," + b64; });
         } else {return no_update};
     \end{minted}
-    \label{lst:js_base64}
     \caption{JavaScript code for encoding \gls{jpeg} data as base64 strings}
+    \label{listing:base64}
 \end{listing}
 
 \subsubsection{Parsing of bytestream}
@@ -55,26 +55,27 @@ For \glspl{jpeg}, the zero byte is inserted after every control character that a
 This made the parsing could be done both easier and faster by simply reading until the end-of-image marker.
 
 \subsection{Future work: Streaming video using WebRTC}
-Minor attempts were also made at getting an example project from \gs using \gls{webrtc} to work \cite{gstreamerWebrtcMasterGStreamer2021}.
-This was done after a working solution using \glspl{jpeg} was implemented and was therefore not prioritized.
-In future work getting the example project to work and integrating it with the current pipeline on the \sr is probably the best approach as \gls{webrtc} is designed for low latency communication and has low latency compared to other protocols as shown in Figure \ref{fig:streaming_latency} \cite{doughertyUltraLowLatency2022}.
+Attempts were also made at integrating an example project from \gs  to stream videos using \gls{webrtc} \cite{gstreamerWebrtcMasterGStreamer2021}.
+The example demonstrates the process of streaming video from a pipeline to a client within a web browser. It involves extensive code, consisting of several hundred lines in \py and \gls{js}.
+Due to the solution utilizing \glspl{jpeg} had already been implemented, and considering the time-consuming nature of the integration task, it was not given high priority.
+In future work acheiving this is probably the best approach as \gls{webrtc} has low latency compared to other protocols as shown in Figure \ref{fig:streaming_latency} \cite{doughertyUltraLowLatency2022}.
 \gls{webrtc} is built for low latency peer-to-peer communication, supports \gls{h265} encoding and will support \gls{av1} in the future \cite[1]{loretoRealTimeCommunicationWebRTC2014} \cite{mekyaFirstHEVC2652020}
 \cite{red5proKeyReasonsAV12023}
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/webrtc_latency.png}
     \caption{Latency comparison of different streaming protocols \cite{doughertyUltraLowLatency2022}}
-    \label{fig:straming_latency}
+    \label{fig:streaming_latency}
 \end{figure}
 
-
-
-
 \subsection{Communicating with GStreamer Pipeline}
-By far the easiest way to use \gs is to run the \code{gst-launch-1.0} command from the terminal.
+The easiest way to use \gs is to use \code{gst-launch-1.0} from the terminal, a tool that builda and runs basic \gs pipelines from a pipeline description string \cite{Gstlaunch1}.
+An extensive list of examples on how to use \code{gst-launch-1.0} can has been made by Adrian Lane and can be found on his GitHub \cite{laneGStreamerPipelineSamples2020}.
+
+Initially \code{gst-launch-1.0} was used to create pipelines to compress the images to \gls{h265} video streams and \gls{jpeg} images.
 Different approaches were tested for communicating with the generated pipeline from Python.
 
-\subsubsection{Using files}
+\subsubsection{Regular and temporary files}
 A very simple and naive way to communicate with the pipeline is to use files.
 The imput images were saved to files and the pipeline was set up to read from that file.
 The opposite was done to get the output images.
@@ -95,9 +96,3 @@ Another approach was to use \gls{stdin} and \gls{stdout} to pipe data to and fro
 This approach is very similar in nature as using files, as \gls{stdin} and \gls{stdout}, like almost everything else in Linux, are represented as files \cite{mckayWhatAreStdin2020}.
 However this approach is more elegant as it does not require any files and designed for this exact purpose.
 The \gs process was started using \gls{asyncio} to be able to read and write to \gls{stdin} and \gls{stdout} asynchronously.
-
-
-
-
-\
-
