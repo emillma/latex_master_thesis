@@ -16,9 +16,12 @@ for d in sorted([p for p in chap_dir.iterdir() if p.is_dir()]):
     make_index_file(d)
     out += r"\include{" + str(d.relative_to(root_dir)) + r"/" + index_name + "}\n"
 chap_dir.joinpath(index_name).write_text(out)
+<<<<<<< Updated upstream
 
 # rel_path = .relative_to(chap_dir.parent)
 # out += r"\input{" + str(rel_path) + "}\n"
 
 # out_file.write_text(out)
 a = 1
+=======
+>>>>>>> Stashed changes
