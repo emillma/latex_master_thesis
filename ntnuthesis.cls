@@ -331,7 +331,7 @@ literate=
 \RequirePackage[outputdir=build]{minted}
 \definecolor{code_background}{rgb}{1.,1.,1.}
 
-\setminted{autogobble, style=friendly, bgcolor=code_background, numbersep=10pt, linenos=true, fontsize=\small}
+\setminted{autogobble, style=friendly, bgcolor=code_background, numbersep=10pt, linenos=true, fontsize=\footnotesize}
 % \newminted{python}{autogobble, style=friendly, bgcolor=red}
 % \newmint{python}{autogobble, style=friendly, bgcolor=red}
 % \newmintinline{python}{autogobble, style=friendly, bgcolor=code_background, numbersep=-10pt,linenos, fontsize=\large}

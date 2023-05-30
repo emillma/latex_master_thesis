@@ -12,6 +12,8 @@
 \input{glossary.tex} % add glossary and acronym lists before document
 % \oneside
 % 
+\emergencystretch=1em
+
 \begin{document}
 \tableofcontents
 % \listoffigures
@@ -28,9 +30,10 @@
 % \input{chapters/flashing_xavier.tex}
 % \input{chapters/random/random.tex}
 \input{chapters/__include__.tex}
-hsllo
 \chapter*{\bibname}
-\printbibliography[heading=none]
+
+\AtNextBibliography{\footnotesize}
+\printbibliography
 
 % \appendix
 \chapter{Additional resources}
