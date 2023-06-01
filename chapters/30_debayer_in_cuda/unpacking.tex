@@ -56,7 +56,7 @@ However instead of specifiying what data to read from what thread, as in Eq. \re
     c_T[i] & = d[i*32+T],       &   &                 & i & \in (0,1,2,3,4) \\
     c_T[j] & \rightarrow a_x[i] & j & = \todo         & i & \in (0,1,2,3,4) \\
     a_T[i] & \leftarrow c_j[x]  & j & = (T*5 + i)\%32 & i & \in (0,1,2,3,4)
-    \label{eq:contiguous_reading}
+    \label{eq:contiguous_reading_shfl}
 \end{align}
 Where $x$ represents some locally unknown variable.
 
