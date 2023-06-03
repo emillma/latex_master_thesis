@@ -1,14 +1,31 @@
 \section{3D printing}
-A
 
-\subsection{Argumentation}
-As the department have several 3D-printers available
-
+\subsection{Motivation for buying a 3D printer}
+The Department of Engineering Cybernetics is renting office space at Nyhavna to accomodate the growing number of employees.
+Due to this relocation, I have to travel to Gløshaugen, which is a 40 minute walk away, if I want to use the workshops there.
+During the preproject most of the parts were with the laser cutter at \gls{ov}, as is could be done in a single session.
+The process of using a 3D printer was highly inconvenient as it necessitated two separate trips for each print job: one to initiate the print and another to stop it.
+If the print failed, the process had to be repeated.
+Based on this experience it was deemed necessary to have a 3D printer available at Nyhavna.
+Argumentation was put forward to the department and I got funding to aquire a 3D printer at Nyhavna.
 
 \subsection{Choice of printer}
-During the master thesis
+Selecting a 3D printer is a difficult task as there are many different options available.
+The main considerations were:
+\begin{enumerate}
+    \item \textbf{Availability:} The printer should be available for purchase.
+    \item \textbf{Price:} The printer should be within the assigned budget.
+    \item \textbf{Reliability:} The printer should be reliable and require little maintenance.
+    \item \textbf{Print quality:} The printer should be able to print high quality parts.
+    \item \textbf{Print volume:} The print volume shold be able to print relatively large parts.
+    \item \textbf{Multi filament printing:} The printer should ideally be able to print with multiple filaments simultaniously.
+\end{enumerate}
+
+
 
 \subsection{Slicer}
+
+
 
 \subsection{Parameters}
 \subsubsection{Layer height}
@@ -17,9 +34,6 @@ During the master thesis
 
 
 
-
-\section{Make carry handles}
-More ergonomic.
 
 \section{Test/fix cooling}
 Verify if cooling is sufficient.
@@ -43,7 +57,36 @@ Long delay.
 
 \subsection{M109}
 
-\subsubsection{Configuration}
+
+\subsection{Configuration}
 Quite a lot of time was spent on configuring the printer.
 Two different slicers were used, Cura and Luban.
 Router was aquired for wireless transfer of files.
+
+\subsection{Glass prind bed}
+The \gls{j1} printer is delivered with a print
+
+
+\subsection{Initial layer flow}
+One issue was that material had a tendency to build up around the nozzle during the first layer as visualized in Figure \ref{fig:first_layer_buildup}.
+This sometimes resulted in a dirty nozzle and some times the nozzle would pull the the material with it, resulting in a failed print.
+Other people on the Snammaker forum have also reported this issue, without finding a clear solution \cite{artezioFinerAdjustmentsOffset2021} \cite{napsZHeightCalibrationOffset2023}.
+
+After attempting the printer calibration process multiple times without resolving the issue, the next approach was to manually adjust the z-offset.
+Unfortunately, the settings tab of the \gls{j1} did not provide any parameter for adjusting the z-offset.
+The issue then soved by increasing the initial layer height in the slice profile and and reducing the initial layer flow until the issue dissapeared, which happened at a flow rate of $75\%$.
+Subsequently, it was revealed that the z-offset adjustment on the \gls{j1} is indeed possible, albeit only accessible during the printing process for unknown reasons.
+It was confirmed that the modifications made to the z-offset persisted between prints.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/3d_print/first_layer_buildup.pdf}
+    \caption{Illustration of material buildup on first layer.}
+    \label{fig:first_layer_buildup}
+\end{figure}
+
+
+\subsection{Auto Towers}
+\cite{kartchnerAutoTowersGeneratorUltimaker2022}

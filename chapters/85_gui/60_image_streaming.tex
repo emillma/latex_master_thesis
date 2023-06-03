@@ -5,7 +5,7 @@ Ideally a separate variable bitrate video encoder would be used to encode the im
 This would allow the user to view the video stream with maximum quality given the available bandwidth.
 
 \subsection{Streaming MP4 videos}
-Streaming existing \gls{mp4} video files can easily be done by serving the file over \gls{http} using a simple Python web server and the default video player in \chrome.
+Streaming existing \gls{mp4} video files can easily be done by serving the file over \gls{http} using a simple Python web server and the default video player in \gls{chrome}.
 Unfortunately it proved more difficult to live stream video in real time.
 
 The first attempt at streaming video in realtime was to serve \gls{mp4} data from \gs as if it was a file and using the \gls{dash} Player to automatically go to the next video segment when the previous one was finished.

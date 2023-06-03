@@ -1,7 +1,7 @@
 
 
 \subsection{ID Provider}
-An aspect of working with \dash that can be slightly annoying is the use of id-strings.
+An aspect of working with \gls{dash} that can be slightly annoying is the use of id-strings.
 The example below shows how the two id-strings \code{graph-content} and \code{dropdown-selection} are used when defining the components and when creating the callback.
 \begin{listing}[H]
     \begin{minted}{python}
@@ -24,7 +24,7 @@ The example below shows how the two id-strings \code{graph-content} and \code{dr
 
 Modern \glspl{ide} like \gls{vscode} are capable of providing autocomplete suggestions, speeding up the code writing.
 This works really well in for variable and property names, but not for strings.
-For larger \dash projects name collisions can be a problem, and renaming a component through search and replace is not always straight forward.
+For larger \gls{dash} projects name collisions can be a problem, and renaming a component through search and replace is not always straight forward.
 To solve this annoyance a helper class called \code{IdProvider} was created.
 
 Whenever a new attribute is accessed, like \code{IdProvider.variable1}, a new id-string is generated and returned as shown in Figure \ref{fig:idproider_a} and \ref{fig:idproider_c}.
