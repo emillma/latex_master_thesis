@@ -24,7 +24,7 @@ The main considerations were:
 
 
 \subsection{Slicer}
-
+\label{sec:slicer}
 
 
 \subsection{Parameters}
@@ -55,13 +55,32 @@ Idex printer makes it easier to print supports.
 Bambu lab X1 and Prusa were considered.
 Long delay.
 
-\subsection{M109}
+\subsection{M109 - Wait for Hotend Temperature}
+When both extruders are used during printing, a siginificant dealy occured at every switch.
+It was discovered that it was caused by the \code{M109} commends in in the generated \gls{gcode} which tells the printer to wait for the hotend to reach target temperature \cite{thinkyheadWaitHotendTemperature2023}.
+By default the extruders are set to cool down to their stand by temperature when not in use and heat up again when its their turn to print.
+As the extruders started heating up to late a significant waiting time would occur.
+Following a tip from a threadpost, the \code{Printer Settings} plugins was used in curea to decrease the \code{Heat Up Speed} and \code{Cool Down Speed} values used to calculate when the heating should start \cite{valiantReplyStandbyTemperature2022} \cite{fieldofviewPrinterSettingsUltimaker}.
+This reduced the waiting time but did not remove it entierly, as the printer would wait for some time even if the set temperature was already reached.
+The final solution was then to simply set the stand by temperatures equal to the printing temperatures witch resulted in GCode without \code{M109} commands between each extruder change.
+
+\subsection{Printing workflow}
+Figure \ref{fig:3dp_workflow} shows the full workflow for 3D printing parts.
+First, parts are designed in \gls{fusion}, a \gls{cad} software developed by Autodesk.
+The design process is documented in Chapter 2 of the \preproject.
+After a part is designed it sent to Cura, a slicer, that translates the 3D model into a set of instructions for the printer, called \gls{gcode}.
+The choice of slicer is discussed in Section \ref{sec:slicer}.
+Then the \gls{gcode} is then sent to the printer over the network using Snapmakers own software called \gls{luban}.
+It was not possible to do this over Eduroam, so a local network was set up using a separate router.
+The printer progress can be monitored in Luban over the network.
 
 
-\subsection{Configuration}
-Quite a lot of time was spent on configuring the printer.
-Two different slicers were used, Cura and Luban.
-Router was aquired for wireless transfer of files.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/3d_print/pipeline.pdf}
+    \caption{3D-printing workflow \cite{autodeskFusion360Logo} \cite{delaragoCuraLogo2022} \cite{jupi007GcodeIconProposal2020} \cite{snapmakerSnapmakerLogo2020} \cite{snapmakerSnapmakerJ1High}}
+    \label{fig:3dp_workflow}
+\end{figure}
 
 \subsection{Glass prind bed}
 The \gls{j1} printer is delivered with a print
