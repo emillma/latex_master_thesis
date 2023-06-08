@@ -1,42 +1,34 @@
 \chapter{Graphical User Interface}
 
+\section{Introduction}
+\subsection{Continuation of previous work}
+During the \preproject a simple way of interacting with the system from a phone over \gls{ssh} through an app called JuiceSSH was tested as described in Section 6.5.2 of the \preproject.
+Using JuiceSSh to control the \sr was pursued further, and several usefull snippets were saved in the app to make it easy to execute the necessary commands to start and stop recording.
+However it was soon realized that it was not a satisfying solution as it was difficult to verify that the camera was recording what they were supposed to.
+Multiple different programs also has to be executed and monitored simultaneously, which is challenging in JuiceSSH.
 
-\section{Motivation}
-A \gls{gui} framework has been developed during the master thesis.
-There were two main motivations behind this.
 
-In order to operate a camera system in real time it is pretty usefull to be able to see what the camera sees.
-During the \preproject a simple way of interacting with the system from a phone over \gls{ssh} through an app called juiceSSH was tested \cite[32]{martensPortableSensorRig2022}.
-This app was tested more in the beginning of the master thesis, and several usefull snippets were saved in the app.
-Although the text interface was sufficient to start and stop the recording and verify that images were saved, the lack of a graphical interface made it difficult to verify that the camera was recording what it was supposed to.
-Thus a \gls{gui} is needed.
+\subsection{Motivation for web based GUI}
+As the \sr is recording video, it was natural to look for a \gls{gui} framework where the video could be displayed.
+Integrating a monitor and input devices into the \sr and create a \gls{qt} application was considered but quickly dismissed as it would require a lot of work and would make the \sr less portable.
+A web based \gls{gui} seemed better as it could be accessed from an external mobile phone, as the \sr is equipped with a WiFi module and can connect to a mobile hotspot as discussed in Section 6.5
+of the \preproject.
+The \gls{dash} framework was chosen as it is based on \py and has a lot of useful components for creating web based \glspl{gui}.
 
-In a more general context a need for an efficient way to interact with programs and visualize data on remote computers was identified.
-The \jx has been the current platform for the master thesis, but during future work other remote computers will be used.
-A powerful workstation with a \todo was aquired last fall to be used for training and inference of \gls{ai} models during future Ph.D.
-work.
-The workstation is headless, that is it has no monitor, keyboard or mouse, as we are a couple of people that will be using it.
+In a more general context the need for a good way to interact visually with programs and visualize data from a remote computers was identified.
+The development on the \jx has been done over \gls{ssh}, making regular visualization of data, with tools like \texttt{matplotlib}, cumbersome.
+The data gathered from the \sr is intended to be used for training and inference of \gls{ai} models during my Ph.D. and a headless workstation has been aquired for this purpose, making the \gls{gui} framework relevant for future work.
 
 \subsection{Alternatives}
-NiceUI
+Initially the I wanted to use this as an opertunity to learn a \gls{js} framework like React, Vue or Svelte.
+However, with very little personal experience using \gls{js} it appeared too ambitious to learn a new framework in a new language.
+I decided to go for \gls{dash} insetead, a \py framework for building web applications with interactive data visualizations and analytical capabilities \cite{plotlyPlotlyLowCodeData}.
+As it is based on \py, the learning curve would be less steep.
 
-\subsection{Specifications}
-There are a lot of different options to choose from when it comes to \gls{gui} frameworks.
-But the following requirements were identified:
-\begin{itemize}
-    \item Access from all devices including smartphone
-    \item Easy to develop
-    \item Capable of real time visualization
-    \item Reasonably efficient
-    \item Easily customizable
-\end{itemize}
-From the forst requirement it was clear that the solution would be web based as this it is the easiest way to make a \gls{gui} that is accessible from different types of devices.
-Using a \gls{js} framework like React, Vue or Svelte would probably have been a good choice, but with very little personal experience using \gls{js} it appeared too ambitious to learn a new framework in a new language.
-\gls{dash} was chosen as it is based on \py, making the learning curve less steep.
+\subsection{Downsides}
+The main downside of using \gls{dash} is that it is not designed for real time applications and lacks native support for \glsps{websocket}.
+On their website they only propose using an interval component to poll the server for updates at regular intervals  \cite{plotlyLiveUpdatesDasha}.
+This works, but if data should be sent from the server as soon as it becomes available, like when you are recording video, it is not the best solution.
 
-
-\gls{dash} is not designed for real time applications and lacks native support for \glsps{websocket}.
-Fortunately a group of people have developed a package called \texttt{dash-extensions} that adds support for \glsps{websocket} to \gls{dash} \cite{eriksenDashExtensions}.
-To improve performance the thread baced backend of \gls{dash}, Flask, was replaced with asynchronous \gls{quart}.
-
+Another small downside is that \gls{dash} is built on top of Flask, a thread based server framework which is slower than newer asynchronous alternatives.
 

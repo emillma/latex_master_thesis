@@ -1,3 +1,12 @@
+\subsection{Possible improvements to Plotly Dash}
+The main downside of using Plotly Dash is that it is not designed for real time
+applications and lacks native support for . On their website they only propose
+using an interval component to poll the server for updates at regular intervals
+    [2]. This works, but if data should be sent from the server as soon as it becomes
+available, like when you are recording video, it is not the best solution.
+Another small downside is that Plotly Dash is built on top of Flask, a thread
+based server framework which is slower than newer asynchronous alternatives.
+
 \subsection{Replacing Flask backend with Quart}
 The first step in the development of the \guif was to replace the Flask backend with \gls{quart}.
 As the comperaison in Listing \ref{listing:concurrency_test} shows, \gls{asyncio} baseded code has significantly less overhead than asynchronous code based threads in \py.
