@@ -25,11 +25,6 @@ The \lucid cameras are equiped with a 12-bit \gls{adc}
     \caption{Bit layout of the \code{Mono10p} format.}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/polarized_image/read_line.pdf}
-    \caption{TODO}
-\end{figure}
 
 \subsubsection{Contiguous acces using warp level primitives} \label{sec:contuguous_access}
 As we want to operate on 32-bit values and each pixel is stored as a 10bit value, each thread is processing 160 bits, or five words as it is the lowest common multiple of 32 and 10.

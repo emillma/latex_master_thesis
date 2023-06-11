@@ -45,9 +45,9 @@ The method is better suited for parallel execution than some others as discussed
 
 
 \subsection{Shortcomings}
-A shortcoming of the current method is that it does not optimal gains.
+A shortcoming of the current method is that it does not use optimal gains.
 Firstly the values used in \gls{mhc} are rounded to the neared dyadic rationals, to work efficently using integer arithmetic and bitshifting \cite{getreuerMalvarHeCutlerLinearImage2011}.
-As the current proposed implementation uses floating point arithmetic, this rounding is disadventagious.
+As the current proposed implementation uses floating point arithmetic, this rounding is unecessary.
 Another minor issues is that the values in \gls{mhc} were found to be the best fit for the well-known public-domain Kodak image set \cite{malvarHighqualityGradientcorrectedLinear2009}.
 This is a set of 24 varied images, shown in Figure \ref{fig:kodak_image_suite}, that might not be the best representation of the images the \sr will capture in maritime environments.
 It might be beneficial to recalculate the values based on a more representative dataset and use the floating point values rather than the rounded ones in the future.
