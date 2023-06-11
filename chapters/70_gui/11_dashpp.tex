@@ -37,7 +37,13 @@ To make it easier to work with \gls{ws} in \gls{dash} a small publisher-subscrib
 This is used among other things to update the images in the \srgui, in real time, from the topics \code{"image_left"} and \code{"image_right"} which the \gls{pipeline} publishes to.
 
 \subsection{Publish-subscribe framework}
-\code{ws://localhost:8088/pubsub?pub=topic1&sub=topic0}
+\code{ws://<host>:<port>/pubsub?pub=topic1&sub=topic0}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/gui/pubsub_graph.pdf}
+    \caption{Overview of the publisher-subscriber framework.}
+    \label{fig:pub_sub_graph}
+\end{figure}
 
 \subsection{Multi-page apps}
 Dash supports multi-page apps, making it possible to create a web application with multiple pages that the user can navigate between \cite{plotlyMultiPageAppsURL}.
