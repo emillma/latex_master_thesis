@@ -1,7 +1,12 @@
-\section{Managing Python Applications}
-One key capability of the \srgui is to start, stop and monitor \py applications running on the \jx.
-Currently one \py application is managing all the \gls{ptp} Deamons and one is running the \gls{sensorpipeline}.
-Each has their own tab in the \srgui as shown in Figure \ref{fig:gui_map}.
+\section{Managing Subprocesses}
+
+The \srgui possesses a crucial capability of initiating, terminating, and monitoring external Python (\py) applications that run on the \jx system.
+Currently, the \srgui manages two distinct \py applications.
+One handles the \gls{ptp} Deamons responsible for synchronizing the \cams, while the other handles the \gls{sensorpipeline}.
+Each application has its own dedicated tab within the \srgui interface, as depicted in Figure \ref{fig:gui_map}.
+Separating these subprocesses is beneficial because whenever a \gls{ptp} Deamon is stopped and restarted, the \cams lose synchronization, requiring an extended period to resynchronize.
+The started processes are encapsulated within a custom wrapper class and managed by a process manager.
+This manager ensures that only one instance of each process runs at a time, facilitates graceful shutdowns, and directs the output from \code{stderr} and \code{stdout} to the respective process log topics, making them readabe in the \srgui as shown.
 
 \begin{figure}[H]
     \centering
@@ -11,6 +16,3 @@ Each has their own tab in the \srgui as shown in Figure \ref{fig:gui_map}.
     \label{fig:gui_map}
 \end{figure}
 
-Every time a \gls{ptp} Deamon is stopped and started the \cams use quite a long time to synchronize their time, it is thus better to keep the \gls{ptp} Deamons running separately.
-
-In the current setup the

@@ -3,21 +3,17 @@
 
 \makeglossaries
 
-
 \setabbreviationstyle[acronym]{long-postshort-user}
 \glssetcategoryattribute{acronym}{nohyperfirst}{true}
-
 \setabbreviationstyle{short-nolong}
 
-\renewcommand*{\glsxtruserparen}[2]{%
-    \glsxtrfullsep{#2}% space between long part and parenthetical material
-    (\glshyperlink[#1]{#2})%
-}
+% \renewcommand*{\glsxtruserparen}[2]{%
+%     \glsxtrfullsep{#2}% space between long part and parenthetical material
+%     (\glshyperlink[#1]{#2})%
+% }
 
 \newglossaryentry{asyncio}{name=\code{asyncio},description={A Python library for asynchronous code using coroutines, event loops, and tasks.}}
-
 \newglossaryentry{dash}{name=Plotly Dash,description={A Python framework for building web applications for data visualization.}}
-
 \newglossaryentry{debayer}{name=Debayer,description={A process to convert raw image data into a full-color image.}}
 \newglossaryentry{deepstream}{name=DeepStream,description={A platform by NVIDIA for AI-powered video analytics applications.}}
 \newglossaryentry{dgpu}{name=dGPU,description={Discrete Graphics Processing Unit for graphics-intensive tasks.}}
@@ -140,11 +136,10 @@
 \newacronym{wsl}{WSL}{Windows Subsystem for Linux}
 \newacronym{i2c}{I2C}{Inter-Integrated Circuit}
 
+% \glsaddall
 
-\glsaddall
-
-\glsunset{cpu}
-\glsunset{gpu}
+% \glsunset{cpu}
+% \glsunset{gpu}
 
 % --------------------
 % ----- Shortcuts ----
@@ -160,7 +155,6 @@
 \newcommand{\cam}{Triton Polarizin Camera\xspace}
 \newcommand{\cams}{Triton Polarizin Cameras\xspace}
 \newcommand{\lucid}{Lucid Vision\xspace}
-\newcommand{\todo}{TODO\xspace}
 \newcommand{\cuda}{CUDA\xspace}
 \newcommand{\halftwo}{\_\_half2\xspace}
 \newcommand{\preproject}{preproject\xspace}

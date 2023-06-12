@@ -186,7 +186,7 @@
 \else
     \RequirePackage[noabbrev]{cleveref}
 \fi
-\RequirePackage[automake, acronym, nonumberlist, nogroupskip, stylemods=longextra]{glossaries-extra}
+\RequirePackage[automake, acronym, nonumberlist, nogroupskip, stylemods=longextra, toc=false]{glossaries-extra}
 
 %% CUSTOMISATION
 
@@ -327,7 +327,6 @@ literate=
 \RequirePackage[T1]{fontenc}
 \renewcommand\familydefault{\sfdefault}
 
-\RequirePackage[outputdir=build]{minted}
 \RequirePackage[outputdir=build]{minted}
 \definecolor{code_background}{rgb}{1.,1.,1.}
 

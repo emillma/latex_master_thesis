@@ -1,6 +1,6 @@
 \documentclass[british,titlepage,oneside]{ntnuthesis}
 
-\title{Stuff}
+\title{An awesome Title}
 \shorttitle{Stuff Short}
 \author{Emil Martens}
 \shortauthor{CoPCSE$@$NTNU}
@@ -9,7 +9,7 @@
 \addbibresource{thesis.bib}
 
 \input{commands.tex}
-\input{glossary.tex} % add glossary and acronym lists before document
+\input{glossary.tex} 
 % \oneside
 % 
 \emergencystretch=1em
@@ -23,24 +23,19 @@
 
 \input{chapters/__include__.tex}
 
-\newglossarystyle{mystyle}{%
-    \glossarystyle{long}%
-    \renewenvironment{theglossary}%
-    {\scriptsize \begin{longtable}{p{3cm}p{\glsdescwidth}}}%
-            {\end{longtable}}%
+\newglossarystyle{mystyle}{\glossarystyle{long}\renewenvironment{theglossary}%
+    {\footnotesize \begin{longtable}{p{3cm}p{\glsdescwidth}}}{\end{longtable}}%
 }
-\printglossary[type=\acronymtype]
+\printglossary[style=mystyle,type=\acronymtype]
 \printglossary[style=mystyle]
-% \chapter*{\bibname}
-\AtNextBibliography{\scriptsize}
+\AtNextBibliography{\footnotesize}
 \printbibliography
 
-% \appendix
 \chapter{Additional resources}
 \include{appendices/index_table.tex}
 \include{appendices/forum_posts.tex}
-\include{appendices/compilation.tex}
+% \include{appendices/compilation.tex}
 \include{appendices/curaconfig.tex}
-% \include{appendices/preproject.tex} 
+
 
 \end{document}
