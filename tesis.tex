@@ -19,20 +19,20 @@
 % \listoffigures
 % \listoftables
 % \lstlistoflistings
-% \printglossary[type=\acronymtype] % Print acronyms
-% \printglossary                    % Print glossary
 \pagebreak
 
-% \input{chapters/cameras/cameras.tex}
-% \input{chapters/gstreamer/gstreamer.tex}
-% \input{chapters/pipeline/pipeline.tex}
-% \input{chapters/debayer/debayer.tex}
-% \input{chapters/flashing_xavier.tex}
-% \input{chapters/random/random.tex}
 \input{chapters/__include__.tex}
-\chapter*{\bibname}
 
-\AtNextBibliography{\footnotesize}
+\newglossarystyle{mystyle}{%
+    \glossarystyle{long}%
+    \renewenvironment{theglossary}%
+    {\scriptsize \begin{longtable}{p{3cm}p{\glsdescwidth}}}%
+            {\end{longtable}}%
+}
+\printglossary[type=\acronymtype]
+\printglossary[style=mystyle]
+% \chapter*{\bibname}
+\AtNextBibliography{\scriptsize}
 \printbibliography
 
 % \appendix

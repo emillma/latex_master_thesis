@@ -16,7 +16,7 @@ We will cover topics such as device memory management, kernel functions, and thr
 
 \subsection{Heterogeneous Computing}
 Heterogeneous computing refers to a programming model where multiple different types of computing cores cooporate to solve groups of tasks in an efficient manner \cite{armWhatHeterogenousCompute}.
-The \jx is a good example of this; equiped with an 8-core ARM \gls{cpu} and a 512-core NVIDIA \gls{gpu}, as well as an \gls{isp}, \gls{dla} and two \glspl{nvenc} for specific media encoding and decoding tasks among other thing \cite[9, 8, 23, 15-22]{nvidiaNVIDIAJetsonAGX2019}.
+The \jx is a good example of this; equiped with an 8-core ARM \gls{cpu} and a 512-core NVIDIA \gls{gpu}, as well as several \glspl{asic} including an \gls{isp}, \gls{dla} and two \glspl{nvenc} for specific media encoding and decoding \cite[9, 8, 23, 15-22]{nvidiaNVIDIAJetsonAGX2019}.
 This combination of different types of cores working together allows for a system to efficiently handle a wide range of tasks, from general-purpose computing to specialized tasks such as video processing and compression.
 
 \begin{figure}
@@ -37,13 +37,13 @@ This is further discussed in Section \ref{sec:jx_memory}.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/PDF/concurrency_p54.pdf}
-    \caption{Visualization of concurrent execution on a GPU \cite[54]{VolkovLatencyHiding2016}}
+    \caption{Visualization of concurrent execution on a GPU \cite[54]{volkovLatencyHiding2016}}
     \label{fig:concurrency}
 \end{figure}
 
 
 \subsubsection{Latency Hiding}
-Latency hiding is a technique used by modern commodity processors such as GPUs to better utilize their numerous execution units and hide execution latencies \cite[35]{VolkovLatencyHiding2016}
+Latency hiding is a technique used by modern commodity processors such as GPUs to better utilize their numerous execution units and hide execution latencies \cite[35]{volkovLatencyHiding2016}
 The idea behind latency hiding is to keep the processor busy with other tasks while it waits for data to be fetched from memory.
 This is achieved by executing multiple threads in parallel, so that when one thread is waiting for data, another thread can continue executing.
 
@@ -58,4 +58,3 @@ However, when working with heterogeneous computing systems, it is not always
 
 nsys memory profiling does not work in Pinned Memory
 
-\subsection{Heterogeneous}

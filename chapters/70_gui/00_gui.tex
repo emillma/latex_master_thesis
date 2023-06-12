@@ -2,22 +2,25 @@
 
 \section{Introduction}
 \subsection{Continuation of previous work}
-During the \preproject a simple way of interacting with the system from a phone over \gls{ssh} through an app called JuiceSSH was tested as described in Section 6.5.2 of the \preproject.
-Using JuiceSSh to control the \sr was pursued further, and several usefull snippets were saved in the app to make it easy to execute the necessary commands to start and stop recording.
-However it was soon realized that it was not a satisfying solution as it was difficult to verify that the camera was recording what they were supposed to.
-Multiple different programs also has to be executed and monitored simultaneously, which is challenging in JuiceSSH.
+During the \preproject, a simple method of interacting with the system from a phone through the JuiceSSH app over \gls{ssh} was tested, as described in Section 6.5.2 of the \preproject.
+The exploration of using JuiceSSH to control the \sr was continued, and several useful command snippets were saved in the app to facilitate the execution of necessary commands for starting and stopping processes on the \jx through the phone.
+
+However, it became evident that this solution was not satisfactory, as it posed difficulties in verifying that the camera was recording the intended content without a visual feedback.
+Additionally, the simultaneous execution and monitoring of multiple programs proved to be challenging within the JuiceSSH environment.
 
 
 \subsection{Motivation for web based GUI}
-As the \sr is recording video, it was natural to look for a \gls{gui} framework where the video could be displayed.
-Integrating a monitor and input devices into the \sr and create a \gls{qt} application was considered but quickly dismissed as it would require a lot of work and would make the \sr less portable.
-A web based \gls{gui} seemed better as it could be accessed from an external mobile phone, as the \sr is equipped with a WiFi module and can connect to a mobile hotspot as discussed in Section 6.5
-of the \preproject.
-The \gls{dash} framework was chosen as it is based on \py and has a lot of useful components for creating web based \glspl{gui}.
+Given that the \sr records video, it was logical to explore a \gls{gui} framework that could display the video.
+Initially, integrating a monitor and input devices into the \sr and developing a Qt application was considered but ultimately rejected due to the substantial effort required and the resulting reduction in portability of the \sr.
 
-In a more general context the need for a good way to interact visually with programs and visualize data from a remote computers was identified.
-The development on the \jx has been done over \gls{ssh}, making regular visualization of data, with tools like \texttt{matplotlib}, cumbersome.
-The data gathered from the \sr is intended to be used for training and inference of \gls{ai} models during my Ph.D. and a headless workstation has been aquired for this purpose, making the \gls{gui} framework relevant for future work.
+Instead, a web-based \gls{gui} was deemed more favorable, as it could be accessed from an external mobile phone via the \sr's WiFi module, as discussed in Section 6.5 of the \preproject.
+The \gls{dash} framework, based on \py and equipped with numerous useful components for creating web-based \glspl{gui}, was selected for this purpose.
+
+Moreover, in a broader context, the need for an effective visual interaction and data visualization solution for remote computers was recognized.
+Development on the \jx has been conducted through \gls{ssh}, which has made data visualization with tools like Matplotlib cumbersome.
+The data collected from the \sr will be utilized for training and inference of AI models during my Ph.D.
+studies, and a headless workstation has been procured for this purpose, underscoring the relevance of the web based \gls{gui} framework for future work.
+
 
 \subsection{Alternatives}
 Initially the I wanted to use this as an opertunity to learn a \gls{js} framework like React, Vue or Svelte.
