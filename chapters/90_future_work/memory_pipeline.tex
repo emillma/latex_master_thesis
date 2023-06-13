@@ -11,14 +11,20 @@ After some discussion on how this could be implemented we came to the conclusion
 Another more modular approach I sugessted is to allow the user to pass in pointers to preallocated memory where the images should be stored, enabling the use of any tyupe of \gls{cpu} accessable memory.
 As of today the engenering department at \lucid has not yes implemented any of these features, but hopefully they will be implemented in the future.
 
-\subsubsection{Better integration with GStreamer}
-With \gls{pyds} is appears to be poosible to create \glspl{nvmmbuffer} using \code{NvBufSurfaceCreate} \cite{nvidiaNvBufSurfaceCreateDeepstreamDeepstream2023}\cite{babukrCreatingGstBuffersUsing2021}.
-This would make possible to
-Use \gls{pyds} in the future hopefully.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/memory_pipeline/optimal.pdf}
     \caption{Overview of an improved pipeline compared to Figure \ref{fig:pipeline_current}.}
     \label{fig:pipeline_optimal}
 \end{figure}
+
+\subsubsection{Better integration with GStreamer}
+Many limitations of \gls{pygo} seem to be addressed by the \gls{pyds} library.
+
+It serves as a wrapper for NVIDIA's \gls{ds} \gls{sdk}, which is a framework for accelerated \gls{ai} applications \cite{nvidiaDeepStreamSDK2016}.
+By leveraging \gls{pybind11}, \gls{pyds} extends the functionality of \gls{pygo} with custom bindings to \gls{gstreamer} related functions \cite{nvidiaaiiotReleasesNVIDIAAIIOTDeepstream}.
+The library offers a comprehensive tutorial on expanding its capabilities through the creation of custom functions and bindings \cite[\textit{bindings/BINDINGSGUIDE.md}]{nvidiaaiiotReleasesNVIDIAAIIOTDeepstream}.
+\gls{pyds} should enable the createtion \glspl{nvmmbuffer} in \py using \code{NvBufSurfaceCreate} \cite{nvidiaNvBufSurfaceCreateDeepstreamDeepstream2023}\cite{babukrCreatingGstBuffersUsing2021}.
+Consequently, this would eliminate two unnecessary copy operations by enabling a direct transfer from shared memory to a \gls{nvmmbuffer}, as depicted in Figure \ref{fig:pipeline_optimal}.
+
+It is worth noting that this can be considered overoptimization, as memory bandwidth is far from being the bottleneck in the current pipeline.
