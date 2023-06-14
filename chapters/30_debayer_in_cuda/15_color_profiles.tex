@@ -35,3 +35,9 @@ It is important to note that for computer vision applications, this is not neces
 Still, when chroma subsampling can be reasonable when used on debayered images, as they contain a lot of redundant information from the debayering process, as every pixel contains three color channels insted of the single one in the bayer image.
 
 
+\subsection{Analog legacy}
+A final note on color representations is that several color formats that are still still affected by analog legacy.
+For instance, the BT.601, which ais a variant of YCbCr only use values from 16 to 235 for the Y component and 16 to 240 for the Cb and Cr components \cite{YCbCr2023}.
+The remaining space is called headroom and footroom used to accomodate transient signals such as filter overshoots \cite{Rec6012023}.
+
+
