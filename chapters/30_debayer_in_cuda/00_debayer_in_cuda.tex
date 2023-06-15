@@ -1,9 +1,8 @@
 \chapter{Efficient processing of raw image bitstream in CUDA}
-
-\section{Introduction}
+\label{chap:debayer}
 When working with raw camera data, the first step is generally to debayer the raw image to get a color image.
 As the \cams are using a custom image format, a custom preprocessor was developed.
 The preprocessor takes in the raw bytes from the cameras and bytes that can be sent directly to the \gls{h265} encoder.
 To ensure high throughput and limit power consumption, the preprocessor is implemented in CUDA.
 
-This chapter 
+This chapter

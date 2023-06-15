@@ -1,13 +1,16 @@
-\section{Color representations}
-While demosaiced RGB data is commonly used and convenient for many tasks, there are often alternative color representations that are better suited for specific purposes.
-In many cases, the luminance (brightness) of each pixel is more crucial than the chrominance (color).
-For many computer vision tasks, like Licas-Kanade method, the chrominance is not used at all \cite{lucasIterativeImageRegistration1981}.
+\subsection{Digital image representations}
+As everything else that is stored on a computer, images are encoded as a sequence of bits.
+A popular representation is RGB images, where each pixeld is stored as three sequential bytes representing each color.
+This representation is very intuitive and easy to understand, but other representations might be more suitable for certain applications.
 
-\subsection{YCbCr}
-A commonly used color representation in digital images is YCbCr
+\subsection{Luminance and chrominance}
+In many use cases, the luminance (brightness) of each pixel contains more useful information than its chrominance (color), and it is therefore beneficial to separate these two components.
+This relevant for visualization, as the human eye is more sensitive to changes in luminance than chrominance  \cite{lambWhyRodsCones2016}.
+It can also apply to computer vision applications, where Lucas-Kanade is an example of an optical flow algorithem that only uses the luminance component \cite{lucasIterativeImageRegistration1981}.
+
+YCbCr
 \footnote{In the computer industry, the term YUV is widely used to refer to colorspaces that are encoded using YCbCr.}
-, which separates the luminance and chrominance components, as depicted in Figure \ref{fig:ycbcr_example}.
-In the YCbCr color space, the Y component represents the luminance or brightness of the pixel, while the Cb and Cr components represent the blue-difference and red-difference chrominance information, respectively.
+is a popular color format where the Y component represents the luminance of the pixel, while the Cb and Cr components represent the blue-difference and red-difference chrominance information respectively, as depicted in Figure \ref{fig:ycbcr_example}.
 
 \begin{figure}[H]
     \centering
@@ -16,28 +19,52 @@ In the YCbCr color space, the Y component represents the luminance or brightness
     \label{fig:ycbcr_example}
 \end{figure}
 
-\subsubsection{Chroma subsampling}
-One important property of the YCbCr color space is that it enables chroma subsampling, which is a technique used to reduce the amount of data required to represent an image while preserving visual fidelity \cite{ChromaSubsampling2023}.
-
-Chroma subsampling involves sampling the chrominance components (Cb and Cr) at a lower resolution compared to the luminance component (Y).
+\paragraph{Chroma subsampling}
+Chroma subsampling is a technique that involves sampling the chrominance components (Cb and Cr) at a lower resolution than the luminance component (Y), as depicted in Figure \ref{fig:chroma_subsampling}.
 A commonly used subsampling scheme is 4:2:0, where the chrominance components are sampled at half the resolution of the luminance component in both the horizontal and vertical directions \cite{ChromaSubsampling2023}.
+
+During the process of debayering, redundant information is generated as each pixel in the output image contains three color channels, compared to only one in the raw bayer image.
+With this redundency it is reasonable to perform chroma subsampling as the luminance component is sampled at every pixel, while a group of four pixels is required to obtain color information
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=.8\textwidth]{figures/debayer/chroma_subsampling.pdf}
+    \includegraphics[width=.6\textwidth]{figures/debayer/chroma_subsampling.pdf}
     \caption{Chroma subsampling \cite{stevo-88EnglishMostWidely2010}.}
-    \label{fig:ycbcr_example}
+    \label{fig:chroma_subsampling}
 \end{figure}
 
-As the human eye is more sensitive to changes in luminance compared to chrominance, chroma subsampling is particularly useful for maintaining visual fidelity during compression \cite{lambWhyRodsCones2016}.
-It is important to note that for computer vision applications, this is not necessarily the case.
 
-Still, when chroma subsampling can be reasonable when used on debayered images, as they contain a lot of redundant information from the debayering process, as every pixel contains three color channels insted of the single one in the bayer image.
-
-
-\subsection{Analog legacy}
-A final note on color representations is that several color formats that are still still affected by analog legacy.
-For instance, the BT.601, which ais a variant of YCbCr only use values from 16 to 235 for the Y component and 16 to 240 for the Cb and Cr components \cite{YCbCr2023}.
-The remaining space is called headroom and footroom used to accomodate transient signals such as filter overshoots \cite{Rec6012023}.
+\subsubsection{Analog legacy}
+It is important to note that certain color formats have their origins in the analog signal era.
+One notable example is the BT.601 color format, a variant of YCbCr.
+In this format, the Y component is represented by values ranging from 16 to 235, while the Cb and Cr components range from 16 to 240 \cite{YCbCr2023}.
+The additional headroom and footroom within the byte are specifically allocated to accommodate transient signals, such as filter overshoots, and prevent undesirable effects like clipping \cite{Rec6012023}.
+By reserving these values, the color representation remains within acceptable limits even when unexpected analog signal fluctuations occur.
 
 
+\subsection{Interleved vs planar vs semi-planar}
+There are three main ways to store the color channels in memory, interleved, planar and semi-planar \cite{baranYUVFormats2018}.
+In interleved formats, the color channels are stored in sequence, i.e.
+$R_1 G_1 B_1 R_2 G_2 B_2 R_3 G_3 B_3$.
+In planar formats, the color channels are stored in separate arrays, i.e.
+$R_1 R_2 R_3 B_1 B_3 B_2 G_1 G_2 G_3$.
+Semi-planar formats are a mix of the two where some channels are interleved and some are planar, i.e.
+$R_1 R_2 R_3 G_1 B_1 G_2 B_2 G_3 B_3$.
+The reson one might be preferred over the other is to optimize for memory locality.
+For instance, if you are performing per-bit operations, having the bits of the same color channel next to each other is beneficial.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/debayer/YUV_packaging.png}
+    \caption{Visualization of I420 and NV12, two popular YUV 4:2:0 formats \cite{baranYUVFormats2018}.}
+    \label{fig:image_packaging}
+\end{figure}
+
+\subsubsection{Bit depth and packaging}
+A final importnt property of image formats is the bit depth, i.e.
+how many bits are used to represent each pixel, and how the bits are stored.
+Most images use a single byte (8 bits) for each color channel, but higher bit depths offer better color fidelity and dynamic range.
+If the number of bits is not divisable by 8, like for 10-bit images, the most space efficient way to store and send them is to pack them into 8-bit bytes, i.e.
+4 10-bit values are stored in 5 bytes.
+However as most \glspl{alu} do not support 10-bit operations, padding the to the neares full byte is better for computations.
