@@ -10,11 +10,11 @@ p_perp = sp.symbols("r_perp", real=True, positive=True)
 p_para = sp.symbols("r_para", real=True, positive=True)
 
 
-n_air = sp.symbols("n_a", real=True, positive=True)
-n_water = sp.symbols("n_w", real=True, positive=True)
+n_air = sp.symbols("\\eta_a", real=True, positive=True)
+n_water = sp.symbols("\\eta_w", real=True, positive=True)
 
-a_air = sp.symbols("a_a", real=True, positive=True)
-a_water = sp.symbols("a_w", real=True, positive=True)
+a_air = sp.symbols("\\theta_i", real=True, positive=True)
+a_water = sp.symbols("\\theta_r", real=True, positive=True)
 
 
 vals = {
@@ -34,13 +34,14 @@ r_p = (n_water * sp.cos(a_air) - n_air * sp.cos(a_water)) / (
 )
 
 
-R_s = sp.simplify((r_s**2).subs(a_water, a_water_f))
-R_p = sp.simplify((r_p**2).subs(a_water, a_water_f))
+R_s = sp.simplify((r_s).subs(a_water, a_water_f))
+R_p = sp.simplify((r_p).subs(a_water, a_water_f))
 
 
-print(sp.latex(R_s))
-print(sp.latex(R_p))
-
+print(sp.latex(sp.simplify(r_s)), "\n")
+print(sp.latex(sp.simplify(r_p)), "\n")
+print(sp.latex(R_s), "\n")
+print(sp.latex(R_p), "\n")
 # dolp = r_p / r_s
 
 sp.asin(n_air / n_water)
