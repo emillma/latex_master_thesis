@@ -330,7 +330,7 @@ literate=
 \RequirePackage[outputdir=build]{minted}
 \definecolor{code_background}{rgb}{1.,1.,1.}
 
-\setminted{autogobble, style=friendly, bgcolor=code_background, numbersep=10pt, linenos=true, fontsize=\footnotesize}
+\setminted{autogobble, style=friendly, bgcolor=code_background, numbersep=10pt, linenos=true, fontsize=\small}
 % \newminted{python}{autogobble, style=friendly, bgcolor=red}
 % \newmint{python}{autogobble, style=friendly, bgcolor=red}
 % \newmintinline{python}{autogobble, style=friendly, bgcolor=code_background, numbersep=-10pt,linenos, fontsize=\large}
@@ -339,7 +339,7 @@ literate=
 \RequirePackage{fontspec}
 \setmonofont{Fira Code Medium}[
     Contextuals=Alternate,
-    % Scale=.85  % Activate the calt feature
+    Scale=.85  % Activate the calt feature
 ]
 \RequirePackage{url}
 \RequirePackage{xspace}

@@ -1,6 +1,6 @@
 \section{3D printing}
 
-\subsection{Motivation for buying a 3D printer}
+\subsection{Motivation 3D printer aquistion}
 The Department of Engineering Cybernetics is renting office space at Nyhavna to accomodate the growing number of employees.
 Due to this relocation, I have to travel to Gløshaugen, which is a 40 minute walk away, if I want to use the workshops there.
 During the preproject most of the parts were with the laser cutter at \gls{ov}, as is could be done in a single session.
@@ -21,10 +21,14 @@ The main requirements for the printer were:
     \item \textbf{Multi filament printing:} The printer should ideally be able to print with multiple filaments simultaniously.
 \end{enumerate}
 
-After some research, the Snapmaker J1 was selected as it satisfied all the requirements.
+After some research contenders were the Bambu Lab X1 and the the Snapmaker J1, but as the X1 was not available for purchase at the time, the Snapmaker J1 was selected.
 The J1 is an IDEX printer, which means that it has two independent extruders that can print simultaniously or be used to print with two different materials without having to change the filament between each layer.
-The main contenders was the Bambu Lab X1, but as it was not available for purchase at the time, it was not considered further.
 
+\subsection{Choice of materials}
+PETG was chosen as the primary printing material due to its ease of use, along with its durability and resistance to high temperatures, UV light, and water \cite{oconnellPETGVsPLA2023}.
+For the supports, PLA was selected as the material of choice.
+Printing supports in a different material offers advantages such as easier removal and smoother surfaces at the intersection points, as the bonding between different plastics is weaker.
+Although special breakaway filament was considered, PLA was ultimately chosen due to its cost-effectiveness, widespread availability, and successful use by others in similar applications \cite{SupportFilamentPETG2023}.
 
 \subsection{Printing workflow}
 Figure \ref{fig:3dp_workflow} shows the full workflow for 3D printing parts.
@@ -46,13 +50,22 @@ Using \gls{luban}, directly to slice the model was possible, but it lacked some 
 \end{figure}
 
 \subsection{Calibrating the printer}
-A significant amount of time was spent calibrating the printer and tuning the slicer to get the best possible print quality.
-The calibration process consisted of repeatedly creating small test prints, find points of improvements such as stringing or uneven surfaces, and then adjusting the consulting various online resources to find solutions.
-As I was fairly new to 3D printing, the tutorials available on All3DP proved particularly useful in getting an understanding of how various issues could be solved \cite{all3dpBasicsArchives}.
-The \textit{AutoTowers Generator} extension in Cura also played a significant role in tuning of various parameters as a a linear space of values could be tested when tuning parameters like temperature, flowrate and fanspeed. \cite{kartchnerAutoTowersGeneratorUltimaker2022}
-The full set of parameters that were altered during the calibration process is listed in Section \ref{sec:cura_configurations} in the appendix.
 
-Two particular issues were encountered during the calibration process that are worth mentioning.
+A significant amount of time was dedicated to calibrating the printer and fine-tuning the slicer settings to achieve the best possible print quality.
+The calibration process involved creating multiple small test prints, identifying areas for improvement such as stringing or uneven surfaces, and seeking solutions from various online resources.
+As a newcomer to 3D printing, I found the tutorials available on All3DP to be particularly valuable in understanding how to address various issues \cite{all3dpBasicsArchives}.
+In addition, the \textit{AutoTowers Generator} extension in Cura played a significant role in tuning the parameters such as temperature, flow rate, and fan speed, as it allowed for testing a linear range of values in a single print as showin in Figure \ref{fig:auto_towers} \cite{kartchnerAutoTowersGeneratorUltimaker2022}.
+The complete set of parameters that were adjusted during the calibration process can be found in Section \ref{sec:cura_configurations} in the appendix.
+
+During the calibration process, two specific issues were encountered that are worth highlighting.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/3d_print/auto_towers.jpg}
+    \caption{Some auto towers generated during the calibration process.
+        The left sample shows how the speed affects the surface quality, while the others shows early attempts at tuning fan speed, and temperature.}
+    \label{fig:auto_towers}
+\end{figure}
 
 
 \subsubsection{M109 - Wait for Hotend Temperature}

@@ -8,17 +8,17 @@ Different orderings of the colors in the \gls{cfa} exists, with the most common 
     \centering
     \begin{tabular}[b]{ccc}
         \subcaptionbox{RGGB bayer pattern. \label{fig:bayer_pattern}}{\includegraphics[width=0.25\textwidth]{figures/debayer/bayer_pattern.pdf}
-        }                                                                                                              &
-        \subcaptionbox{Green at red}{\includegraphics[width=0.25\linewidth]{figures/debayer/g_at_r.png}}               &
-        \subcaptionbox{Green at red}{\includegraphics[width=0.25\textwidth]{figures/debayer/g_at_b.png}}                 \\
-        \subcaptionbox{Red at }{\includegraphics[width=0.25\textwidth]{figures/debayer/r_at_g_rr.png}}                 &
-        \subcaptionbox{Red at green, blue row}{\includegraphics[width=0.25\textwidth]{figures/debayer/r_at_g_br.png}}  &
-        \subcaptionbox{Red at blue}{\includegraphics[width=0.25\textwidth]{figures/debayer/r_at_b.png}}                  \\
-        \subcaptionbox{Blue at green, red row}{\includegraphics[width=0.25\textwidth]{figures/debayer/b_at_g_rr.png}}  &
-        \subcaptionbox{Blue at green, blue row}{\includegraphics[width=0.25\textwidth]{figures/debayer/b_at_g_br.png}} &
-        \subcaptionbox{Blue at red}{\includegraphics[width=0.25\textwidth]{figures/debayer/b_at_r.png}}
+        }                                                                                                                                  &
+        \subcaptionbox{Green at red \label{fig:mhc_gr}}{\includegraphics[width=0.25\linewidth]{figures/debayer/g_at_r.png}}                &
+        \subcaptionbox{Green at blue \label{fig:mhc_gb}}{\includegraphics[width=0.25\textwidth]{figures/debayer/g_at_b.png}}                 \\
+        \subcaptionbox{Red at green, red row \label{fig:mhc_rgr}}{\includegraphics[width=0.25\textwidth]{figures/debayer/r_at_g_rr.png}}   &
+        \subcaptionbox{Red at green, blue row \label{fig:mhc_rgb}}{\includegraphics[width=0.25\textwidth]{figures/debayer/r_at_g_br.png}}  &
+        \subcaptionbox{Red at blue \label{fig:mhc_rb}}{\includegraphics[width=0.25\textwidth]{figures/debayer/r_at_b.png}}                   \\
+        \subcaptionbox{Blue at green, red row \label{fig:mhc_bgr}}{\includegraphics[width=0.25\textwidth]{figures/debayer/b_at_g_rr.png}}  &
+        \subcaptionbox{Blue at green, blue row \label{fig:mhc_bgb}}{\includegraphics[width=0.25\textwidth]{figures/debayer/b_at_g_br.png}} &
+        \subcaptionbox{Blue at red \label{fig:mhc_br}}{\includegraphics[width=0.25\textwidth]{figures/debayer/b_at_r.png}}
     \end{tabular}
-    \caption{Bayer pattern and coefficient values used by Malvar-He-Cutler scaled by 8 \cite{getreuerMalvarHeCutlerLinearImage2011}\cite{CommonsBayerPattern2020}}
+    \caption{Bayer pattern and coefficient values used by Malvar-He-Cutler scaled by 8 \cite[Figure 3]{getreuerMalvarHeCutlerLinearImage2011}. The last row in the source is incorrect, and has been corrected here.}
     \label{fig:debayer:malvar_filters}
 \end{figure}
 

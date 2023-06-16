@@ -1,6 +1,1 @@
-\section{PPS interrupts in Linux}
-\gls{pps} is a high-precision signal that repeats every second provided by a device, typically a \gls{gnss} receiver, that is used to adjust the system clock time with high accuracy \cite{giomettiLinuxPPSWikiLinuxPPS2007}.
-The \gls{pps} signal is often used in combination with \gls{ntpd} to synchronize the system clock with to \gls{utc} with sub millisecond accuracy \cite{giomettiLinuxPPSWikiLinuxPPS2007}.
-As \gls{pps} interrupts are hardware based it appears necessary to configure the Linux Kernel as it is responsible for handling interrupts \cite{giomettiLinuxPPSWikiLinuxPPS2007}.
-The kernel is the core software component of an operating system that manages system resources and provides a bridge between software applications and hardware devices as visuzlized in Figure \ref{fig:kernel_visualization} \cite{thekerneldevelopmentcommunityInterruptsLinuxKernel}.
-On the \sr a \gls{pps} signal from one of the \glsps{f9p} is used to sunchronize the clock on the \jx to \gls{utc}, which again is used to synchronize of the cameras using \gls{ptp} \cite{martensPortableSensorRig2022}.
+9+9+11+11+9+11+11+9+9+4+4
