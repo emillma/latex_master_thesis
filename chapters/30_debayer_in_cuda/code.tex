@@ -30,37 +30,48 @@
     \caption{Code printer to perform multiply and add operations on \halftwo}
 \end{listing}
 
+% tmp = __hfma2(__float2half2_rn(1.801812744e-4f), data[3][col + 1], tmp);
+% tmp = __hfma2(__float2half2_rn(9.701843262e-6f), data[2][col + 3], tmp);
+% tmp = __hfma2(__float2half2_rn(9.701843262e-6f), data[5][col], tmp);
+% tmp = __hfma2(__float2half2_rn(1.483016968e-5f), data[3][col + 3], tmp);
+% tmp = __hfma2(__float2half2_rn(1.483016968e-5f), data[5][col + 1], tmp);
+% tmp = __hfma2(__float2half2_rn(2.661132812e-5f), data[1][col - 1], tmp);
+% tmp = __hfma2(__float2half2_rn(-4.560012817e-5f), data[3][col + 2], tmp);
+% tmp = __hfma2(__float2half2_rn(-4.560012817e-5f), data[4][col + 1], tmp);
+% tmp = __hfma2(__float2half2_rn(-2.799591064e-5f), data[2][col + 2], tmp);
+% tmp = __hfma2(__float2half2_rn(-2.799591064e-5f), data[4][col], tmp);
+% tmp = __hfma2(__float2half2_rn(-1.025665283e-5f), data[1][col + 2], tmp);
+% tmp = __hfma2(__float2half2_rn(-1.025665283e-5f), data[4][col - 1], tmp);
+% tmp = __hfma2(__float2half2_rn(-8.205322266e-5f), data[2][col + 1], tmp);
+% tmp = __hfma2(__float2half2_rn(-8.205322266e-5f), data[3][col], tmp);
+% tmp = __hfma2(__float2half2_rn(-6.098022461e-6f), data[4][col + 2], tmp);
+% tmp = __hfma2(__float2half2_rn(-9.701843262e-6f), data[0][col], tmp);
+% tmp = __hfma2(__float2half2_rn(-9.701843262e-6f), data[2][col - 2], tmp);
+% tmp = __hfma2(__float2half2_rn(-1.483016968e-5f), data[0][col + 1], tmp);
+% tmp = __hfma2(__float2half2_rn(-1.483016968e-5f), data[3][col - 2], tmp);
+% [firstnumber=5]
+%         % tmp = __hfma2(__float2half2_rn(-1.607482910e-5f), data[2][col], tmp);
+%         % tmp = __hfma2(__float2half2_rn(-2.106811523e-5f), data[1][col], tmp);
+%         % tmp = __hfma2_sat(__float2half2_rn(-2.106811523e-5f), data[2][col - 1], tmp);
+%         % return __hfma2(__float2half2_rn(1023.0f), tmp, __float2half2_rn(0.0f));
 \begin{listing}[H]
     \begin{minted}{cuda}
         __device__ __forceinline__ __half2 handle_u(__half2 **data, int col) {
             __half2 tmp = __float2half2_rn(5.000000000e-1f);
             tmp = __hfma2(__float2half2_rn(9.466415405e-5f), data[1][col + 1], tmp);
             tmp = __hfma2(__float2half2_rn(9.466415405e-5f), data[3][col - 1], tmp);
-            tmp = __hfma2(__float2half2_rn(1.801812744e-4f), data[3][col + 1], tmp);
-            tmp = __hfma2(__float2half2_rn(9.701843262e-6f), data[2][col + 3], tmp);
-            tmp = __hfma2(__float2half2_rn(9.701843262e-6f), data[5][col], tmp);
-            tmp = __hfma2(__float2half2_rn(1.483016968e-5f), data[3][col + 3], tmp);
-            tmp = __hfma2(__float2half2_rn(1.483016968e-5f), data[5][col + 1], tmp);
-            tmp = __hfma2(__float2half2_rn(2.661132812e-5f), data[1][col - 1], tmp);
-            tmp = __hfma2(__float2half2_rn(-4.560012817e-5f), data[3][col + 2], tmp);
-            tmp = __hfma2(__float2half2_rn(-4.560012817e-5f), data[4][col + 1], tmp);
-            tmp = __hfma2(__float2half2_rn(-2.799591064e-5f), data[2][col + 2], tmp);
-            tmp = __hfma2(__float2half2_rn(-2.799591064e-5f), data[4][col], tmp);
-            tmp = __hfma2(__float2half2_rn(-1.025665283e-5f), data[1][col + 2], tmp);
-            tmp = __hfma2(__float2half2_rn(-1.025665283e-5f), data[4][col - 1], tmp);
-            tmp = __hfma2(__float2half2_rn(-8.205322266e-5f), data[2][col + 1], tmp);
-            tmp = __hfma2(__float2half2_rn(-8.205322266e-5f), data[3][col], tmp);
-            tmp = __hfma2(__float2half2_rn(-6.098022461e-6f), data[4][col + 2], tmp);
-            tmp = __hfma2(__float2half2_rn(-9.701843262e-6f), data[0][col], tmp);
-            tmp = __hfma2(__float2half2_rn(-9.701843262e-6f), data[2][col - 2], tmp);
-            tmp = __hfma2(__float2half2_rn(-1.483016968e-5f), data[0][col + 1], tmp);
-            tmp = __hfma2(__float2half2_rn(-1.483016968e-5f), data[3][col - 2], tmp);
-            tmp = __hfma2(__float2half2_rn(-1.607482910e-5f), data[2][col], tmp);
-            tmp = __hfma2(__float2half2_rn(-2.106811523e-5f), data[1][col], tmp);
-            tmp = __hfma2_sat(__float2half2_rn(-2.106811523e-5f), data[2][col - 1], tmp);
-            return __hfma2(__float2half2_rn(1023.0f), tmp, __float2half2_rn(0.0f));
-        }
-      \end{minted}
+        \end{minted}
+    \vspace{-26pt}
+    \begin{minted}[linenos=false, autogobble=false]{cuda}
+    ...
+    \end{minted}
+    \vspace{-26pt}
+    \begin{minted}[firstnumber=24]{cuda}
+        tmp = __hfma2(__float2half2_rn(-1.122532265e-5f), data[0][col], tmp);
+        tmp = __hfma2_sat(__float2half2_rn(-1.122532265e-5f), data[2][col - 2], tmp);
+        return __hfma2(__float2half2_rn(1023.0f), tmp, __float2half2_rn(0.0f));
+    }
+    \end{minted}
     \caption{Generated function}
 \end{listing}
 
