@@ -19,9 +19,19 @@
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{Mean image.}{\includegraphics[width=\textwidth]{figures/pictures/result_rgb.jpg}}
+    \subcaptionbox{Mean image.\label{fig:normal_img}}{\includegraphics[width=\textwidth]{figures/pictures/result_rgb.jpg}}
     \subcaptionbox{HSV visualization of polarization data where the degree of polarization is encoded as value and degree of polarization is encoded as hue.}{\includegraphics[width=\textwidth]{figures/pictures/result_pol.jpg}}
     \caption{blablabla}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/pictures/gained_right_96.jpeg}
+    \caption{Image showing how dark areas contain a lot of information thanks to 10-bit depth.
+        The image is the same as in Figure \ref{fig:normal_img}, but with brightness increased.}
+    \label{fig:gained_image}
 \end{figure}
 \section{Debayering}
 The custom
