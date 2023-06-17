@@ -2,29 +2,35 @@
 
 \subsection{Graph visualization}
 A usefull way debug \gs applications is to generate visualizations of the pipeline.
-To acheive this the environe ment variable \code{GST_DEBUG_DUMP_DOT_DIR} must be defined and the \code{GST_DEBUG_BIN_TO_DOT_FILE} macro needs to be executed on the final graph if it is part of a custom GStreamer application, whic is the case on the \sr.
-\cite{johnstonGeneratingGStreamerPipeline2018}
-This will generate temprorary information \textit{.dot} files that can later be converted to visualized graphs using \gls{gviz}.
-Figure \ref{fig:gs_pipeline_visualization} shows the final graph that is used on the \sr.
-It has been modified in Adobe Illustrator to be more compact, but is still to large to b
+This can be achieved by defining the environment variable \code{GST_DEBUG_DUMP_DOT_DIR} and executing the \code{GST_DEBUG_BIN_TO_DOT_FILE} macro on the final graph from the GStreamer application
+\cite{johnstonGeneratingGStreamerPipeline2018}.
+This will generate temprorary information information about the graph in \textit{.dot} files that can later be visualized using \gls{gviz}.
+It's important to note that these graphs are not designed for print but rather for digital use, hence they tend to be very wide.
 
+In Figure \ref{fig:gs_pipeline_visualization}, the visualized GStreamer graph used on the \sr is depicted.
+The two red boxes on the left side represent the data received from the two cameras.
+On the right side, there are six purple boxes corresponding to the three outputs for each camera.
+These outputs include the \gls{h265} stream that is written to disk, the \gls{jpeg} photos (at a reduced framerate) that are sent to the \gls{gui}, and finally the raw frames used to verify the compression performance.
+During normal operation, the raw outputs are disabled.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/gstreamer/pipeline.pdf}
+    \includegraphics[width=\textwidth]{figures/gstreamer/gstreamer_pipeline.pdf}
     \caption{Visualization of the \gs Pipeline used on the \sr.
-        The graph was crated using GraphViz and edited in Adobe Illustrator to be more compbact and readable.
+        The graph was crated using GraphViz and edited in Adobe Illustrator to be more compact.
         The bottom part shows a zoomed in version of the \gls{h265} encoder used on the second camera.}
     \label{fig:gs_pipeline_visualization}
 \end{figure}
 
-\subsection{Enabling Debugging of Threads}
-The \gls{pygo} appear to runs callbacks in separate Threads.
-It was discovered that breakpoints in these threads are ignored by the Debugpy, the default debugger in \gls{vscode} \cite{microsoftDebugpyDebuggerPython2023}\cite{visualstudiocodeDebuggingConfigurationsPython2023}.
-Debugging can be enabled manually by calling \code{debugpy.debug_this_thread} at the beginning of the callback function \cite{nadigAnswerDebugNot2019}.
+\subsection{Enabling Breakpoints in Callbacks}
+It has been observed that the \gls{pygo} executes callbacks in separate threads.
+However, it has been discovered that the default debugger in \gls{vscode}, Debugpy, ignores breakpoints in these threads \cite{microsoftDebugpyDebuggerPython2023}\cite{visualstudiocodeDebuggingConfigurationsPython2023}.
+To enable debugging in these threads, it is necessary to manually call \code{debugpy.debug_this_thread} at the beginning of the callback function \cite{nadigAnswerDebugNot2019}.
+With debugging enabled it is possible to halt the execution and inspect the current state of the graph.
+This is especially usefull in combination with \gls{gstreamer} probes that can be attached to any pad in the graph, making it possible to inspect the data flowing through the pipeline \cite{gstreamerProbes}.
 
 
-\subsection{Output Inspection}
+\subsection{Inspection and Comparison of the Final Output}
 Examining the output is another effective way to verify the proper functioning of the pipeline and detect potential issues related to different image formats.
 
 One specific issue that was resolved through this type of debugging was the detection of a mismatch between the color profile used in the H.265 encoder and the one used in the color space conversion in \gls{cuda}.

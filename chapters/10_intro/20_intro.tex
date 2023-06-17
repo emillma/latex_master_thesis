@@ -1,0 +1,74 @@
+\chapter{Introduction}
+
+\section{Motivation}
+
+The motivation behind this project stems from my pursuit of an integrated Ph.D.
+program, where I will focus on investigating the potential enhancements in detection capabilities for Autonomous Surface Vessels (ASVs) through the integration of data from various sensors, such as lidars and specialized cameras.
+This research will heavily involve machine learning techniques, necessitating a significant amount of training data.
+Since I will be exploring new sensor combinations, existing datasets alone cannot fulfill the requirements.
+Hence, there is a need for a framework that enables the collection of new data, with a preference for a low threshold approach.
+Therefore, the development of this sensor rig becomes imperative.
+
+
+\section{TODO}
+Explain how this project is a bit all over the place but show how it ties together with a full page figure.
+
+\section{Challenges}
+The main challenge in this project has been to design a system that can effectively manage the large amount of raw data produced by the two cameras.
+Each camera features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second \cite{lucidvisionlabsTriton0MPPolarization}.
+To put this into perspective, a single frame contains more data than what is needed to store the entire collection of William Shakespeare's works in plain text \cite{projectgutenbergCompleteWorksWilliam1994}.
+
+If the output from these cameras were stored directly to disk, almost a Terabyte of data would be generated every hour, making it infeasible to collect long term data sets.
+
+
+\section{Outline}
+\todo
+
+
+\paragraph{Chapter \ref{chap:programming_theory}: Real time programming on Jetson Xavier}
+This chapter provides an overview of the theoretical background necessary to achieve real-time performance on the \jx platform.
+It covers topics such as real-time programming theory, performance considerations for heterogeneous systems, and a brief introduction to the CUDA programming model.
+
+\paragraph{Chapter \ref{chap:cameras}: Polarization Cameras}
+This chapter explains how interaction with the camera is acheived, how they are configured and how various the network adapters have been configured to acheive $2Gb/s$ throughput from the \cams.
+
+\paragraph{Chapter \ref{chap:debayer}: Efficient processing of raw image bitstream in CUDA}
+To make it possible to compress the video streams, the raw data has to be transformed into a format that can be processed by the \gls{h265} encoder.
+This chapter explains how this is acheived in real time using CUDA.
+
+\paragraph{Chapter \ref{chap:gstreamer}: Video Compression using GStreamer}
+\gls{gstreamer} is a powerful framework for processing video streams.
+This chapter explains how it is used to compress the video streams in real time using hardware accelration on the \jx.
+
+\paragraph{Chapter \ref{chap:pipeline}: Pipeline Assembly in Python}
+\todo
+
+
+\paragraph{Chapter \ref{chap:gui}: Web Interface to Control, Monitor and Stream Video}
+A web application was developed to enabling real time control and monitoring of the \sr and its video streams.
+This allows anyone with a smartphone to operate the \sr without any prior training or technical knowledge.
+
+
+\paragraph{Chapter \ref{chap:flashing_xavier}: Compiling Jetson Linux with PPS}
+In order to get the necessary functionality out of the \jx, it was necessary to update the operating system to a newer version.
+As a \gls{pps} signal is used to synchronize the clock on the \jx to \gls{utc}, it was necessary to compile the kernel with support for this, which turned out to be a non-trivial task.
+
+\paragraph{Chapter \ref{chap:hardware}: Improving the Hardware}
+After the \preproject most of the hardware was already in place, but some parts were missing.
+I applied for funding to purchase a new 3D printer, which was then used to manufacture a custom ergonomic carry handles and new combined camera and antenna mounts for the \sr.
+
+\paragraph{Chapter \ref{chap:results}: Results}
+
+
+\paragraph{Chapter \ref{chap:future_work}: Ongoing developments and future work}
+
+
+
+\section{Contributions}
+Automated pipeline for compiling and flashing Jetson products.
+High performance custom debayer algorithm for Polarization RGS cameras written in CUDA.
+Development and manufacturing of ergonomic carry handles.
+Software pipeling for real time image debayering and compression built on GStreamer.
+Framework for creating real time graphical web interfaces.
+
+\section{Proof of }

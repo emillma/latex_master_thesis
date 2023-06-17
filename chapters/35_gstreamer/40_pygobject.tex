@@ -3,10 +3,10 @@
 
 \subsection{Type hints from typing stubs}
 \gls{pygo} is a wrapper library \gs \gls{api} that lacks type hints by default.
-This makes the development process slow as external documentation has to be consulted for every minor detail, like the order of arguments in a function call.
+This makes the development process slow as external documentation has to be consulted for every minor detail, like the name of a funcion or the order of its arguments.
 On top of this, the syntax of the \gls{pygo} library is different from the syntax of the \gs \gls{api}.
-The \gls{api} is written in C and uses a function oriented approach where pointers to objects are passed to functions, while \gls{pygo} is written in \py and is object oriented and use methods.
-A illustrative example is how memory is appended to a buffer in the \gs \gls{api} and in \gls{pygo}, as shown in Listing \ref{lst:gst_memory_append_difference}.
+The \gls{api} is written in C and uses a function oriented approach where pointers to objects are passed to functions, while \gls{pygo} is written in \py and is object oriented.
+A illustrative example of this is how memory is appended to a buffer in the \gs \gls{api} and in \gls{pygo}, as shown in Listing \ref{lst:gst_memory_append_difference}.
 \begin{listing}[H]
     \begin{minted}[linenos=false]{text}
         (C:)         gst_buffer_append_memory(buffer_ptr, memory_ptr)

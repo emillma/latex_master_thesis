@@ -62,10 +62,9 @@ The poetntial downside of increasing the number of \glspl{skb} is that it increa
 As the current use case for the sensor platform is to record data, this is not a problem, but it should be kept in mind for future work if the sensor platform is used for real-time applications.
 
 As we are receiving large amounts of data as jumbo frames it is also recommended to increase the default and the maximal socket buffer size.
-The default values for the default and maximal receive buffer saize were \todo and \todo, which was found using the \mintinline{bash}{sysctl -a | grep rmem_default} and \mintinline{bash}{sysctl -a | grep rmem_max} commands on a newly booted \jx \cite{sainiUnableReadNet2021}.
 
 \lucid suggests setting both default and max buffer size to $1MiB$ while IBM suggest setting them up to $16MB$ for best performance \cite{lucidvisionlabsReceiveBuffers2020}\cite{ibmIBMDocumentationTCPIP2021}.
-As it is quite cumbersome to perform low level network latency analysis, and memory depletion never seemed to be an issue with the $16GB$ of \gls{ram} available on the \jx, both default and max buffer size was set to $16MiB$.
+As memory depletion never seemed to be an issue with the $16GB$ of \gls{ram} available on the \jx, both default and max buffer size was set to $16MiB$.
 To make this change permanent the following command is used \cite{redhat10ChangingNetwork}.
 \begin{minted}{bash}
     $ sudo sh -c "echo 'net.core.rmem_default=16777216' >> /etc/sysctl.conf"

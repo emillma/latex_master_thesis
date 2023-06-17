@@ -1,4 +1,4 @@
-\chapter{Web Interface for Control, Monitoring and Video Streaming}
+\chapter{Graphical Web Interface}
 \label{chap:gui}
 \section{Introduction}
 \subsection{Continuation of previous work}
@@ -29,7 +29,7 @@ I decided to go for \gls{dash} insetead, a \py framework for building web applic
 As it is based on \py, the learning curve would be less steep.
 
 \subsection{Downsides}
-The main downside of using \gls{dash} is that it is not designed for real time applications and lacks native support for \glsps{websocket}.
+The main downside of using \gls{dash} is that it is not designed for real time applications and lacks native support for \glsps{ws}.
 On their website they only propose using an interval component to poll the server for updates at regular intervals  \cite{plotlyLiveUpdatesDasha}.
 This works, but if data should be sent from the server as soon as it becomes available, like when you are recording video, it is not the best solution.
 

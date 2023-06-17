@@ -34,6 +34,9 @@ A key challenge of working with heterogeneous computing systems is to manage the
 A major advantage of working on the \jx is the posibility to share memory between the different types of cores, removing the need for expensive data transfers between the different types of memory.
 This is further discussed in Section \ref{sec:jx_memory}.
 
+
+accesses is that the memory transactions are performed with  \cite[13]{volkovLatencyHiding2016}.
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/PDF/concurrency_p54.pdf}
@@ -57,4 +60,10 @@ In many cases it is straight forward; record the time when a task is started and
 However, when working with heterogeneous computing systems, it is not always
 
 nsys memory profiling does not work in Pinned Memory
+
+\subsection{Nsight Compute}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/memory_comparaison.png}
+\end{figure}
 

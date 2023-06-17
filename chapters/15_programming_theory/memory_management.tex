@@ -13,7 +13,7 @@ A summary of the different memory types is presented in Table \ref{tab:memory_ty
 
 \providecommand{\tmpfootnote}{\footnote{Cached where compute capability is greater than or equal to 7.2 \cite
         {nvidiaCUDAFTegra2023}. The \jx has compute capability of 7.2 \cite{CUDA2023} }}
-\begin{table}
+\begin{table}[H]
     \centering
     \begin{tabular}{ |c|c|c| }
         \hline
@@ -55,6 +55,3 @@ Unified memory is acessable and cached on both the \gls{igpu} and the \cpu, maki
 The downside of unified memory, compared to pinned memory is that the overhead from cache maintenance operations \cite[12]{nvidiaCUDAFTegra2023}.
 The performance can be improved by manually prefetching data, at the cost of making the code more complex \cite[13]{nvidiaCUDAFTegra2023}.
 Unified memory was tested on the \sr, but the performance was worse, compared to pinned memory and using pinned memory resulted in fewer lines and more readable code.
-
-
-\subsubsection{NVMM memory}
