@@ -21,7 +21,7 @@ As of today the engenering department at \lucid has not yes implemented any of t
 \subsection{Better integration with GStreamer}
 Many limitations of \gls{pygo} seem to be addressed by the \gls{pyds} library.
 
-It serves as a wrapper for NVIDIA's \gls{ds} \gls{sdk}, which is a framework for accelerated \gls{ai} applications \cite{nvidiaDeepStreamSDK2016}.
+It serves as a wrapper for NVIDIA's \gls{deepstream} \gls{sdk}, which is a framework for accelerated \gls{ai} applications \cite{nvidiaDeepStreamSDK2016}.
 By leveraging \gls{pybind11}, \gls{pyds} extends the functionality of \gls{pygo} with custom bindings to \gls{gstreamer} related functions \cite{nvidiaaiiotReleasesNVIDIAAIIOTDeepstream}.
 The library offers a comprehensive tutorial on expanding its capabilities through the creation of custom functions and bindings \cite[\textit{bindings/BINDINGSGUIDE.md}]{nvidiaaiiotReleasesNVIDIAAIIOTDeepstream}.
 \gls{pyds} should enable the createtion \glspl{nvmmbuffer} in \py using \code{NvBufSurfaceCreate} \cite{nvidiaNvBufSurfaceCreateDeepstreamDeepstream2023}\cite{babukrCreatingGstBuffersUsing2021}.
