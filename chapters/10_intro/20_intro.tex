@@ -1,29 +1,12 @@
 \chapter{Introduction}
 
+\section{Motivation}
 Current datasets are often generated through extensive experiments utilizing full-scale systems such as MilliAmpere. While these experiments are essential for specific research purposes, the cost-benefit ratio may not be proportional when the primary goal is to collect sensor data.
 
 Identifying the lack of a low-threshold approach to data collection, I initiated the development of a human-operable \sr during my preproject. The objective was to create a lightweight \sr that addressed common challenges like synchronization and pose estimation, enabling a more accessible approach to high-quality data acquisition.
 
 Most of the hardware and electronics work was completed durin my \preproject, but a lot of work remained on the software side.
 
-\begin{figure}[H]
-    \includegraphics[width=\textwidth]{figures/frontpage.jpg}
-    \caption{The Sensor Rig}
-\end{figure}
-
-
-
-
-program, where I will focus on investigating the potential enhancements in detection capabilities for Autonomous Surface Vessels (ASVs) through the integration of data from various sensors, such as lidars and specialized cameras.
-This research will heavily involve machine learning techniques, necessitating a significant amount of training data.
-Since I will be exploring new sensor combinations, existing datasets alone cannot fulfill the requirements.
-Hence, there is a need for a framework that enables the collection of new data, with a preference for a low threshold approach.
-Therefore, the development of this sensor rig becomes imperative.
-
-Explain how this project is a bit all over the place but show how it ties together with a full page figure.
-
-
-\section{Motivation}
 A significant amout of work was put into enabling on-the-fly compression of the videostreams from the \sr.
 That is the ability to compress the video data as it is being recorded, and storing the compressed data on disk.
 
@@ -37,7 +20,6 @@ At this rate it infeasable to record long datasets as almost a terrabyte of data
 It is reasonable to say that a much easer option is to buy \gls{ssd} with a capacity up to 8TB \cite{CorsairMP600PRO}, enabling roughly 9 hours of recording.
 One reason this
 \cite{microntechnologyMicron2300SSD2020}
-
 
 \subsection{Limited write speed}
 One issue when storing the raw data at first was that the \jx was not able to write to the disk fast to the installed \gls{ssd}.
@@ -55,6 +37,22 @@ Having a
 \subsection{Integration with other systems}
 The main intended purpose of the \sr is to be carried around by a human operator and
 
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{figures/frontpage.jpg}
+    \caption{The Sensor Rig}
+\end{figure}
+
+
+
+\section{Previous Work}
+This \masters builds on the work done in my \preproject \cite{martensPortableSensorRig2022}.
+During the preproject
+
+
+\section{Main Contributions}
+The main contribution of this \master is the delivery of a working \sr capable of recording high quality stereo polarization datasets.
+This has been acheived by implementing a custom CUDA kernel to process the raw data from the cameras
 
 
 \section{Challenges}

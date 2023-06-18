@@ -54,7 +54,7 @@ In a parallel program, tasks can be divided into smaller sub-tasks that can be e
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/concurrency/paralell.pdf}
+    \includegraphics[width=.33\textwidth]{figures/concurrency/paralell.pdf}
     \caption{Parallel programming}
     \label{fig:concurrency_parallel}
 \end{figure}
@@ -82,23 +82,10 @@ It is particularly important in areas such as scientific computing, data analysi
 \end{itemize}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/concurrency/concurrent_overlap.pdf}
-    \caption{Parallel programming}
+    \subcaptionbox{Each coroutine performs each tasks once.}{\includegraphics[width=.48\textwidth]{figures/concurrency/concurrent_overlap.pdf}}
+    \subcaptionbox{Each coroutine is responsible for one task.}{\includegraphics[width=.48\textwidth]{figures/concurrency/thread_per_task.pdf}}
+    \subcaptionbox{A combination of the two.}{\includegraphics[width=.6\textwidth]{figures/concurrency/distribute.pdf}}
+    \caption{Different implementations to solve the same concurrent problem.}
     \label{fig:concurrency_concurrent_overlap}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/concurrency/thread_per_task.pdf}
-    \caption{Parallel programming}
-    \label{fig:concurrency_thread_per_task}
-\end{figure}
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/concurrency/distribute.pdf}
-    \caption{Parallel programming}
-    \label{fig:concurrency_distribute}
 \end{figure}
 

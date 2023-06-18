@@ -1,6 +1,7 @@
 \section{Network configuration}
-The \jx has a built in etherned adapter and the one osed on the \sr has been equipped with an extra WiFi adapter, as well as a network card consisting of four independant ethernet adapters \cite{martensPortableSensorRig2022}.
+The \jx has a built in ethernet adapter and has been equipped with an extra WiFi adapter, as well as a network card consisting of four independant ethernet adapters \cite{martensPortableSensorRig2022}.
 The following section describes the different network configurations necessary to connect and communicate with the cameras.
+As each camera produces close to $1Gb$ of data per second, several network configurations have to be done in order for the \jx to handle all the incoming traffic.
 First two essential concepts are explained, then a IP configuration setup used to automatically detect the cammeras and assign IP adresses is presented.
 
 
@@ -35,8 +36,7 @@ The main idea is that as persistant IP is not enabled and there is no DHCP clien
 
 
 
-\subsection{Network Performance}
-As each camera produces close to $1Gb$ of data per second, several network configurations have to be done in order for the \jx to handle all the incoming traffic.
+
 
 \subsubsection{Jumbo Frames}
 An Ethernet frame is a unit of packetized formatted information that includes the Ethernet header, payload, and CRC trailer.
