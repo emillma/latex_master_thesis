@@ -21,7 +21,7 @@ It is reasonable to say that a much easer option is to buy \gls{ssd} with a capa
 One reason this
 \cite{microntechnologyMicron2300SSD2020}
 
-\subsection{Limited write speed}
+\paragraph{Limited write speed}
 One issue when storing the raw data at first was that the \jx was not able to write to the disk fast to the installed \gls{ssd}.
 The write speed was tested using:
 \begin{minted}[linenos=false]{bash}
@@ -31,10 +31,10 @@ which repeatedly reported write speeds just below $2Gb/s$ (250MB).
 This is weird, as the \gls{ssd} has a write speed of $2.7GB/s$, but other people have faced similar issues on the \jx \cite{microntechnologyMicron2300SSD2020} \cite{dtyuImbalancedPerformanceRead2018}.
 This is probably fixable, but provides further motivation to enable on the fly compression
 
-\subsection{Streaming to external devices}
+\paragraph{Streaming to external devices}
 Having a
 
-\subsection{Integration with other systems}
+\paragraph{Integration with other systems}
 The main intended purpose of the \sr is to be carried around by a human operator and
 
 
@@ -43,17 +43,28 @@ The main intended purpose of the \sr is to be carried around by a human operator
     \caption{The Sensor Rig}
 \end{figure}
 
-
-
 \section{Previous Work}
-This \masters builds on the work done in my \preproject \cite{martensPortableSensorRig2022}.
-During the preproject
+This \master is an extension of the work done in my \preproject \cite{martensPortableSensorRig2022}.
+During the preproject I finished most of the hardware design of the \sr
+and assembeled the necesary electronics for \gls{spi} communication between the \jx and the \gls{navbox}, which is the small assembly containing the \gls{imu} and the \gls{gnss} receivers.
+Beyond this a solved a several other problems that were encountered, including figuring how \gls{ip67} rating could be acheived.
 
+At the end of the \preproject the \sr was capable of collecting data from the \gls{imu} and the \glspl{gnss} and validate the \gls{crc} checksum on the incoming data, but I har not implemented
+I had verified that it was possible to read data from the \cams over the ethernet interface, but only a at a very low framerate using the default settings.
+
+As this \master is closely related to the \preproject it will reference several sections and figures to avoid having to repaeat wats already written there and the reader is advised to have it available.
 
 \section{Main Contributions}
 The main contribution of this \master is the delivery of a working \sr capable of recording high quality stereo polarization datasets.
-This has been acheived by implementing a custom CUDA kernel to process the raw data from the cameras
+Working with real hardware constantly introduces unexpected issues and overcoming these in a systematic manner has been a major part of the work.
+In terms of specific techical achievements the following are the main contributions:
 
+\begin{itemize}
+    \item Develop and implement a higly efficient CUDA kernel transforming the raw output from the \cams into the widly used \gls{p010} format.
+    \item Assemble a \py acessible \gls{gstreamer} pipeline for hardware acceleraded compression on the \jx.
+    \item Developed a fulstack graphical web interface acessible from mobile devices.
+    \item Designed and 3D-printed ergonomic handles for the \sr.
+\end{itemize}
 
 \section{Challenges}
 The main challenge in this project has been to design a system that can effectively manage the large amount of raw data produced by the two cameras.
