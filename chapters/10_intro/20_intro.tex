@@ -10,15 +10,17 @@ Most of the hardware and electronics work was completed durin my \preproject, bu
 A significant amout of work was put into enabling on-the-fly compression of the videostreams from the \sr.
 That is the ability to compress the video data as it is being recorded, and storing the compressed data on disk.
 
-The cameras on the \sr produce roughly $2Gb/s$ of data.
-Aditionally, the \gls{imu} and \gls{gnss} produce data, but amount is neglible compared with the cameras.
-At this rate it infeasable to record long datasets as almost a terrabyte of data is produced every hour.
-\begin{align}
-    \frac{1TB}{2Gb/s}  = \frac{8Tb}{2Gb/s} = 4000s \approx 1h + 7min
-\end{align}
+\section{Challenges}
+The main challenge in this project has been to design a system that can effectively manage the large amount of raw data produced by the two cameras.
+Each camera features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second resulting in $1Gb\s$ of data \cite{lucidvisionlabsTriton0MPPolarization}.
+To put this into perspective, a single frame contains more data than what is needed to store the entire collection of William Shakespeare's works in plain text \cite{projectgutenbergCompleteWorksWilliam1994}.
 
-It is reasonable to say that a much easer option is to buy \gls{ssd} with a capacity up to 8TB \cite{CorsairMP600PRO}, enabling roughly 9 hours of recording.
-One reason this
+If the output from these cameras were stored directly to disk, almost a Terabyte of data would be generated every hour, making it infeasible to collect long term data sets.
+The \gls{imu} and \gls{gnss} also contribute some amout of data, but negligible compared to the cameras.
+
+
+Simply buying a 8$8TB$ \gls{ssd}, which would enable 9 hours of recording, was considered but s\cite{CorsairMP600PRO}
+
 \cite{microntechnologyMicron2300SSD2020}
 
 \paragraph{Limited write speed}
@@ -65,15 +67,6 @@ In terms of specific techical achievements the following are the main contributi
     \item Developed a fulstack graphical web interface acessible from mobile devices.
     \item Designed and 3D-printed ergonomic handles for the \sr.
 \end{itemize}
-
-\section{Challenges}
-The main challenge in this project has been to design a system that can effectively manage the large amount of raw data produced by the two cameras.
-Each camera features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second \cite{lucidvisionlabsTriton0MPPolarization}.
-To put this into perspective, a single frame contains more data than what is needed to store the entire collection of William Shakespeare's works in plain text \cite{projectgutenbergCompleteWorksWilliam1994}.
-
-If the output from these cameras were stored directly to disk, almost a Terabyte of data would be generated every hour, making it infeasible to collect long term data sets.
-\section{Contributions}
-
 
 
 \section{Outline}
