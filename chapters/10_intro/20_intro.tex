@@ -10,28 +10,24 @@ Most of the hardware and electronics work was completed durin my \preproject, bu
 A significant amout of work was put into enabling on-the-fly compression of the videostreams from the \sr.
 That is the ability to compress the video data as it is being recorded, and storing the compressed data on disk.
 
-\section{Challenges}
-The main challenge in this project has been to design a system that can effectively manage the large amount of raw data produced by the two cameras.
-Each camera features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second resulting in $1Gb\s$ of data \cite{lucidvisionlabsTriton0MPPolarization}.
-To put this into perspective, a single frame contains more data than what is needed to store the entire collection of William Shakespeare's works in plain text \cite{projectgutenbergCompleteWorksWilliam1994}.
-
+\subsection{Compression}
+Each camera features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second resulting in $1Gb/s$ of data \cite{lucidvisionlabsTriton0MPPolarization}.
+To put this into perspective, a single frame contains more data than is needed to store the entire collection of William Shakespeare's works in plain text \cite{projectgutenbergCompleteWorksWilliam1994}.
 If the output from these cameras were stored directly to disk, almost a Terabyte of data would be generated every hour, making it infeasible to collect long term data sets.
 The \gls{imu} and \gls{gnss} also contribute some amout of data, but negligible compared to the cameras.
 
-
-Simply buying a 8$8TB$ \gls{ssd}, which would enable 9 hours of recording, was considered but s\cite{CorsairMP600PRO}
-
-\cite{microntechnologyMicron2300SSD2020}
-
-\paragraph{Limited write speed}
-One issue when storing the raw data at first was that the \jx was not able to write to the disk fast to the installed \gls{ssd}.
+Simply buying a 8$8TB$ \gls{ssd} was considered and  would enable 9 hours of recording \cite{CorsairMP600PRO}.
+However several arguments for enabling on-the-fly compression were identified:
+% \cite{microntechnologyMicron2300SSD2020}
+\paragraph{Limited write speed to the SSD}
+One issue when storing the raw data at first was that the \jx is that the \jx is incapable of writing fast enough to the current \gls{ssd} even though the \gls{ssd} is more than capable \cite{microntechnologyMicron2300SSD2020}.
 The write speed was tested using:
 \begin{minted}[linenos=false]{bash}
-    sudo dd if=/dev/zero of=./testfile bs=8k count=100k conv=fdatasync
+    sudo dd if=/dev/zero of=./testfile bs=8k count=100k conv=fdatkasync
 \end{minted}
 which repeatedly reported write speeds just below $2Gb/s$ (250MB).
-This is weird, as the \gls{ssd} has a write speed of $2.7GB/s$, but other people have faced similar issues on the \jx \cite{microntechnologyMicron2300SSD2020} \cite{dtyuImbalancedPerformanceRead2018}.
-This is probably fixable, but provides further motivation to enable on the fly compression
+This is weird but other people have faced similar issues on the \jx \cite{dtyuImbalancedPerformanceRead2018}.
+This is probably fixable, but supports the argument for compression.
 
 \paragraph{Streaming to external devices}
 Having a
