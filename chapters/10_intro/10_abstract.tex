@@ -3,12 +3,16 @@
 Data-driven models have emerged as a promising area of research in the field of \glspl{asv}.
 These models have the potential to interpret sensor data and enhance situational awareness.
 However, their effectiveness heavily relies on large quantities of high-quality data for training, testing, and validation purposes.
-Current data sets are often generated through extensive experiments utilizing full-scale systems such as MilliAmpere.
-While these experiments are necessary for specific research purposes, the cost-benefit ratio may not be proportional when the primary goal is collecting sensor data.
 
-Recognizing the challenge at hand, I embarked on the development of human operable \sr during my preproject.
-The objective was to develop a lightweight \sr that addressed common challenges such as synchronization and pose estimation, paving the way for a low threshold approach to high quality data acquisition.
+In this \master, I have completed the development of a human-operable \sr for collecting high-quality data in maritime environments.
+The \sr is IP67 rated and has two polarization cameras, an \gls{imu}, and two \gls{gnss} receivers, all synchronized to UTC time.
+Further sensors can be added as the sensor rig exposes two additional $1Gb/s$ Ethernet ports with PoE.
 
-While most of the hardware and electronics were completed during the preproject, much remained including the challenge of developing a software stack that can effectively manage the large amount of custom raw data produced by the two polarization cameras.
+A major technical achievement has been to levrage CUDA and GStreamer for on-the-fly hardware-accelerated video compression on the Jetson Xavier, significantly extending the recording time.
+In adition, ergonomic hardware enhancements have been incorporated, along with the introduction of a new web-based user interface, streamlining the data acquisition process.
+Finally a small dataset was collected to demonstrate the capabilities of the sensor rig as a data collection platform.
 
-As a testament to the success of this project, funding has been secured to create a duplicate \sr, and external interest has been shown towards funding a third.
+This new low threshold approach to high quality data acquisition serves as an excellent foundation for my future Ph.D. work and have attracted interest from external parties.
+Parts to create a second \sr has already been ordered and there are ongoing discussions with external parties for funding a third.
+This shows that the \sr has been well received and that there is a need for such a system.
+

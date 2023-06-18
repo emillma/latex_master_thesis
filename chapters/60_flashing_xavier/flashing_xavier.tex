@@ -185,7 +185,7 @@ The the folliwing two commands were run 3 times to get the average read speed of
 With \gls{jetsonclocks} running and \gls{nvpmodel} set to \code{Max-N}, the buffered read speed of the \gls{emmc} is approximately 285MB while the buffered read speed of the \gls{ssd} is approximately 1010MB.
 The built in \gls{emmc} also only has 32GB of storage \cite{nvidiaNVIDIAJetsonAGX2019} wich might be to small for the root partition in the future.
 
-Based on this it was decided to write the \gls{jetlinux} to the Micron® 2300 SSD with NVMe™ 512GB \gls{ssd} and boot from there to increase performance \cite{microntechnologyMicron2300SSD2020}.
+Based on this it was decided to write the \gls{jetlinux} to the Micron® 2300 SSD with NVMe™ 512GB \gls{ssd} and boot from there to increase performance.
 This was also challenging as a new flashing utility, called \code{intrid} was needed to acheive this \cite{rigerunNVIDIAJetpackFlashing2021}, and a compatible partitioning table had to be created \cite{nvidiaPartitionConfigurationJetson2022}.
 Fortunately the established flashing pipeline made it considerably easier to aceive this than it would have been otherwise.
 
