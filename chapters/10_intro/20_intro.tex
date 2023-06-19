@@ -1,17 +1,20 @@
 \chapter{Introduction}
 
 \section{Motivation}
-Current datasets are often generated through extensive experiments utilizing full-scale systems such as MilliAmpere. While these experiments are essential for specific research purposes, the cost-benefit ratio may not be proportional when the primary goal is to collect sensor data.
+Traditional approaches to data collection often rely on extensive experiments using full-scale systems, such as MilliAmpere.
+While these experiments are crucial for specific research purposes, the cost-benefit ratio may not be favorable when the primary objective is to collect sensor data.
 
-Identifying the lack of a low-threshold approach to data collection, I initiated the development of a human-operable \sr during my preproject. The objective was to create a lightweight \sr that addressed common challenges like synchronization and pose estimation, enabling a more accessible approach to high-quality data acquisition.
+The absence of a low-threshold approach to data collection was identified together with my supervisors at the beginning of my integrated Ph.D.
+To address this, I embarked on the development of a human-operable sensor rig during my preproject, with the aim of completing it during my \master.
+The overarching goal was to create a lightweight \sr that could overcome common challenges like synchronization and pose estimation, paving the way for an accessible approach to low-effort acquisition of high-quality data.
 
-Most of the hardware and electronics work was completed durin my \preproject, but a lot of work remained on the software side.
 
+While significant progress was made in the mechanical design and electronic aspects during my preproject, considerable work remained on the software side.
+In this \master two key areas were selected as primary focus points.
+
+\subsection{High Speed Video Acquisition and On-the-Fly Compression}
 A significant amout of work was put into enabling on-the-fly compression of the videostreams from the \sr.
-That is the ability to compress the video data as it is being recorded, and storing the compressed data on disk.
-
-\subsection{Compression}
-Each camera features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second resulting in $1Gb/s$ of data \cite{lucidvisionlabsTriton0MPPolarization}.
+Each \cam ont the \sr features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second resulting in $1Gb/s$ of data \cite{lucidvisionlabsTriton0MPPolarization}.
 To put this into perspective, a single frame contains more data than is needed to store the entire collection of William Shakespeare's works in plain text \cite{projectgutenbergCompleteWorksWilliam1994}.
 If the output from these cameras were stored directly to disk, almost a Terabyte of data would be generated every hour, making it infeasible to collect long term data sets.
 The \gls{imu} and \gls{gnss} also contribute some amout of data, but negligible compared to the cameras.
@@ -21,11 +24,9 @@ However several arguments for enabling on-the-fly compression were identified:
 % \cite{microntechnologyMicron2300SSD2020}
 \paragraph{Limited write speed to the SSD}
 One issue when storing the raw data at first was that the \jx is that the \jx is incapable of writing fast enough to the current \gls{ssd} even though the \gls{ssd} is more than capable \cite{microntechnologyMicron2300SSD2020}.
-The write speed was tested using:
-\begin{minted}[linenos=false]{bash}
-    sudo dd if=/dev/zero of=./testfile bs=8k count=100k conv=fdatkasync
-\end{minted}
-which repeatedly reported write speeds just below $2Gb/s$ (250MB).
+The write speed was tested using the \code{dd} tool
+\footnote{\code{sudo dd if=/dev/zero of=./testfile bs=8k count=100k conv=fdatkasync}}
+which repeatedly reported write speeds just below $2Gb/s$.
 This is weird but other people have faced similar issues on the \jx \cite{dtyuImbalancedPerformanceRead2018}.
 This is probably fixable, but supports the argument for compression.
 
@@ -34,6 +35,16 @@ Having a
 
 \paragraph{Integration with other systems}
 The main intended purpose of the \sr is to be carried around by a human operator and
+
+\subsection{Graphical Web Interface and Ergonomic Improvements}
+The ultimate objective for the \sr is to make data acquisition as easy as possible.
+Given the significant effort invested, ensuring user-friendliness for individuals without technical expertise in data collection was a priority, as we aim
+To accomplish this, a graphical web interface was developed, enabling real-time control and monitoring of the \sr.
+This eliminates the requirement for SSH access and transforms the \sr into a plug-and-play system.
+
+The end goal for the \sr is to be carried around by a human operator and used to collect data in a variety of environments.
+With the amount of work invested we wanted to make sure that the \sr would be easy to use, also for people without technical expertise in the field of data collection.
+In order to acheive this a graphical web interface was developed to enable real time control and monitoring of the \sr, removing the need for any ssh acces, making the \sr plug-and-play.
 
 
 \begin{figure}[H]
@@ -76,7 +87,8 @@ As some chapters might be less relevant depending on the reader's background, I 
 The following is a brief overview of the content of each chapter:
 
 \paragraph{Chapter \ref{chap:programming_theory}: Real time programming on Jetson Xavier}
-This chapter provides an overview of the theoretical background relevant to real-time performance on the Jetson Xavier platform and the development of real-time software in general. It explores topics such as real-time programming theory, performance considerations for heterogeneous systems, and introduces the CUDA programming model.
+This chapter provides an overview of the theoretical background relevant to real-time performance on the Jetson Xavier platform and the development of real-time software in general.
+It explores topics such as real-time programming theory, performance considerations for heterogeneous systems, and introduces the CUDA programming model.
 
 \paragraph{Chapter \ref{chap:cameras}: Polarization Cameras}
 This chapter presents the special type of polarization cameras used, explain how they work and why they are particularly well suited for detection in marine environments.
