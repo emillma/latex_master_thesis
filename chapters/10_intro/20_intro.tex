@@ -14,27 +14,30 @@ In this \master two key areas were selected as primary focus points.
 
 \subsection{High Speed Video Acquisition and On-the-Fly Compression}
 A significant amout of work was put into enabling on-the-fly compression of the videostreams from the \sr.
-Each \cam ont the \sr features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second resulting in $1Gb/s$ of data \cite{lucidvisionlabsTriton0MPPolarization}.
+Each \cam on the \sr features a 5.0MP sensor configured to capture 10-bit raw images 16 times every second resulting in roughly $1Gb/s$ of data \cite{lucidvisionlabsTriton0MPPolarization}.
 To put this into perspective, a single frame contains more data than is needed to store the entire collection of William Shakespeare's works in plain text \cite{projectgutenbergCompleteWorksWilliam1994}.
 If the output from these cameras were stored directly to disk, almost a Terabyte of data would be generated every hour, making it infeasible to collect long term data sets.
 The \gls{imu} and \gls{gnss} also contribute some amout of data, but negligible compared to the cameras.
 
-Simply buying a 8$8TB$ \gls{ssd} was considered and  would enable 9 hours of recording \cite{CorsairMP600PRO}.
-However several arguments for enabling on-the-fly compression were identified:
+Simply buying a 8$8TB$ \gls{ssd} was considered and  would enable 9 hours of recording \cite{CorsairMP600PRO}, but several arguments for enabling on-the-fly compression were remained:
+
 % \cite{microntechnologyMicron2300SSD2020}
+
 \paragraph{Limited write speed to the SSD}
 One issue when storing the raw data at first was that the \jx is that the \jx is incapable of writing fast enough to the current \gls{ssd} even though the \gls{ssd} is more than capable \cite{microntechnologyMicron2300SSD2020}.
 The write speed was tested using the \code{dd} tool
 \footnote{\code{sudo dd if=/dev/zero of=./testfile bs=8k count=100k conv=fdatkasync}}
 which repeatedly reported write speeds just below $2Gb/s$.
 This is weird but other people have faced similar issues on the \jx \cite{dtyuImbalancedPerformanceRead2018}.
-This is probably fixable, but supports the argument for compression.
+This is probably fixable, but is solved by compression.
 
 \paragraph{Streaming to external devices}
-Having a
+Another key benefit of having a compression pipeline in place is that it enables streaming the video feed wirelessly to external devices, at a higher compression rate, for monitoring purposes.
+With variable bitrate encoding the video can even be streamed over a 4G/5G connection, enabling remote monitoring of the \sr.
 
 \paragraph{Integration with other systems}
-The main intended purpose of the \sr is to be carried around by a human operator and
+Finally, while the main intended purpose for the \sr is to be used as a standalone system for data acquisition, the design process has been guided by the goal of making it easy to integrate with other systems.
+Keeping the total data rate below $1Gb/s$ makes it possible to use the \sr as a sensor module in a larger system, such as MilliAmpere, by connectin it over standard Ethernet.
 
 \subsection{Graphical Web Interface and Ergonomic Improvements}
 The ultimate objective for the \sr is to make data acquisition as easy as possible.
@@ -128,3 +131,8 @@ Several smaller datasets are collected and visualization tools has been develope
 \paragraph{Chapter \ref{chap:future_work}: Ongoing developments and future work}
 Some design flaws from the \preproject remain to be fixed and a few possible performance improvements have been identified.
 With the goal of creating a fully autonomous sensor rig acheived, the next step is to create state of the art stereo polarization datasets and advance the field of situational awareness for autonomous surface vessels.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{chapters/10_intro/chapter_overview.pdf}
+    \caption{Overview of the chapters in this \master.}
+\end{figure}
