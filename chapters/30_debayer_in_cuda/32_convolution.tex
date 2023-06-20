@@ -1,11 +1,32 @@
-\subsection{Efficient convolution}
+\subsection{Transformation of Bayer to YCbCr 4:2:0}
+Three steps are needed to Transform the Bayer data to YCbCr 4:2:0; values from the bayer we first perform debayeiring using the \gls{mhc} coefficients in Figure \ref{fig:debayer:malvar_filters}, perform a linear mapping to get the YCbCr and finally perform chroma subsampling to get the 4:2:0 format.
+For each \gls{cg} this results in four Y walues, one Cb value and one Cr value.
+
+
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{figures/polarized_image/normal_conv.pdf}
-    \caption{Visualization of which pixels are used (white contour circle) to calculate the value of one Y value in the output image (filled white circle).}
+    \caption{Visualization of which pixels are used (white cirle) to calculate 6 YCbCr 4:2:0 values for the center \gls{cg} (thick white cirle).}
     \label{fig:saperation}
 \end{figure}
+
+This operation was performed algebraicly using \gls{sympy} and it was discovered that it could be formulated as sequence of \gls{fma} operations.
+
+In order to achieve the high throughput, \gls{sympy} was used to analyse the algebraic expressions for the transformation from bayer data to YCbCr and a custom code generator was written to generate the corresponding CUDA code.
+
+
+By calculating the four Y values, Cb and Cr values directly for each \gls{cg} we can save
+
+
+
+
+
+As both the debayering and color space conversion consists exclusively of linear operations it is possible to combine them into a single operation.
+
+
+How this is done to calculate one Y value is visualized in Figure \ref{fig:saperation}.
+
 
 
 \begin{table}[H]
