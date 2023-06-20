@@ -8,5 +8,6 @@ Average brightness or histograms could be calculated as a part of the \gls{cuda}
 Here
 
 The \cams supports independent gain for each polarization color channel to get proper color balance as well as independent gain for each polarization angle, which could be useful to handle polarized reflections of the sun \cite{lucidvisionlabsTritonMPPolarized2020}.
-This could also be used to use get high dynamic range by using different gains for the different angles.
-One issue with dynamically adjusting individual gains is that they are not reported together with each output image, as opposed to overall gain, which makes extra syncronization work necessary \cite{lucidvisionlabsTritonMPPolarized2020}.
+This could also be used to use get high dynamic range by using different gains for the different angles, as discussed in Pierre-Jean Lapray's paper \cite{laprayExploitingRedundancyColorpolarization2020}.
+One minor issue with dynamically adjusting individual gains is that they are not reported together with each output frame, as opposed to overall gain, necessitating a separate logging method \cite{lucidvisionlabsTritonMPPolarized2020}.
+

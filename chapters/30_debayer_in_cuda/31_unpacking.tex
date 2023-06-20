@@ -1,7 +1,6 @@
 \subsection {Unpacking raw data from the camera}
 \label{sec:unpacking}
-
-
+The first step in the transformation process is to unpack the raw data from the camera.
 The \lucid cameras feature a 12-bit \gls{adc} and offer 23 different output formats with varying bit depths and packing.
 As the \gls{h265} encoder supports up to 10-bit input, the \code{Mono10p} output format was chosen for the cameras \cite[17 ]{nvidiaNVIDIAJetsonAGX2019}
 This format densly packs the 10-bit data, as depicted in Figure \ref{fig:mono10p}, maximizing the network throughput.
