@@ -1,8 +1,8 @@
-\subsection{Failed optimizations}
+\section{Failed optimizations}
 Two memory optimizations were attempted without achieving any performance gains.
 They still provided usefull information on how
 
-\subsubsection{Contiguous acces using warp level primitives} \label{sec:contuguous_access}
+\subsection{Contiguous acces using warp level primitives} \label{sec:contuguous_access}
 As we want to operate on 32-bit values and each pixel is stored as a 10bit value, each thread is processing 160 bits, or five words as it is the lowest common multiple of 32 and 10.
 Thus every thread reads five consecutive words as shown:
 \begin{align}
@@ -51,8 +51,7 @@ To verify this hypothesis, I intended to utilize the \gls{nsight} tool to create
 \end{figure}
 
 
-
-\subsubsection{Use of constant memory}
+\subsection{Use of constant memory}
 During the development process it was tested whether storing the constant values used in the debayer algorithm in constant memory would speed up the process.
 Constant memory is a type of limited read-only memory available on NVIDIA \glsps{gpu} \cite[61]{nvidiaCUDABestPractices2023}.
 NVIDIA \glspl{gpu} only have 64KiB of constant memory \cite[61]{nvidiaCUDABestPractices2023}.

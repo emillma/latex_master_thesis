@@ -1,5 +1,5 @@
-\subsection{Extracting color from raw bayer images}
-\subsubsection{Bayer patterns}
+\section{Extracting color from raw bayer images}
+\subsection{Bayer patterns}
 To capture color images conventional cameras use \glspl{cfa}.
 The most common type of \gls{cfa} is the Bayer pattern where green pixels cover half the array in a lattice, and the red and blue pixel locations are spaced between the green pixels as shown in Figure \ref{fig:bayer_pattern} \cite{getreuerMalvarHeCutlerLinearImage2011}.
 Different orderings of the colors in the \gls{cfa} exists, with the most common ones being RGGB, BGGR, GRBG, and GBRG where the letters designate the order of the four top left pixeld in the image.
@@ -22,7 +22,7 @@ Different orderings of the colors in the \gls{cfa} exists, with the most common 
     \label{fig:debayer:malvar_filters}
 \end{figure}
 
-\subsubsection{Image demosaicing}
+\subsection{Image demosaicing}
 Image demosaicing is the process of estimating full-resolution color information for an image that has been captured with a bayer pattern \cite{liImageDemosaicingSystematic2008}, e.g. at each red pixel in the \gls{cfa} the green and blue intensities needs to be estimated.
 Simple methods, such nearest neighbours or linear interpolation, are prone to yielding images false colors and the checkboard like patterns called the zipper effect as shown in Figure \ref{fig:artifacts_gioia} \cite{gioiaDataDrivenConvolutionalModel2021} \cite{liImageDemosaicingSystematic2008}.
 A multitude of more advanced methods have been proposed with increasing sofisication and performance \cite{liImageDemosaicingSystematic2008}.
@@ -35,7 +35,7 @@ Lately different deep learning methods has also proven to perform very well at t
     \label{fig:artifacts_gioioa}
 \end{figure}
 
-\subsubsection{Malvar-He-Cutler}
+\subsection{Malvar-He-Cutler}
 \gls{mhc} pattented a simple but performant linear method using 5x5 filters that shows surprisingly good results \cite{malvarHighqualityGradientcorrectedLinear2009}.
 The method they present is derived as a modification of bilinear interpolation, and it involves adding Laplacian cross-channel corrections to improve the quality of the bilinear method \cite{getreuerMalvarHeCutlerLinearImage2011}.
 The demosaicking is implemented by convolution with a set of linear filters, and there are eight different filters for interpolating the different color components at different locations as can be shown in Figure \ref{fig:debayer:malvar_filters}.
@@ -54,7 +54,7 @@ The method is better suited for parallel execution than some others as discussed
     \caption{Coefficient values used by Malvar-He-Cutler scaled by 8 \cite{getreuerMalvarHeCutlerLinearImage2011}}
 \end{figure}
 
-\subsubsection{Shortcomings of MHC}
+\subsection{Shortcomings of MHC}
 A shortcoming of the current method is that it does not use optimal gains.
 Firstly the values used in \gls{mhc} are rounded to the neared dyadic rationals, to work efficently using integer arithmetic and bitshifting \cite{getreuerMalvarHeCutlerLinearImage2011}.
 As the current proposed implementation uses floating point arithmetic, this rounding is unecessary.

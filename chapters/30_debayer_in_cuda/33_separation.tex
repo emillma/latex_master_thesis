@@ -1,8 +1,9 @@
+\section{Optimizations}
 \subsection{Efficient Separation}
 The \gls{volta} has 48KiB of available shared memory per block \cite{rigerunNVIDIAJetsonXavier2023}.
 With an image width of 2448 pixels \cite{lucidvisionlabsTriton0MPPolarization} it is only possible to store 10 lines in local shared memory as each pixel uses 16 bits.
 \begin{equation*}
-    \frac{48Kib}{2448px/line * 16b/px} = \frac{393216b}{39168b/l} \approx 10.04line
+    \frac{48Kib}{2448px/line * 16b/px} = \frac{393216b}{39168b/line} \approx 10.04line
 \end{equation*}
 
 In order to allocate local memory for prefetching, it became necessary to reduce the amount of image data stored in local memory.
@@ -12,7 +13,7 @@ As illustrated in Figure \ref{fig:saperation}, the even and odd lines can be sep
 It is important to highlight that the updated \jo now supports a maximum of $163KiB$ of local memory per thread block, rendering this separation unnecessary if utilized \cite{CUDA2023}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/polarized_image/separation.pdf}
+    \includegraphics[width=.8\textwidth]{figures/polarized_image/separation.pdf}
     \caption{How separation is done in order to reduce amount of shared memory required per thread block.}
     \label{fig:saperation}
 \end{figure}

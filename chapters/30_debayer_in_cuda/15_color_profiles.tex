@@ -1,9 +1,9 @@
-\subsection{Digital image representations}
+\section{Digital image representations}
 As everything else that is stored on a computer, images are encoded as a sequence of bits.
 A popular representation is RGB images, where each pixeld is stored as three sequential bytes representing each color.
 This representation is very intuitive and easy to understand, but other representations might be more suitable for certain applications.
 
-\subsection{Luminance and chrominance}
+\section{Luminance and chrominance}
 In many use cases, the luminance (brightness) of each pixel contains more useful information than its chrominance (color), and it is therefore beneficial to separate these two components.
 This relevant for visualization, as the human eye is more sensitive to changes in luminance than chrominance  \cite{lambWhyRodsCones2016}.
 It can also apply to computer vision applications, where Lucas-Kanade is an example of an optical flow algorithem that only uses the luminance component \cite{lucasIterativeImageRegistration1981}.
@@ -19,7 +19,7 @@ is a popular color format where the Y component represents the luminance of the 
     \label{fig:ycbcr_example}
 \end{figure}
 
-\paragraph{Chroma subsampling}
+\subsubsection{Chroma subsampling}
 Chroma subsampling is a technique that involves sampling the chrominance components (Cb and Cr) at a lower resolution than the luminance component (Y), as depicted in Figure \ref{fig:chroma_subsampling}.
 A commonly used subsampling scheme is 4:2:0, where the chrominance components are sampled at half the resolution of the luminance component in both the horizontal and vertical directions \cite{ChromaSubsampling2023}.
 
@@ -34,7 +34,7 @@ With this redundency it is reasonable to perform chroma subsampling as the lumin
 \end{figure}
 
 
-\subsubsection{Analog legacy}
+\subsection{Analog legacy}
 It is important to note that certain color formats have their origins in the analog signal era.
 One notable example is the BT.601 color format, a variant of YCbCr.
 In this format, the Y component is represented by values ranging from 16 to 235, while the Cb and Cr components range from 16 to 240 \cite{YCbCr2023}.
@@ -42,7 +42,7 @@ The additional headroom and footroom within the byte are specifically allocated 
 By reserving these values, the color representation remains within acceptable limits even when unexpected analog signal fluctuations occur.
 
 
-\subsection{Interleved vs planar vs semi-planar}
+\section{Interleved vs planar vs semi-planar}
 There are three main ways to store the color channels in memory, interleved, planar and semi-planar \cite{baranYUVFormats2018}.
 In interleved formats, the color channels are stored in sequence, i.e.
 $R_1 G_1 B_1 R_2 G_2 B_2 R_3 G_3 B_3$.
@@ -61,7 +61,7 @@ For instance, if you are performing per-bit operations, having the bits of the s
     \label{fig:image_packaging}
 \end{figure}
 
-\subsubsection{Bit depth and packaging}
+\subsection{Bit depth and packaging}
 A final importnt property of image formats is the bit depth, i.e.
 how many bits are used to represent each pixel, and how the bits are stored.
 Most images use a single byte (8 bits) for each color channel, but higher bit depths offer better color fidelity and dynamic range.
