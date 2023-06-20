@@ -10,6 +10,7 @@ slices = [
     (slice(700, 735), slice(1020, 1095)),
     (slice(200, 260), slice(1100, 1170)),
     (slice(430, 450), slice(666, 716)),
+    (slice(660, 760), slice(270, 440)),
 ]
 for name in ["regular_right_96", "aolp_right_96"]:
     file = thisdir / f"{name}.jpeg"

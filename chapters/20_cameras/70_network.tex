@@ -25,7 +25,7 @@ It is referred to as static since it remains constant, in contrast to a dynamic 
 For \gls{gigev} Cameras using statid IP might be usefull as the cameras will power up with the same IP every time \cite{teledyneSettingPersistentIP}.
 
 However I decided not to use static IP for the sensor rig setup, as it requiered the camera to be connected to the same ethernet port every time.
-If the static IP of a camera was outside the IP range (\todo) of the network adapter it was connected to, or the network adapters had ovelapping IP ranges, the discovery process and connection got unstable.
+If the static IP of a camera was outside the IP range of the network adapter it was connected to, or the network adapters had ovelapping IP ranges, the discovery process and connection got unstable.
 Thus, to change which ethernet port a camera was connected to it would be necessary to either change the static IP of the camera, a tedious process, or change the IP range of both the current and previous ethernet adaptor.
 An additional rationale for avoiding the use of static IP addresses is to keep the cameras' static configurations (the ones that persists when power cycling) the same as facory default.
 This facilitates the use of the same cameras for a different project by someone else in the future.
