@@ -9,7 +9,7 @@ The latency of the preprocessing kernel, as discussed in Chapter \ref{chap:debay
 \end{equation}
 
 
-This estimation is consistent with the observation of $0\%$ \gls{gpu} utilization reported by \gls{jtop} for most of the time. In comparison to the initial implementation using \gls{opencv} on the CPU, where all CPU cores were running at maximum frequency but unable to achieve 32 frames per second, the \gls{gpu} implementation shows a substantial improvement. The benefits of this approach include reduced power consumption and increased availability of both CPU and \gls{gpu} resources for other tasks.
+This estimation is consistent with the observation of $0\%$ \gls{gpu} utilization reported by \gls{jtop} for most of the time. In comparison to the initial implementation using \gls{opencv} on the CPU, where all CPU cores were running at maximum frequency without achieving 32 frames per second, the \gls{gpu} implementation shows a substantial improvement. The benefits of this approach include reduced power consumption and increased availability of both CPU and \gls{gpu} resources for other tasks.
 
 \section{Compression}
 The implementation of a compression pipeline in \gls{gstreamer} enables longer recording times and the ability to stream compressed images to the graphical user interface.
@@ -62,22 +62,60 @@ Further testing is scheduled as part of the migration to the \jo platform.
     \label{tab:encoder_parameters}
 \end{table}
 
-\section{Captured images}
-16 fps 10 bit synchonized stereo images!
+\section{Captured Images}
+The \sr is capable of reliably capturing 10-bit video at 16fps.
+A simple visualization toolkit was developed that uses the Equation \todo
+to calculate \gls{dolp} and \gls{aolp} and visualize this as hue and value in the \gls{hsv} color space.
+Figure shows one of the captured images with this visualization applied below.
+The image clarely shows ghe potential benefit of polarization imaging in maritime environments.
+Five reagions of interest are marked in the image and discussed in the following sections.
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{Mean image.\label{fig:normal_img_1536}}{\includegraphics[width=\textwidth]{figures/pictures/result_rgb-80.jpg}}
-    \subcaptionbox{HSV visualization of polarization data where the angle of polarization is encoded as hue and degree of polarization is encoded as value.}{\includegraphics[width=\textwidth]{figures/pictures/result_pol-80.jpg}}
+    \subcaptionbox{Avraged image. Simliar to "normal" camera. \label{fig:normal_img_1536}}{\includegraphics[width=\textwidth]{figures/pictures/result_rgb-80.jpg}}
+    \subcaptionbox{\gls{aolp} and \gls{dolp} visualized as hue and value. \label{fig:pol_img_1536}}{\includegraphics[width=\textwidth]{figures/pictures/result_pol-80.jpg}}
     \caption{Right image \#1536 with, zoomed in regions of interest.}
     \label{fig:picture_1536}
 \end{figure}
 
+\subsection{Region 3: Artificial Polarization fom Gradients}
+\label{sec:artifical_polarization}
+Region 3 shows what is believed to be artificial polarization.
+As the four angles of polarization are spatially separated in the \gls{pfa}, high image gradients is believed to cause the polarization angle to be estimated incorrectly.
+
+Papers on polarization estimation techniques have been written for both monocrome and color polariztion cameras  \cite{mihoubiSurveyDemosaickingMethods2018} \cite{spoteJointDemosaicingColour2021}, but
+none of these methods were compatible with the current setup, but they could be used as inspiration for future work.
+Section \ref{sec:better_analysation_tools} discusses how better analysation tools can be implemented in future works.
+
+\subsection{Region 1: Aliasing}
+As four pixels are used to form each \gls{pg}, the \gls{cg} are more spacially separated than in a normal camera.
+This means that the effects such as aliasing are expected to be more pronounced.
+This is seen in region 1 in Figure \ref{fig:picture_1536} where the aliasing is more pronounced than in the other regions.
+The polarization of this area shows that we also have aliasing efects in the polarization domain.
+It is believed that this caused by the artificial polarization discussed in Section \ref{sec:artifical_polarization}.
+
+\subsection{Region 2: Dithering}
+Similarly to aliasing, we also observe dithering in high frequency areas.
+This is seen in region 2 in Figure \ref{fig:normal_img_1536} and is further exagerated in the polarization image.
+We also see some color artifacts in the regular image as what is believed to be a white bar is firs slightly blue then slightly red.
+This suggests that there is room for improvement in the debayering algorithm.
+
+\subsection{Region 4 and 5: Polarization Reveals Water}
+Ths big advantage of polarization imageing in maritime environments is that water reflections are polarized.
+This makes it almost trivial to detect water in the image as seen by de difference in polarization between region 4 and 5 in Figure \ref{fig:pol_img_1536}.
+This effect is however weaker further back where the angle of incidense is further away from the Brewster's angle.
+
+
+\subsection{10 Bit Images}
+Another noteworthy benefit of the final setup is that we get images with 10 bit depth.
+This give the images higher dynamic range as the pixel values are more nuanced.
+A visualization of this is is shown in Figure \ref{fig:gained_image} where digital gain is applied to the image in Figure \ref{fig:normal_img_1536}, revealing that the darker regions do contain a lot of information.
+This probably contributes to why polarization information can be extracted from region 4 in Figure \ref{fig:picture_1536}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\textwidth]{figures/pictures/gained_right_96.jpeg}
-    \caption{Image showing how dark areas contain a lot of information thanks to 10-bit depth.
-        The image is the same as in Figure \ref{fig:normal_img}, but with brightness increased.}
+    \caption{Image showing how dark areas contain a lot of information thanks to 10-bit depth. The image is the same as in Figure \ref{fig:normal_img_1536}, but with digitally increased brightnes.}
     \label{fig:gained_image}
 \end{figure}
 
@@ -96,7 +134,3 @@ Further testing is scheduled as part of the migration to the \jo platform.
 \end{figure}
 
 
-\subsection{HSV}
-Another color representation that is relevant in this \master is \gls{hsv}.
-This format is what is usually used when selecting color in a color picker.
-A usefull property of this format is that it can be used to easily visualize

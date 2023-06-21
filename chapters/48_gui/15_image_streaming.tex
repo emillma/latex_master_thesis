@@ -25,7 +25,7 @@ To solve this \glspl{ws} were used to serve the images instead.
 They made it possible for the server to push data to the client when new images were available, rather than relying on the client polling the server for new data.
 
 \paragraph{Base64 encoding}
-An easy way to serve \glspl{jpeg} is to encode them as base64 strings and serve them as text \cite{rAnswerHowDisplay2013}
+An easy way to serve \glspl{jpeg} is to encode them as base64 strings and serve them as text \cite{rAnswerHowDisplay2013}.
 Initially this encoding was done serverside but as base64 encoding at least 33\% overhead a small \gls{js} scripted was written to do the encoding clientside instead, shown in Listing \ref{listing:base64}.
 It is expeted to possible to update the image from raw \gls{jpeg} bytes, but this was not prioritized as the base64 encoding was easy to implement and worked well enough.
 

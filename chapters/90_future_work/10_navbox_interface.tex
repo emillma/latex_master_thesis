@@ -6,21 +6,21 @@ Near the end of the semester, when I started creating a \gls{gui} page for the \
 The \gls{navbox} had been stored unused in a drawer since the verification.
 Thre potential culprits were identified.
 
-\subsection{Potential cause 1: \jx software}
+\subsection{Potential Cause 1: \jx Software}
 The first potential culprit is that the \gls{spi} driver, the \gls{spi} \py interface or the \gls{gpio} interface stopped working when the \jx was flashed with the new \gls{os}.
 
-\subsection{Potential cause 2: damage from exessive input voltage}
+\subsection{Potential Cause 2: Damage from Exessive Input Voltage}
 The \gls{pico} might have been damaged by exessive input voltage from the \gls{stim}.
 Revisiting the \gls{navbox} scematics, Figure 27 of the \preproject, and measuring voltages with a multimeter revealed that the \gls{tov} signal from the \gls{stim} was clost to $5V$.
 This is not supported by the \gls{gpio} pins on the \gls{pico} \cite[17]{PicoDatasheet}.
 It is however not likely that this has caused damage as the \gls{pico} normally can tolerate $5V$ without getting damaged \cite{aryavoronovaRP20405VLogic2023}
 Still, the voltage of the digital output signals on the \gls{stim} was configured to $3.3V$ according to Table 12-1 in the \gls{stim} datasheet to make sure this is not an issue in the future \cite[118]{safranSTIM300Datasheet}
 
-\subsection{Potential cause 3: damage to hardware}
+\subsection{Potential Cause 3: Damaged Hardware}
 A third option is that one ore more wire or connections have been damaged.
 This appears unlikely as the \gls{navbox} has been stored in a drawer and not used since the last verification, but it is still a possibility.
 
-\subsection{New solution}
+\subsection{New Solution}
 After conducting troubleshooting without identifying the root cause of the issue, I have made the decision to restructure the \gls{navbox} interface rather than investing additional time in troubleshooting the current solution.
 Funding has been secured for the development of a second sensor rig, and discussions regarding potential funding for a third rig are underway.
 Consequently, it is imperative to create at least one additional \gls{navbox} interface in the future.
