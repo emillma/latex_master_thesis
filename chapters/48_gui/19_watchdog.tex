@@ -26,3 +26,8 @@ This is not the case with the custom watchdog as it will receive the same hash v
     }
     \end{minted}
 \end{listing}
+
+\subsection{Automated Startup in Docker}
+The \gls{gui} is hosted in a Docker container on the \sr.
+Using \gls{chrontab} the \sr can be configured to automatically start the Docker container on boot, removing the need for any manual startup.
+As this can be a nuisance when developing, a shell script was written to easily start the container from JuiceSSH.

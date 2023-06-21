@@ -46,7 +46,7 @@ Pinned memory, also known as page-locked memory, is a type of memory that is dir
 Pinned memory reduces data transfer overhead between the CPU and iGPU because it can be directly accessed by both \cite{nvidiaCUDAFTegra2023}.
 However, it is worth noting that pinned memory can lead to increased memory usage as it is not pageable, and should therefore not be used everywhere \cite[38]{nvidiaCUDABestPractices2023}.
 It is also not cached on the \gls{igpu}, making it less efficient if the same data is accessed multiple times \cite{nvidiaCUDAFTegra2023}.
-However as is discussed in Section \todo, the data from the camera is read only once, making the following statement relevant:
+However the data from the camera is read only once, making the following statement relevant:
 \say{For large buffers, when the buffer is accessed only once on iGPU in a coalescing manner, performance on iGPU can be as good as unified memory on iGPU.}\cite[10]{nvidiaCUDAFTegra2023}
 
 

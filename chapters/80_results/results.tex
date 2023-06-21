@@ -1,68 +1,21 @@
 \chapter{Results}
 \label{chap:results}
 
-\section{Highly Efficient Image Preprocessing}
-The latency of the preprocessing kernel, as discussed in Chapter \ref{chap:debayer}, was measured to be $1.13ms$ using the \code{nsys profile} command line tool from the CUDA toolkit. The kernel is launched with only two thread blocks, which means that we are utilizing a maximum of two out of the eight available \glspl{sm} on the \gls{gpu} \cite{rigerunNVIDIAJetsonXavier2023}. Considering a frame rate of 2$\times$16 frames per second, it indicates that less than $1\%$ of the \gls{gpu} is being utilized for preprocessing purposes.
+\section{Simple Approach to Data Set Acquisition}
+The biggest acheivement of this \master is to enable
+Following is the complete list of steps required to start the \sr and record video.
+\begin{enumerate}
+    \item Connect the battery to the \jx.
+    \item Enable mobile hotspot on your phone with name and password set to\textit{sensorrig}.
+    \item Wait for the \sr to connect and find its IP address under hotspot settings.
+    \item Go to \textit{http://<ip-address>:8080} in a web browser.
+    \item Start the recording in the \textit{Run} tab.
+    \item Start the \gls{ptp} deamons in the \gls{ptp} tab.
+    \item Collect your dataset and monitor the video in the \textit{Video} tab.
+\end{enumerate}
 
-\begin{equation}
-    \frac{2 \times 16 \text{f}/s}{1 \text{f} / 1.13ms} \times \frac{2 \text{SM}}{8 \text{SM}} = 0.904\%
-\end{equation}
 
-
-This estimation is consistent with the observation of $0\%$ \gls{gpu} utilization reported by \gls{jtop} for most of the time. In comparison to the initial implementation using \gls{opencv} on the CPU, where all CPU cores were running at maximum frequency without achieving 32 frames per second, the \gls{gpu} implementation shows a substantial improvement. The benefits of this approach include reduced power consumption and increased availability of both CPU and \gls{gpu} resources for other tasks.
-
-\section{Compression}
-The implementation of a compression pipeline in \gls{gstreamer} enables longer recording times and the ability to stream compressed images to the graphical user interface.
-
-During the \master, funding was obtained to upgrade the \jx to a \jo platform.
-One notable difference between these two platforms is that the \jo supports \gls{av1} encoding, in addition to all the encoding formats supported by the \jx \cite{karumbunathanNVIDIAJetsonAGX2022}.
-Due to the higher efficiency of \gls{av1} compared to \gls{h265}, it was decided not to spend significant time fine-tuning the compression parameters for \gls{h265}, but rather focus on extensive performance testing \cite{torresAV1VsHEVC2022}.
-Nonetheless, a brief test was conducted to provide a rough estimate of the expected compression performance of the \gls{h265} encoder.
-
-To measure the compression ratio and error, a test video was recorded while walking around the boat yard area at Nyhavna, capturing the same areas depicted in Figure \ref{fig:picture_1984} and \ref{fig:picture_1536}.
-Only one camera was enabled during the recording to be able to write the raw data to disk fast enough.
-Utilizing the encoding parameters listed in Table \ref{tab:encoder_parameters}, a compression ratio of almost $4/1$ was achieved, with an average relative error of less than $0.6\%$ and a maximum relative error below $9\%$.
-
-It is important to note that these encoding parameters were not fine-tuned, and the results may not necessarily be representative of the performance that can be achieved with \gls{h265}.
-Further testing is scheduled as part of the migration to the \jo platform.
-\begin{table}[H]
-    \begin{minipage}[b]{.5\linewidth}
-        \centering
-        \small
-        \begin{tabular}{|c|c|}
-            \hline
-            \textbf{Parameter} & \textbf{Value} \\
-            \hline
-            preset-level       & 0              \\
-            ratecontrol-enable & 0              \\
-            profile            & Main10         \\
-            control-rate       & 0              \\
-            maxperf-enable     & 1              \\
-            qp-range           & 0,1:0,1:0,1    \\
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \begin{minipage}[b]{.5\linewidth}
-        \centering
-        \small
-        \begin{tabular}{|c|c|}
-            \hline
-            \textbf{Parameter} & \textbf{Value} \\
-            \hline
-            quant-i-frames     & 0              \\
-            quant-p-frames     & 0              \\
-            quant-b-frames     & 0              \\
-            iframeinterval     & 16             \\
-            num-Ref-Frames     & 8              \\
-            num-B-Frames       & 1              \\
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \caption{Encoder parameters used for testing.}
-    \label{tab:encoder_parameters}
-\end{table}
-
-\section{Captured Images}
+\section{Stereo Polarization Data}
 The \sr is capable of reliably capturing 10-bit video at 16fps.
 A simple visualization toolkit was developed that uses the Equation \todo
 to calculate \gls{dolp} and \gls{aolp} and visualize this as hue and value in the \gls{hsv} color space.
@@ -133,4 +86,65 @@ This probably contributes to why polarization information can be extracted from 
     \label{fig:picture_1984}
 \end{figure}
 
+\section{Highly Efficient Image Preprocessing}
+The latency of the preprocessing kernel, as discussed in Chapter \ref{chap:debayer}, was measured to be $1.13ms$ using the \code{nsys profile} command line tool from the CUDA toolkit. The kernel is launched with only two thread blocks, which means that we are utilizing a maximum of two out of the eight available \glspl{sm} on the \gls{gpu} \cite{rigerunNVIDIAJetsonXavier2023}. Considering a frame rate of 2$\times$16 frames per second, it indicates that less than $1\%$ of the \gls{gpu} is being utilized for preprocessing purposes.
 
+\begin{equation}
+    \frac{2 \times 16 \text{f}/s}{1 \text{f} / 1.13ms} \times \frac{2 \text{SM}}{8 \text{SM}} = 0.904\%
+\end{equation}
+
+
+This estimation is consistent with the observation of $0\%$ \gls{gpu} utilization reported by \gls{jtop} for most of the time. In comparison to the initial implementation using \gls{opencv} on the CPU, where all CPU cores were running at maximum frequency without achieving 32 frames per second, the \gls{gpu} implementation shows a substantial improvement. The benefits of this approach include reduced power consumption and increased availability of both CPU and \gls{gpu} resources for other tasks.
+This is relevent for future works with real-time experiments.
+
+\section{GStreamer Pipeling with Hardware Accelerated Compression}
+The implementation of a \gls{gstreamer} pipeline with hardware accelerated compression enables longer recording times and the ability to stream compressed images to the graphical user interface as well as other potential clients.
+Having a working \gls{gstreamer} environment is also relevant for future works, as it enables the use of \gls{gstreamer} and \gls{deepstream} plugins for image processing and analysis.
+
+During the \master, funding was obtained to upgrade the \jx to a \jo platform.
+One notable difference between these two platforms is that the \jo supports \gls{av1} encoding, in addition to all the encoding formats supported by the \jx \cite{karumbunathanNVIDIAJetsonAGX2022}.
+Due to the higher efficiency of \gls{av1} compared to \gls{h265}, it was decided not to spend significant time fine-tuning the compression parameters for \gls{h265}, but rather focus on extensive performance testing \cite{torresAV1VsHEVC2022}.
+Nonetheless, a brief test was conducted to provide a rough estimate of the expected compression performance of the \gls{h265} encoder.
+
+To measure the compression ratio and error, a test video was recorded while walking around the boat yard area at Nyhavna, capturing the same areas depicted in Figure \ref{fig:picture_1984} and \ref{fig:picture_1536}.
+Only one camera was enabled during the recording to be able to write the raw data to disk fast enough.
+Utilizing the encoding parameters listed in Table \ref{tab:encoder_parameters}, a compression ratio of almost $4/1$ was achieved, with an average relative error of less than $0.6\%$ and a maximum relative error below $9\%$.
+
+It is important to note that these encoding parameters were not fine-tuned, and the results may not necessarily be representative of the performance that can be achieved with \gls{h265}.
+Further testing is scheduled as part of the migration to the \jo platform.
+\begin{table}[H]
+    \begin{minipage}[b]{.5\linewidth}
+        \centering
+        \small
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Parameter} & \textbf{Value} \\
+            \hline
+            preset-level       & 0              \\
+            ratecontrol-enable & 0              \\
+            profile            & Main10         \\
+            control-rate       & 0              \\
+            maxperf-enable     & 1              \\
+            qp-range           & 0,1:0,1:0,1    \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \begin{minipage}[b]{.5\linewidth}
+        \centering
+        \small
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Parameter} & \textbf{Value} \\
+            \hline
+            quant-i-frames     & 0              \\
+            quant-p-frames     & 0              \\
+            quant-b-frames     & 0              \\
+            iframeinterval     & 16             \\
+            num-Ref-Frames     & 8              \\
+            num-B-Frames       & 1              \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+    \caption{Encoder parameters used for testing.}
+    \label{tab:encoder_parameters}
+\end{table}

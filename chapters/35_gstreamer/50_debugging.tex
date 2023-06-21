@@ -31,6 +31,7 @@ This is especially usefull in combination with \gls{gstreamer} probes that can b
 
 
 \subsection{Inspection and Comparison of the Final Output}
+\label{sec:inspection_and_comparison_of_the_final_output}
 Examining the output is another effective way to verify the proper functioning of the pipeline and detect potential issues related to different image formats.
 
 One specific issue that was resolved through this type of debugging was the detection of a mismatch between the color profile used in the H.265 encoder and the one used in the color space conversion in \gls{cuda}.
@@ -41,7 +42,7 @@ This observation indicated that the compressed video could not reproduce the bri
 It was quickly recognized that the encoder was probably was utilizin another color profile, specifically bt.601 instead of bt.709.
 While exact documentation confirming this discrepancy could not be found, after re-implementing the \cuda implementation to utilize bt.601, the noise-to-signal ratios decreased significantly and the error pattern disappeared.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \subcaptionbox{Original frame.}{\includegraphics[width=0.48\textwidth]{figures/compression/error_orig.jpg}}
     \subcaptionbox{Original frame subtracted from the decompressed frame.

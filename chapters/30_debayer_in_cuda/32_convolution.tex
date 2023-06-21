@@ -58,15 +58,9 @@ Combining the operations also removed the need for synchonization as each value 
 \end{table}
 
 With the algebraic formulation available, it was possible to write a custom code generator that would generate the CUDA code needed for the 6 functions needed to calculate the 6 YCbCr 4:2:0 values for a single \gls{cg}.
-Figure \ref{fig:transformation} shows the pixel values that accessed during this process.
-Listing \ref{listing:generated_function} shows part of the generated code for calculating the Cr value for a \gls{cg}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.4\textwidth]{figures/polarized_image/normal_conv.pdf}
-    \caption{Visualization of which pixels are used (white cirle) to calculate the 6 YCbCr 4:2:0 values for the center \gls{cg} (thick white cirle).}
-    \label{fig:transformation}
-\end{figure}
+Listing \ref{listing:generated_function} shows parts of the generated code for calculating the Cr value for a \gls{cg} and Figure \ref{fig:transformation} shows the pixel values that accessed to calculate the values for one \gls{cg}.
+A big advantage of algebraic formulation and automatic code generation is that it is easy to change what's calculated.
+When it was discovered that the selected color profile was wrong in Section \ref{sec:inspection_and_comparison_of_the_final_output}, the only thing that needed to be changed to generate the correct code was the color space conversion matrix.
 
 \begin{listing}[H]
     \begin{minted}{cuda}
@@ -77,16 +71,22 @@ Listing \ref{listing:generated_function} shows part of the generated code for ca
         \end{minted}
     \vspace{-28pt}
     \begin{minted}[linenos=false, autogobble=false]{cuda}
-    ...
+            ...
     \end{minted}
     \vspace{-28pt}
     \begin{minted}[firstnumber=24]{cuda}
         tmp = __hfma2(__float2half2_rn(-1.122532265e-5f), data[0][col], tmp);
         tmp = __hfma2_sat(__float2half2_rn(-1.122532265e-5f), data[2][col - 2], tmp);
         return __hfma2(__float2half2_rn(1023.0f), tmp, __float2half2_rn(0.0f));
-    }
+        }
     \end{minted}
     \caption{Generated transformation function used to calculate Cr value for a \gls{cg}.
         Section \ref{sec:half2} explains the use of the \gls{half2} data type.}
     \label{listing:generated_function}
 \end{listing}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.4\textwidth]{figures/polarized_image/normal_conv.pdf}
+    \caption{Visualization of which pixels are used (white cirle) to calculate the 6 YCbCr 4:2:0 values for the center \gls{cg} (thick white cirle).}
+    \label{fig:transformation}
+\end{figure}
