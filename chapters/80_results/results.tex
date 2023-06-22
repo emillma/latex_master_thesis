@@ -1,7 +1,7 @@
 \chapter{Initial data set collection: Insights and experiences}
 \label{chap:results}
 
-\section{Simple Approach to Data Set Acquisition}
+\section{A Simple Approach to Data Set Acquisition}
 With the current setup, the threshold for recording high-quality data sets is very low.
 Following is the comprehensive list of steps required to start the \sr and record video.
 \begin{enumerate}
@@ -17,8 +17,18 @@ This simplie workflow takes only a couple minutes and enables effortless usage o
 It is anticipated that this user-friendly setup will encourage widespread utilization of the \sr by both myself and other researchers and master's students at NTNU in the future.
 
 
-\section{Stereo Polarization Data}
-The \sr is capable of reliably capturing 10-bit video at a frame rate of 16fps.
+\section{Polarization Data}
+The \sr is capable of reliably capturing 10-bit polarization video at a frame rate of 16fps.
+These images contain four distinct polarization channels, as illustrated in Figure \ref{fig:stacked_pols}.
+This presents a valuable advantage in maritime environments, where reflected light exhibits polarization characteristics, as evidenced by the varying intensities observed in the four channels.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{figures/pictures/stacked_right_148.jpg}
+    \caption{The four polarization channels with $0^\circ$, $45^\circ$, $90^\circ$ and $135^\circ$ polarization angle respectiverly.}
+    \label{fig:stacked_pols}
+\end{figure}
+
+
 To facilitate visualization, a simple toolkit was developed, employing the Equation \todo to calculate \gls{dolp} and \gls{aolp} from the four polarization channels.
 These values can be visualized as hue and value in the \gls{hsv} color space.
 The application of this visualization is demonstrated in the image below (Figure \ref{fig:picture_1536}).

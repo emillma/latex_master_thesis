@@ -20,6 +20,9 @@ Concurrency is the number of items processed simultaneously and can be measured 
 \subsection{Creating Minimal Testing Example}
 Wen debugging and profiling real-time applications it is often b
 
+Beyond this the use of coroutines offers more control over the execution of the program, at the cost of requiring more thought to be put into the design of the program to avoid blocking the event loop.
+
+
 \begin{listing}[H]
     \begin{minted}{python}
         def sleep_1sec(): time.sleep(1)
