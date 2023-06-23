@@ -1,4 +1,5 @@
 \section{Camera parameters}
+The \gls{sr} is equipped with two Triton 5.0 MP Polarization cameras that use the IMX264MYR \gls{cpfa} sensor from Sony.
 The \cams are configured by setting the value of \code{nodes} in four different \code{nodemaps}, presented in Table \ref{tab:nodemaps} \cite{lucidvisionlabsTritonMPPolarized2020}.
 As a lot of time was spend on trying out different parameters, and this was cumbersome as the varuous they had to be set using strings, I extended the API by creating a wrapper around each \code{nodemap} that defined each node as a python class, making it easy to set and read the values of the nodes.
 This was done by systematically querying the nodemaps for all their available nodes, parsing the descriptions values and generating python classes using \gls{jinja} templating.
