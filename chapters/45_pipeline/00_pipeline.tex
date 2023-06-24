@@ -5,7 +5,8 @@
 \section{Approach to Concurrency}
 As discussed in \todo using \gls{asyncio} is significantly more performant than using threads.
 
-
+Use thread pool where threads are needed, i.e.
+for \gls{cuda}.
 
 
 
@@ -15,6 +16,43 @@ As discussed in \todo using \gls{asyncio} is significantly more performant than 
     \caption{Class diagram showing the relationship between the classes in the pipeline and how thei interact.}
     \label{fig:pipeline_current}
 \end{figure}
+
+\subsection{Sharing Subcomponents}
+Two sets elements in the pipeline are created and owned and destroyed by one object but used direcly by another.
+This is done to solve synchronization problems during creaton, configuration and utilization of the objects.
+
+The ethernet device objects are created, owned and configured by the Network Manager, and used by directly by the Camera Manager during the creation of each Camera object.
+The network manger ensures that they never are configured to have overlapping subnets, as this causes issues during the discovery, creation and operation of the cameras.
+
+The Video Stream objects are created and confibured by their corresponding camera object and used direcly by the Video Stream Manager, which grabs frames and makes sure that left and right frames are synchronized.
+
+\subsection{Graceful Shutdown}
+In real-time systems involving external hardware, it is essential to implement controlled shutdown procedures to avoid potential complications and issues in future runs.
+
+On the \sr it is especially important to handle the camera and stream objects appropriately to avoid the cameras becoming inaccessible.
+This is achieved by utilizing the \code{with} and \code{async with} syntax in Python, along with \code{try-finally} blocks, to ensure proper resource cleanup.
+
+In case the cameras become inaccessible, a possible solution is to temporarily disable the Ethernet interface they are connected to for approximately two minutes.
+This action appear to trigger an internal reset of the cameras, restoring their functionality.
+
+\subsection{Custom Destructors}
+Several custom message types have been developed with custom destructors to ensure proper cleanup.
+
+The Frame With Meta object contains the data and relevant metadata for a single frame.
+The underlying memory is managed internally by \gls{arena-api} and needs to be explicitly freed back to the underlying memory pool in order for new frames to be allocated.
+This object has a custon \code{free} function used to free the underlying memory and \code{__del__} function that logs a warning if the memory has not been freed explicitly and frees it.
+
+Allocating CUDA memory is a slow operation.
+According to \gls{nsys}, allocating the tecessary memory to perform the transformation presented in Chapter \ref{chap:debayer} takes more time than the transformation itself.
+To avoid this overhead a custom CUDA memory pool was implemented that reuses CUDA memory in order to avoid allocating and freeing memory and stream objects for each frame.
+This pool is managed by the Memory Manager.
+When the CUDA Memory and CUDA Stream used by a kernel goes out of scope
+
+Finally, Gstreamer uses their own garbage collecion system and reference counting to manage memory.
+Fortunately the \gls{pygo} bindings for Gstreamer handles this automatically by having the python object participate in the reference counting, ensuring that the underlying Gstreamer object is not freed before the \py object is.
+
+
+
 
 \subsection{Debayer Manager}
 The main role of the debayer manager is to integrate the CUDA code with \py.
