@@ -1,43 +1,51 @@
 
 \section{Debugging and Profiling}
-
-\subsection{Throughput and Latency}
 In sequential programming measuring the performance of a program can be done through measuring its execution time.
 This can be acheived by recording the time when the program starts and when it finishes, and calculating the difference.
-The througput then becomes the
-
-The impact of future optimizations can then be measured by comparing the execution times before and after the optimizations are applied.
-As the number of tasks that can be solved in a given time is
 
 However, in concurrent processing, execution times of individual instructions may overlap, making it challenging to calculate the execution time of the individual instructions \cite[21]{volkovLatencyHiding2016}.
-The same type for time measurements can still be performed, but i
 
-Instead, metrics such as latency, throughput, and concurrency can be used to characterize the process.
+Two commonly used metrics for measuring the performance of concurrent programs are throughput and latency. Latency refers to the average time taken between the start and end of a task, while throughput represents the amount of work performed per unit of time \cite[21-23]{volkovLatencyHiding2016}.
 
-For example, latency is the average time between the start and end times of individual items, while throughput is the number of items processed within a given time interval divided by the duration of the interval.
-Concurrency is the number of items processed simultaneously and can be measured at different moments in time or as an average over a particular interval.
 
 \subsection{Creating Minimal Testing Example}
+
+
 Wen debugging and profiling real-time applications it is often b
 
 Beyond this the use of coroutines offers more control over the execution of the program, at the cost of requiring more thought to be put into the design of the program to avoid blocking the event loop.
 
+\subsubsection{Python Profilers}
+While none of the following profiling methods offer a complete insight into the performance of asynchronous \py programs, they are useful for identifying bottlenecks and frequently scheduled coroutines.
+
+The built-in Python profiler, \code{CProfile}, can be used to measure the execution time of individual functions and the number of times they are called \cite{pythonsoftwarefoundationPythonProfilers}.
+It is particularly helpful in identifying slow-running functions, and visualization tools like SnakeViz can be used to analyze the collected information \cite{davisSnakeViz2023}.
+Another valuable tool is the \code{line_profiler} package, which provides a line-by-line profiler for identifying slow lines of code \cite{kernLineProfilerKernprof2023}.
+
+Other tools, such as the \code{austin} plugin for \gls{vscode}, were tested but ultimately discarded as they did not perform as effectively as the previous two methods \cite{tornettaAustinVSCode2023}.
 
 
-\subsubsection{Profiling}
-Profiling is the process of measuring the performance of a program, and is an important tool for optimizing programs.
+\subsection{Nsight Systems}
+Nsight is a suite of tools for debugging and profiling CUDA applications.
+Three tools have been used for debugging and profiling during the \gls{cuda} code presented in Chapter \label{chap:debayer}.
+The \code{Nsight for Visual Studio} plugin for \gls{vscode} enables the use of breakpoints and step-by-step debugging in \gls{cuda} kernels \cite{nvidiaNsightVisualStudio2021}.
+As \gls{cuda} code is executed in parallel this does not always offer the same level of insight as when debugging sequential code, but it can still be useful for identifying errors in the code.
 
-In many cases it is straight forward; record the time when a task is started and when it is finished, and calculate the difference.
+For profiling, the \code{nsys profile} command line tool has been used.
+It can be used to collect a wide range of information about the execution of a program, including the execution time of individual kernels, memory usage
+\footnote{On the \jx, profiling memory the use of Pinned Memory appear to be broken.}
+, and the number of times each cuda related function is called \cite{nvidiaNVIDIANsightSystems2023}.
 
+The \code{nsys profile} tool can also export the collected information to a \code{sqlite} database, which can be visualized using the \code{Nsight Compute} \gls{gui} \cite{nvidiaNVIDIANsightSystems2023}.
+A zoomed out view of the timeline can be seen in Figure \ref{fig:nsight_compute_timeline}.
 
-However, when working with heterogeneous computing systems, it is not always
-
-nsys memory profiling does not work in Pinned Memory
 
 \subsection{Nsight Compute}
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/memory_comparaison.png}
+    \caption{Screenshot of Nsight Compute during profiling the kernel presented in Chapter \ref{chap:debayer}.}
+    \label{fig:}
 \end{figure}
 
 
