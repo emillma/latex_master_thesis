@@ -1,6 +1,4 @@
-\section{3D printing}
-
-\subsection{Motivation 3D printer aquistion}
+\section{Aquiring a New 3D Printer}
 The Department of Engineering Cybernetics is renting office space at Nyhavna to accomodate the growing number of employees.
 Due to this relocation, I have to travel to Gløshaugen, which is a 40 minute walk away, if I want to use the workshops there.
 During the preproject most of the parts were with the laser cutter at \gls{ov}, as is could be done in a single session.
@@ -24,13 +22,13 @@ The main requirements for the printer were:
 After some research contenders were the Bambu Lab X1 and the the Snapmaker J1, but as the X1 was not available for purchase at the time, the Snapmaker J1 was selected.
 The J1 is an IDEX printer, which means that it has two independent extruders that can print simultaniously or be used to print with two different materials without having to change the filament between each layer.
 
-\subsection{Choice of materials}
+\subsection{Choice of Materials}
 PETG was chosen as the primary printing material due to its ease of use, along with its durability and resistance to high temperatures, UV light, and water \cite{oconnellPETGVsPLA2023}.
 For the supports, PLA was selected as the material of choice.
 Printing supports in a different material offers advantages such as easier removal and smoother surfaces at the intersection points, as the bonding between different plastics is weaker.
 Although special breakaway filament was considered, PLA was ultimately chosen due to its cost-effectiveness, widespread availability, and successful use by others in similar applications \cite{SupportFilamentPETG2023}.
 
-\subsection{Printing workflow}
+\subsection{Printing Workflow}
 Figure \ref{fig:3dp_workflow} shows the full workflow for 3D printing parts.
 First, parts are designed in \gls{fusion}, a \gls{cad} software developed by Autodesk.
 The design process is documented in Chapter 2 of the \preproject.
@@ -49,7 +47,7 @@ Using \gls{luban}, directly to slice the model was possible, but it lacked some 
     \label{fig:3dp_workflow}
 \end{figure}
 
-\subsection{Calibrating the printer}
+\subsection{Calibrating the Printer}
 
 A significant amount of time was dedicated to calibrating the printer and fine-tuning the slicer settings to achieve the best possible print quality.
 The calibration process involved creating multiple small test prints, identifying areas for improvement such as stringing or uneven surfaces, and seeking solutions from various online resources.
@@ -78,7 +76,7 @@ This reduced the waiting time but did not remove it entierly, as the printer wou
 The final solution was then to simply set the stand by temperatures equal to the printing temperatures witch resulted in GCode without \code{M109} commands between each extruder change.
 
 
-\subsubsection{Initial layer flow}
+\subsubsection{Initial Layer Flow}
 One issue was that material had a tendency to build up around the nozzle during the first layer as visualized in Figure \ref{fig:first_layer_buildup}.
 This sometimes resulted in a dirty nozzle and some times the nozzle would pull the the material with it, resulting in a failed print.
 Other people on the Snammaker forum have also reported this issue, without finding a clear solution \cite{artezioFinerAdjustmentsOffset2021} \cite{napsZHeightCalibrationOffset2023}.

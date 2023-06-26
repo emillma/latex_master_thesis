@@ -40,15 +40,15 @@ Lately different deep learning methods has also proven to perform very well at t
 The method they present is derived as a modification of bilinear interpolation, and it involves adding Laplacian cross-channel corrections to improve the quality of the bilinear method \cite{getreuerMalvarHeCutlerLinearImage2011}.
 The demosaicking is implemented by convolution with a set of linear filters, and there are eight different filters for interpolating the different color components at different locations as can be shown in Figure \ref{fig:debayer:malvar_filters}.
 Although several more sophisticated methods have been developed, the simple \gls{mhc} method works remarkably well \cite{liImageDemosaicingSystematic2008}\cite{kwanComparisonDeepLearning2019}\cite{getreuerMalvarHeCutlerLinearImage2011}.
-The method is better suited for parallel execution than some others as discussed in \todo.
+
 
 \begin{figure}[H]
     \centering
     \begin{tabular}[b]{ccc}
-        \subcaptionbox{Exact image}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_orig.jpg}}                           &
-        \subcaptionbox{Observed Image}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_bayer.png}}                         \\
-        \subcaptionbox{Bilinear (PSNR=25.61)}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_bilinear.png}}             &
-        \subcaptionbox{Hamilton-Adams \todo (PSNR=31.62)}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_hamilton.png}} &
+        \subcaptionbox{Exact image}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_orig.jpg}}                     &
+        \subcaptionbox{Observed Image}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_bayer.png}}                   \\
+        \subcaptionbox{Bilinear (PSNR=25.61)}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_bilinear.png}}       &
+        \subcaptionbox{Hamilton-Adams (PSNR=31.62)}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_hamilton.png}} &
         \subcaptionbox{Malvar-He-Cutler (PSNR=31.15)}{\includegraphics[width=0.3\textwidth]{figures/debayer/house_malvar.png}}
     \end{tabular}
     \caption{Coefficient values used by Malvar-He-Cutler scaled by 8 \cite{getreuerMalvarHeCutlerLinearImage2011}}

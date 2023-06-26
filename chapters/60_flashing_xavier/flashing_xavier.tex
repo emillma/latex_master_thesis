@@ -1,6 +1,6 @@
 
 
-\chapter{Compiling Jetson Linux with PPS}
+\chapter{Compiling Jetson Linux with PPS Enabled}
 \label{chap:flashing_xavier}
 \begin{figure}[H]
     \centering
@@ -8,9 +8,9 @@
     \caption{Cautionary by XKCD \cite{xkcdCautionary2008}}
     \label{fig:xkcd_cautionary}
 \end{figure}
-
-\section{Introduction}
-To get some \gls{gstreamer} elements working, it was necessary to update the Linux Kernel on the \jx \cite{martensProblemsNvvidconvVideo2023}.
+This chapter presents a systematic approach to compile, flash and debug the \gls{os} on the \jx.
+Updating the \gls{os} was necessary to get the \gls{gstreamer} pipeline working.
+As \gls{pps} support is required to synchronize the clock on the \jx to \gls{utc}, it was necessary to configure the underlying Linux kernel to support this, which was more complicated than expected.
 
 
 \section{PPS interrupts in Linux}

@@ -8,7 +8,7 @@ Thus every thread reads five consecutive words as shown:
 \begin{align}
     a_T[i] = d[T*5+i], &  & i \in (0,1,2,3,4)
 \end{align}
-Where $T$ is the thread intex in the warp, $a_T$ is local memory of thread $T$, $d$ is the image stored in device memory, and $k$ is some constant offset.
+Where $T$ is the thread intex in the warp, $a_T$ is local memory of thread $T$ and $d$ is the relevant segment of the image stored in device memory.
 
 It was hypothized that it would be faster to let first read the data contiguously into shared memory and then redistribute it as follows:
 \begin{align}
@@ -16,7 +16,8 @@ It was hypothized that it would be faster to let first read the data contiguousl
     a_T[i]    & = s[(T*5+i)], & i & \in (0,1,2,3,4)
     \label{eq:contiguous_reading}
 \end{align}
-Where $s$ is shared local memory of thread, but this was slower than the initial uncoalesced reading.
+Where $s$ is shared local memory.
+However this was not the case as the performance was actually worse than the non-contiguous reading.
 
 
 A secont attmempt was done using the \code{__shfl_sync} function which is a warp-level primitive used to exchange data between threads in a warp \cite{linUsingCUDAWarpLevel2018}.

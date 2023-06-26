@@ -1,7 +1,11 @@
 \chapter{Graphical Web Interface}
 \label{chap:gui}
-\section{Introduction}
-\subsection{Continuation of previous work}
+This chapter presents the web application developed to enable real-time control and monitoring of the \sr and its video streams.
+The application allows anyone with a smartphone to operate the \sr without any prior training or technical knowledge.
+In addition, a \gls{pubsub} server has been implemented for communication between the web application and the pipeline.
+
+
+\section{Continuation of previous work}
 During the \preproject, a simple method of interacting with the system from a phone through the JuiceSSH app over \gls{ssh} was tested, as described in Section 6.5.2 of the \preproject.
 The exploration of using JuiceSSH to control the \sr was continued, and several useful command snippets were saved in the app to facilitate the execution of necessary commands for starting and stopping processes on the \jx through the phone.
 
@@ -9,7 +13,7 @@ However, it became evident that this solution was not satisfactory, as it posed 
 Additionally, the simultaneous execution and monitoring of multiple programs proved to be challenging within the JuiceSSH environment.
 
 
-\subsection{Motivation for web based GUI}
+\section{Motivation for web based GUI}
 Given that the \sr records video, it was logical to explore a \gls{gui} framework that could display the video.
 Initially, integrating a monitor and input devices into the \sr and developing a Qt application was considered but ultimately rejected due to the substantial effort required and the resulting reduction in portability of the \sr.
 
@@ -19,7 +23,7 @@ The \gls{dash} framework, based on \py and equipped with numerous useful compone
 Moreover, in a broader context, the need for an effective visual interaction and data visualization solution for remote computers was recognized.
 Development on the \jx has been conducted through \gls{ssh}, which has made data visualization with tools like Matplotlib cumbersome.
 The data collected from the \sr will be utilized for training and inference of AI models during my Ph.D.
-studies, and a headless workstation has been procured for this purpose, underscoring the relevance of the web based \gls{gui} framework for future work.
+studies and a headless workstation has been procured for this purpose, underscoring the relevance of the web-based \gls{gui} framework for future work.
 
 
 \subsection{Alternatives}

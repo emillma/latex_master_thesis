@@ -22,11 +22,11 @@ This configuration is referred to as a \gls{cpfa} and is illustrated in Figure \
 Given the four polarisation angles the Stokes parameters can be calculated \cite{piascoSurveyVisualBasedLocalization2018}.
 With these parameters the \gls{dolp} and \gls{aolp}, which is the angle of polarizaition relative to the camera, can be calculated as follows \cite{piascoSurveyVisualBasedLocalization2018}:
 \begin{align}
-    S_0 =  & I_0 + I_{90}                                      \\
-    S_1 =  & I_0 - I_{90}                                      \\
-    S_2 =  & I_{45} - I_{135}                                  \\
-    DoLP = & \frac{\sqrt{S_1^2 + S_2^2}}{S_0}                  \\
-    AoLP = & \frac{1}{2} \arctan{\left(\frac{S_2}{S_1}\right)}
+    S_0 =  & I_0 + I_{90}                                                      \\
+    S_1 =  & I_0 - I_{90}                                                      \\
+    S_2 =  & I_{45} - I_{135}                                                  \\
+    DoLP = & \frac{\sqrt{S_1^2 + S_2^2}}{S_0}  \label{eq:dolp}                 \\
+    AoLP = & \frac{1}{2} \arctan{\left(\frac{S_2}{S_1}\right)} \label{eq:aolp}
 \end{align}
 
 A common way to visualize this is to encode the \gls{aolp} as hue and the \gls{dolp} as value in the \gls{hsv} color space.
