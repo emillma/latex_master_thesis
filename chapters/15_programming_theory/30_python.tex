@@ -8,7 +8,7 @@ The benefits of using threads include their ease of use and seamless integration
 
 \subsection{Multiprocessing}
 In contrast to threads, multiprocessing allows for true parallelism, as each process has its own \gls{gil} \cite{ajitsariaWhatPythonGlobal2018}.
-However, communicating between processes is more difficult than communicating between threads, as processes do not share memory and data has to be serealized in order be transferred imposing a significant overhead \cite{pythonsoftwarefoundationMultiprocessingProcessbasedParallelism}.
+However, communicating between processes is more difficult than communicating between threads, as processes do not share memory, and data has to be serialized in order to be transferred, imposing a significant overhead \cite{pythonsoftwarefoundationMultiprocessingProcessbasedParallelism}.
 
 \subsection{Subprocessing}
 Python's \code{subprocess} module makes it possible to launch, monitor and interact with external processes \cite{pythonsoftwarefoundationSubprocessSubprocessManagement}.
@@ -18,12 +18,12 @@ The main advantage of using subprocesses is that any existing program can easily
 The \py standard library provides the \gls{asyncio} module, enabling the use of an event loop for scheduling and executing asynchronous tasks \cite{pythonsoftwarefoundationAsyncioAsynchronous}.
 While \gls{asyncio} offers greater control over program execution, it requires careful program design to prevent blocking the event loop.
 
-To use \gls{asyncio}, the program must be written in a way that allows the event loop to switch between tasks, making it difficult to use with existing code.
-Fortunately \gls{asyncio} makes it easy to integrate existing blocking code by running it in a thread pool, a process pool or even as a subprocess and wrapping it in a coroutine \cite{pythonsoftwarefoundationAsyncioAsynchronous}.
+To use \gls{asyncio}, the program must be written in a way that allows the event loop to switch between tasks, making it difficult to use it with existing code that is not designed for asynchronous execution.
+Fortunately, \gls{asyncio} makes it easy to integrate existing blocking code by running it in a thread pool, a process pool, or even as a subprocess and wrapping it in a coroutine \cite{pythonsoftwarefoundationAsyncioAsynchronous}.
 
 Compared to threads, \gls{asyncio} is more lightweight and has less overhead, as shown in Listing \ref{listing:concurrency_test} and \ref{listing:concurrency_test_results}.
-In the test four different ways to achieve concurrency are compared, \gls{asyncio}, threads, a thread pool and a thread pool running in \gls{asyncio}.
-In the test 10000 tasks are executed, each of which sleeps for one second.
+In the test, four different ways to achieve concurrency are compared, \gls{asyncio}, threads, a thread pool, and a thread pool running in \gls{asyncio}.
+In the test, 10000 tasks are executed, each of which sleeps for one second.
 
 \begin{listing}[H]
     \begin{minted}{python}

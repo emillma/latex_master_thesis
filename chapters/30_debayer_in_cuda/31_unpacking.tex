@@ -4,7 +4,7 @@
 The first step in the transformation process is to unpack the raw data from the camera.
 The \lucid cameras feature a 12-bit \gls{adc} and offer 23 different output formats with varying bit depths and packing.
 As the \gls{h265} encoder supports 10-bit data, the \code{Mono10p} output format was chosen for the cameras \cite[17 ]{nvidiaNVIDIAJetsonAGX2019}.
-This format densly packs the 10-bit data, as depicted in Figure \ref{fig:mono10p}, maximizing the network throughput.
+This format densely packs the 10-bit data, as depicted in Figure \ref{fig:mono10p}, maximizing the network throughput.
 
 \begin{figure}[H]
     \centering
@@ -31,8 +31,8 @@ Regrettably, I later discovered that Lucid Vision does provide separate document
 
 
 \subsection{Bit Unpacking}
-The pattern in Figure \ref{fig:mono10p} was identified as representing an little endian unsigned integer.
-By reordering the bytes vuisually the bit pattern in Figure \ref{fig:mono10p} becomes more intuitive, as shown in Figure \ref{fig:mono10p_reordered}.
+The pattern in Figure \ref{fig:mono10p} was identified as representing a little endian unsigned integer.
+By reordering the bytes visually the bit pattern in Figure \ref{fig:mono10p} becomes more intuitive, as shown in Figure \ref{fig:mono10p_reordered}.
 
 \begin{figure}
     \centering
@@ -41,10 +41,10 @@ By reordering the bytes vuisually the bit pattern in Figure \ref{fig:mono10p} be
     \label{fig:mono10p_reordered}
 \end{figure}
 
-As the\gls{cuda} GPU architecture uses little-endian representation this is beneficial as we can interpred the incoming bits as a sequence of word sized (32-bit) unsigned integers directly \cite[127]{nvidiaCUDAProgrammingGuide}.
-The first three pixel values are then read as from the 30 least significant bits of the first word, the fourth pixel value is read from the most significant bits of the first word and the least 8 significant bits of the secont word and so on.
+As the\gls{cuda} GPU architecture uses little-endian representation, this is beneficial as we can interpret the incoming bits as a sequence of word-sized (32-bit) unsigned integers directly \cite[127]{nvidiaCUDAProgrammingGuide}.
+The first three pixel values are then read as from the 30 least significant bits of the first word, the fourth pixel value is read from the most significant bits of the first word and the least eight significant bits of the second word, and so on.
 This can be extracted using bit manipulation as shown in Listing \ref{lst:unpacking_half2}.
-To get proper byte alignment each thread unpacks 5 words (160 bits), which corresponds to 16 pixel values.
+To get proper byte alignment, each thread unpacks five words (160 bits) corresponding to 16 pixel values.
 
 \begin{listing}
     \begin{minted}{cuda}

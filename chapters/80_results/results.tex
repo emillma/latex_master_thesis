@@ -54,7 +54,7 @@ Five regions of interest are marked in the image and will be discussed in the fo
 
 Region 3 exhibits what appears to be artificial polarization.
 These artifacts are likely caused by high image gradients.
-As the four polarization angles are spatially separated in the \gls{pfa} this gradient results in different intnsities in the four polarization channels even though the light is unpolarized.
+As the four polarization angles are spatially separated in the \gls{pfa} this gradient results in different intensities in the four polarization channels even though the light is unpolarized.
 Consequently, the estimation of the polarization may be incorrect in such cases.
 
 Various papers have been published on polarization estimation techniques for both monochrome and color polarization cameras \cite{mihoubiSurveyDemosaickingMethods2018} \cite{spoteJointDemosaicingColour2021}.
@@ -82,15 +82,15 @@ These observations suggest that there might be room for improvement in the debay
 \subsection{Region 4 and 5: Polarization Reveals Water}
 One significant advantage of polarization imaging in maritime environments is that water reflections exhibit polarization.
 As a result, it becomes relatively straightforward to detect water in the image by analyzing the differences in polarization, as depicted by the contrast between region 4 and 5 in Figure \ref{fig:pol_img_1536}.
-However, it should be noted that this effect becomes weaker further away as the angle of incidence deviates further away from the Brewster's angle.
+However, it should be noted that this effect becomes weaker further away as the angle of incidence deviates further away from Brewster's angle.
 
 
 \section{Wide Baseline Stereo Data}
-The \sr is believed to be the first platform offering offering stereo polarization imaging.
-With a baseline of up to $1m$ depth can be estimated further away than off the shelf stereo cameras like the ZED camera.
-Beyond the refular benefits of stereo imaging, it is believed that this setup can be used to further enhance depth perception.
-This is because \gls{dolp} and \gls{aolp} can be used to support the point correspondance step of the stereo matching algorithm.
-Further, it is believed that having two mearusrements of \gls{aolp} from different viewpoints can be used to estimate a normal map of the surfaces in the scend, which can be used to further enhance the depth estimation.
+The \sr is believed to be the first platform offering stereo polarization imaging.
+With a baseline of up to $1m$, depth can be estimated further away than off-the-shelf stereo cameras like the ZED camera.
+Beyond the regular benefits of stereo imaging, it is believed that this setup can be used to further enhance depth perception.
+This is because \gls{dolp} and \gls{aolp} can be used to support the point correspondence step of the stereo-matching algorithm.
+Further, it is believed that having two measurements of \gls{aolp} from different viewpoints can be used to estimate a normal map of the surfaces in the scend, which can be used to further enhance the depth estimation.
 In Figure \ref{fig:picture_1984_left} and \ref{fig:picture_1984_right} we see a matching pair of images from the \sr.
 \begin{figure}[H]
     \centering
@@ -111,8 +111,8 @@ In Figure \ref{fig:picture_1984_left} and \ref{fig:picture_1984_right} we see a 
 \end{figure}
 
 \section{10 Bit Images}
-Another noteworthy benefit of the final setup is that we get images with 10 bit depth.
-This give the images higher dynamic range as the pixel values are more nuanced.
+Another noteworthy benefit of the final setup is that we get images with 10-bit depth.
+This gives the images a higher dynamic range as the pixel values are more nuanced.
 A visualization of this is is shown in Figure \ref{fig:gained_image} where digital gain is applied to the image in Figure \ref{fig:normal_img_1536}, revealing that the darker regions do contain a lot of information.
 This probably contributes to why polarization information can be extracted from region 4 in Figure \ref{fig:picture_1536}.
 

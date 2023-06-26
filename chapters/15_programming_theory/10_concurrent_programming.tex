@@ -6,7 +6,7 @@ This section introduces the concept of concurrent programming and discusses the 
 Before discussing concurrent programming, it is important to understand the concept of sequential programming.
 Sequential programming is a programming paradigm in which one task is finished before the next one is started.
 This can be seen as the default type of programming where one line of code is executed after another in a linear order.
-Figure \ref{fig:concurrency_sequential} shows an example of sequential program that executes a sequence of three tasks multiple times.
+Figure \ref{fig:concurrency_sequential} shows an example of a sequential program that executes a sequence of three tasks multiple times.
 
 If there is no reason to execute tasks concurrently, then sequential programming is often the best choice as there is little to no overhead involved and it is easy to understand, debug and maintain.
 
@@ -24,14 +24,14 @@ There are many different ways to achieve concurrency but two main  categories ar
 
 
 \subsection{Asynchronous programming}
-Asynchronous programming enables concurrent execution of tasks without blocking others, while processing one task at a time.
+Asynchronous programming enables the concurrent execution of tasks without blocking others while processing one task at a time.
 It is commonly used in systems involving I/O operations, such as network communication, where waiting for results can be time-consuming.
 Rather than blocking the program, asynchronous programming allows for the execution of other tasks while waiting for an operation to complete.
-This concept is illustrated in Figure \ref{fig:concurrency_concurrent} where three tasks are executed multiple times asynchronously.
+This concept is illustrated in Figure \ref{fig:concurrency_concurrent}, where three tasks are executed multiple times asynchronously.
 
 In asynchronous programming, coroutines are often utilized.
 Coroutines are functions that can be paused and resumed, providing a flexible control flow.
-Another common approach is to use callbacks, which are functions called upon task completion.
+Another common approach is to use callbacks, functions called upon task completion.
 
 A fitting metaphor for asynchronous programming is a chef cooking, where he or she switches between preparing multiple dishes while waiting for others to cook.
 
@@ -64,7 +64,7 @@ However, coordination and synchronization among the chefs are necessary to maint
 
 
 \subsection{Design patterns}
-When designing a concurrent program there are many factors to consider. The following questions can help guide the decision-making process:
+When designing a concurrent program, there are many factors to consider. The following questions can help guide the decision-making process:
 
 \begin{itemize}
     \item Does task communication play a role in the program?
@@ -82,7 +82,7 @@ Figure \ref{fig:concurrency_concurrent_overlap} shows three different implementa
 
 In the first implementation, each thread performs all tasks three tasks sequentially and independently.
 The second implementation assigns each thread to a specific task, allowing them to repeatedly perform that task and pass the result to the next thread.
-The third implementation is a combination of the two, where one thread is responsible for one task, while the other two receives data from the first thread and performs the remaining tasks.
+The third implementation is a combination of the two, where one thread is responsible for one task, while the other two receive data from the first thread and perform the remaining tasks.
 This combined approach is particularly suitable when the first task involves \gls{io} operations.
 
 \begin{figure}[H]

@@ -14,7 +14,7 @@ It is important to highlight that the updated \jo now supports a maximum of $163
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\textwidth]{figures/polarized_image/separation.pdf}
-    \caption{How separation is done in order to reduce amount of shared memory required per thread block.}
+    \caption{How separation is done in order to reduce the amount of shared memory required per thread block.}
     \label{fig:saperation}
 \end{figure}
 
@@ -29,7 +29,7 @@ The local memory is structured as an array of pointers to local line data, makin
     \label{fig:reuse}
 \end{figure}
 
-The local memory has eight rows, such that while computation is performed on the first six rows, the next two rows can be prefetched from global memory and unpacket.
+The local memory has eight rows, such that while computation is performed on the first six rows, the next two rows can be prefetched from global memory and unpacked.
 This is done by a separate group of warps, enabling concurrent computation and prefetching, as shown in Figure \ref{fig:saperation}.
 
 

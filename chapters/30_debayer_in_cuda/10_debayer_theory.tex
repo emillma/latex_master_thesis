@@ -38,7 +38,7 @@ Lately different deep learning methods has also proven to perform very well at t
 \subsection{Malvar-He-Cutler}
 \gls{mhc} pattented a simple but performant linear method using 5x5 filters that shows surprisingly good results \cite{malvarHighqualityGradientcorrectedLinear2009}.
 The method they present is derived as a modification of bilinear interpolation, and it involves adding Laplacian cross-channel corrections to improve the quality of the bilinear method \cite{getreuerMalvarHeCutlerLinearImage2011}.
-The demosaicking is implemented by convolution with a set of linear filters, and there are eight different filters for interpolating the different color components at different locations as can be shown in Figure \ref{fig:debayer:malvar_filters}.
+The demosaicking is implemented by convolution with a set of linear filters, and there are eight different filters for interpolating the different color components at different locations, as shown in Figure \ref{fig:debayer:malvar_filters}.
 Although several more sophisticated methods have been developed, the simple \gls{mhc} method works remarkably well \cite{liImageDemosaicingSystematic2008}\cite{kwanComparisonDeepLearning2019}\cite{getreuerMalvarHeCutlerLinearImage2011}.
 
 
@@ -56,10 +56,10 @@ Although several more sophisticated methods have been developed, the simple \gls
 
 \subsection{Shortcomings of MHC}
 A shortcoming of the current method is that it does not use optimal gains.
-Firstly the values used in \gls{mhc} are rounded to the neared dyadic rationals, to work efficently using integer arithmetic and bitshifting \cite{getreuerMalvarHeCutlerLinearImage2011}.
-As the current proposed implementation uses floating point arithmetic, this rounding is unecessary.
-Another minor issues is that the values in \gls{mhc} were found to be the best fit for the well-known public-domain Kodak image set \cite{malvarHighqualityGradientcorrectedLinear2009}.
-This is a set of 24 varied images, shown in Figure \ref{fig:kodak_image_suite}, that might not be the best representation of the images the \sr will capture in maritime environments.
+Firstly the values used in \gls{mhc} are rounded to the neared dyadic rationals to work efficiently using integer arithmetic and bit-shifting \cite{getreuerMalvarHeCutlerLinearImage2011}.
+This rounding is unnecessary as the currently proposed implementation uses floating point arithmetic.
+Another minor issue is that the values in \gls{mhc} were found to be the best fit for the well-known public-domain Kodak image set \cite{malvarHighqualityGradientcorrectedLinear2009}.
+This set of 24 varied images, shown in Figure \ref{fig:kodak_image_suite}, might not be the best representation of the images the \sr will capture in maritime environments.
 It might be beneficial to recalculate the values based on a more representative dataset and use the floating point values rather than the rounded ones in the future.
 
 

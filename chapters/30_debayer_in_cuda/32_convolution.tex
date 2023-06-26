@@ -1,13 +1,13 @@
 \section{From Bayer to YCbCr 4:2:0}
 \label{sec:bayertoycbcr}
 Three steps are needed to transform the Bayer data to YCbCr 4:2:0.
-First the Bayer data is debayered using the \gls{mhc} coefficients in Figure \ref{fig:debayer:malvar_filters}, then the color space is converted to YCbCr and finally chroma subsampling is applied.
+First, the Bayer data is debayered using the \gls{mhc} coefficients in Figure \ref{fig:debayer:malvar_filters}, then the color space is converted to YCbCr, and finally, chroma subsampling is applied.
 
-To optimize the performance of this sequential transformation, an algebraic formulation using \gls{sympy} was developed.
+An algebraic formulation using \gls{sympy} was developed to optimize the performance of this sequential transformation.
 It was discovered that better performance could be achieved by calculating combined coefficients ahead of compilation.
 This is because all three steps (debayering, color space conversion, and subsampling) consist exclusively of linear equations.
 Table \ref{table:debayer_coefficients} provides a comparison of the number of \gls{fma} operations required when the steps are performed separately versus when they are combined.
-Combining the operations also removed the need for synchonization as each value is calculated independently.
+Combining the operations also removed the need for synchronization, as each value is calculated independently.
 
 
 \begin{table}
@@ -61,8 +61,8 @@ Combining the operations also removed the need for synchonization as each value 
 
 \subsection{Automatic Code Generation in Python using Sympy}
 \label{sec:code_generation}
-With the algebraic formulation available, it was possible to write a custom code generator that would generate the\gls{cuda} code needed for the 6 functions needed to calculate the 6 YCbCr 4:2:0 values for a single \gls{cg}.
-Listing \ref{listing:generated_function} shows parts of the generated code for calculating the Cr value for a \gls{cg} and Figure \ref{fig:transformation} shows the pixel values that accessed to calculate the values for one \gls{cg}.
+With the algebraic formulation available, it was possible to write a custom code generator that would generate the\gls{cuda} code needed for the six functions needed to calculate the 6 YCbCr 4:2:0 values for a single \gls{cg}.
+Listing \ref{listing:generated_function} shows parts of the generated code for calculating the Cr value for a \gls{cg}, and Figure \ref{fig:transformation} shows the pixel values that are accessed to calculate the values for one \gls{cg}.
 A big advantage of algebraic formulation and automatic code generation is that it is easy to change what's calculated.
 When it was discovered that the selected color profile was wrong in Section \ref{sec:inspection_and_comparison_of_the_final_output}, the only thing that needed to be changed to generate the correct code was the color space conversion matrix.
 
@@ -91,6 +91,6 @@ When it was discovered that the selected color profile was wrong in Section \ref
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{figures/polarized_image/normal_conv.pdf}
-    \caption{Visualization of which pixels are used (white cirle) to calculate the 6 YCbCr 4:2:0 values for the center \gls{cg} (thick white cirle).}
+    \caption{Visualization of which pixels are used (white circle) to calculate the 6 YCbCr 4:2:0 values for the center \gls{cg} (thick white circle).}
     \label{fig:transformation}
 \end{figure}
