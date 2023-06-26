@@ -19,7 +19,7 @@ This means that the incoming data can be cast directly to \gls{half2} during the
 \end{figure}
 
 A disadvantage of using \gls{half2} is that every arithmetic operation, like multiplication, has to be performed using spceial function calls \cite{nvidiaHalf2ArithmeticFunctions2023}.
-To solve this the code generator, discussed in Section \todo, was modified to generate the correct function calls as shown in Listing \ref{listing:generated_function}.
+To solve this the code generator, discussed in Section \ref{sec:code_generation}, was modified to generate the correct function calls as shown in Listing \ref{listing:generated_function}.
 
 \subsubsection{Small Infinity Bug}
 Half-precision floating points consider any value exceeding $65504$ as infinity \cite{HalfprecisionFloatingpointFormat2023}.

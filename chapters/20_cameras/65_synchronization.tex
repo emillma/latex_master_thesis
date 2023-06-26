@@ -15,8 +15,13 @@ The cameras also report their estimated \gls{ptp} offset, which partially aligne
     \label{tab:triton_pinout}
 \end{table}
 
+\subsection{Reduce trigger latency}
+It is possible to reduce the trigger latency of the cameras, which results in a lower synchronization offset.
+This can be acheived by setting the \code{TriggerLatency} node to \code{OneLine}.
+This reduces the average trigger offset down to $10\mu s$.
+Unfortunately, this option becomes unavailable while the \code{TriggerOverlap} node is set to \code{set_PreviousFrame}, which is requiered to reach higher framerates.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \subcaptionbox{Synchronization at $25ms$ resolution.
         \label{fig:sync_25us}}{
@@ -29,9 +34,3 @@ The cameras also report their estimated \gls{ptp} offset, which partially aligne
     \label{fig:sync_offset}
 \end{figure}
 
-
-\subsection{Reduce trigger latency}
-It is possible to reduce the trigger latency of the cameras, which results in a lower synchronization offset.
-This can be acheived by setting the \code{TriggerLatency} node to \code{OneLine}.
-This reduces the average trigger offset down to $10\mu s$.
-Unfortunately, this option becomes unavailable while the \code{TriggerOverlap} node is set to \code{set_PreviousFrame}, which is requiered to reach higher framerates.

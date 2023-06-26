@@ -1,10 +1,15 @@
 
 \section{Working with GStreamer in Python}
-An extensive list of examples on how to use \code{gst-launch-1.0} for various purposes has been made by Adrian Lane and can be found on his GitHub \cite{laneGStreamerPipelineSamples2020}.
+\gs is an open-source multimedia framework that provides a pipeline-based architecture for creating and manipulating multimedia applications \cite{gstreamerGStreamerOpenSource}.
+It offers a comprehensive set of libraries, plugins, and tools for handling various types of multimedia data, including audio, video, and streaming media.
+On the \gls{jetson} platform, \gs can be used to levrage the \glspl{asic}, such as the \gls{h265} encoder \cite{nvidiaAcceleratedGStreamerJetson}.
+
+Following is a description of the different approaches that were tested for using \gs in \py.
 
 
 \subsection{Communicating with a Gst-Launch Pipeline}
 The easiest way to use \gs is to use \code{gst-launch-1.0} from the terminal, a tool that builda and runs basic \gs pipelines from a pipeline description string \cite{Gstlaunch1}.
+An extensive list of examples on how to use \code{gst-launch-1.0} for various purposes has been made by Adrian Lane and can be found on his GitHub \cite{laneGStreamerPipelineSamples2020}.
 
 Initially \code{gst-launch-1.0} was used to create pipelines to compress the images to \gls{h265} video streams and \gls{jpeg} images.
 Different approaches were tested for communicating with the generated pipeline from Python.
@@ -31,7 +36,7 @@ This approach is very similar in nature as using files, as \gls{stdin} and \gls{
 However this approach is more elegant as it does not require any files and designed for this exact purpose.
 The \gs process was started using \gls{asyncio} to be able to read and write to \gls{stdin} and \gls{stdout} asynchronously.
 
-\subsection{Parsing of JPEG bytestream}
+\subsubsection{Parsing of JPEG bytestream}
 Initially the data generated from \gs was piped through \code{stdout}.
 The following binary \gls{regex} was used in to separate the images.
 \begin{figure}[H]
