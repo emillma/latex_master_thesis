@@ -1,13 +1,12 @@
 
 \chapter{Pipeline Assembly in Python}
 \label{chap:pipeline}
+This chapter serves as a link between the preceding three chapters, illustrating the process of assembling the different components into a functional pipeline.
+While providing a comprehensive explanation of the pipeline is considered unnecessary for the thesis, the focus is placed on highlighting the crucial components and design choices.
+The complete source code is available upon request.
 
 \section{Approach to Concurrency}
 As discussed in \todo using \gls{asyncio} is significantly more performant than using threads.
-
-Use thread pool where threads are needed, i.e.
-for \gls{cuda}.
-
 
 
 \begin{figure}
@@ -50,8 +49,6 @@ When the CUDA Memory and CUDA Stream used by a kernel goes out of scope
 
 Finally, Gstreamer uses their own garbage collecion system and reference counting to manage memory.
 Fortunately the \gls{pygo} bindings for Gstreamer handles this automatically by having the python object participate in the reference counting, ensuring that the underlying Gstreamer object is not freed before the \py object is.
-
-
 
 
 \subsection{Debayer Manager}
