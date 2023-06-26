@@ -41,7 +41,7 @@ By reordering the bytes vuisually the bit pattern in Figure \ref{fig:mono10p} be
     \label{fig:mono10p_reordered}
 \end{figure}
 
-As the CUDA GPU architecture uses little-endian representation this is beneficial as we can interpred the incoming bits as a sequence of word sized (32-bit) unsigned integers directly \cite[127]{CUDAProgrammingGuide}.
+As the\gls{cuda} GPU architecture uses little-endian representation this is beneficial as we can interpred the incoming bits as a sequence of word sized (32-bit) unsigned integers directly \cite[127]{CUDAProgrammingGuide}.
 The first three pixel values are then read as from the 30 least significant bits of the first word, the fourth pixel value is read from the most significant bits of the first word and the least 8 significant bits of the secont word and so on.
 This can be extracted using bit manipulation as shown in Listing \ref{lst:unpacking_half2}.
 To get proper byte alignment each thread unpacks 5 words (160 bits), which corresponds to 16 pixel values.

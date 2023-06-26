@@ -20,6 +20,6 @@ Initially, I attempted to perform these steps using \gls{numpy} for data unpacki
 However, even when utilizing all eight \gls{cpu} cores on the \jx to their full extent, I was unable to achieve the required performance.
 Furthermore, running the \gls{cpu} cores at maximum frequency had a substantial negative impact on the power consumption of the \jx.
 
-To attain the necessary throughput, I made the decision to implement the whole translation process using CUDA.
+To attain the necessary throughput, I made the decision to implement the whole translation process using\gls{cuda}.
 This implementation is divided into two parts: data unpacking and transformation.
-While CUDA-accelerated \gls{opencv} was considered, significant optimization potential was identified due to the unique format of the camera sensors.
+While\gls{cuda}-accelerated \gls{opencv} was considered, significant optimization potential was identified due to the unique format of the camera sensors.

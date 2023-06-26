@@ -78,7 +78,7 @@ Working with real hardware constantly introduces unexpected issues and overcomin
 In terms of specific techical achievements the following are the main contributions:
 
 \begin{itemize}
-    \item Developed and implemented a higly efficient CUDA kernel transforming the raw output from the \cams into the widly used \gls{p010} format.
+    \item Developed and implemented a higly efficient \gls{cuda} kernel transforming the raw output from the \cams into the widly used \gls{p010} format.
     \item Assembled a \py acessible \gls{gstreamer} pipeline for hardware acceleraded compression on the \jx.
     \item Developed a fulstack graphical web interface acessible from mobile devices.
     \item Designed and 3D-printed ergonomic handles for the \sr.
@@ -86,7 +86,7 @@ In terms of specific techical achievements the following are the main contributi
 
 
 \section{Outline}
-Completing the \sr project has involved extensive work on various topics, ranging from hardware design and full stack web development to kernel compilation and low-level optimizations in CUDA.
+Completing the \sr project has involved extensive work on various topics, ranging from hardware design and full stack web development to kernel compilation and low-level optimizations in \gls{cuda}{cuda}.
 Although some of the topics are closely related, others are only connected  by contributing towards the final product.
 
 With this in mind it has been difficult to decide on a structure for this report and what to include.
@@ -105,7 +105,7 @@ The following is a brief overview of the content of each chapter:
 
 \paragraph{Chapter \ref{chap:programming_theory}: Real time programming on Jetson Xavier}
 This chapter provides an overview of the theoretical background relevant to real-time performance on the Jetson Xavier platform and the development of real-time software in general.
-It explores topics such as real-time programming theory, performance considerations for heterogeneous systems, and introduces the CUDA programming model.
+It explores topics such as real-time programming theory, performance considerations for heterogeneous systems, and introduces the \gls{cuda} programming model.
 
 \paragraph{Chapter \ref{chap:cameras}: Polarization Cameras}
 This chapter presents the special type of polarization cameras used, explain how they work and why they are particularly well suited for detection in marine environments.
@@ -113,7 +113,7 @@ Furthermore, it covers how to interact with the \cams through thair \gls{api} an
 
 \paragraph{Chapter \ref{chap:debayer}: Efficient processing of raw image bitstream in CUDA}
 To make it possible to compress the video streams, the raw data has to be transformed into a format that can be processed by the \gls{h265} encoder.
-This chapter explains how this is acheived in real time using CUDA.
+This chapter explains how this is acheived in real time using \gls{cuda}.
 
 \paragraph{Chapter \ref{chap:gstreamer}: Video Compression using GStreamer}
 \gls{gstreamer} is a powerful framework for processing video streams.

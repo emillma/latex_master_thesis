@@ -127,7 +127,7 @@ This probably contributes to why polarization information can be extracted from 
 
 \section{Highly Efficient Image Preprocessing}
 
-The latency of the preprocessing kernel, discussed in Chapter \ref{chap:debayer}, was measured to be $1.13ms$ using the \code{nsys profile} command line tool from the CUDA toolkit.
+The latency of the preprocessing kernel, discussed in Chapter \ref{chap:debayer}, was measured to be $1.13ms$ using the \code{nsys profile} command line tool from the\gls{cuda} toolkit.
 The kernel is launched with only two thread blocks, indicating that we are utilizing a maximum of two out of the eight available \glspl{sm} on the \gls{gpu} \cite{rigerunNVIDIAJetsonXavier2023}.
 Considering a frame rate of 2$\times$16 frames per second, this suggests that less than $1\%$ of the \gls{gpu} resources are being utilized for preprocessing.
 

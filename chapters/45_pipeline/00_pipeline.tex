@@ -41,18 +41,18 @@ The Frame With Meta object contains the data and relevant metadata for a single 
 The underlying memory is managed internally by \gls{arena-api} and needs to be explicitly freed back to the underlying memory pool in order for new frames to be allocated.
 This object has a custon \code{free} function used to free the underlying memory and \code{__del__} function that logs a warning if the memory has not been freed explicitly and frees it.
 
-Allocating CUDA memory is a slow operation.
+Allocating\gls{cuda} memory is a slow operation.
 According to \gls{nsys}, allocating the tecessary memory to perform the transformation presented in Chapter \ref{chap:debayer} takes more time than the transformation itself.
-To avoid this overhead a custom CUDA memory pool was implemented that reuses CUDA memory in order to avoid allocating and freeing memory and stream objects for each frame.
+To avoid this overhead a custom\gls{cuda} memory pool was implemented that r\gls{cuda} CUDA memory in order to avoid allocating and freeing memory and stream objects for each frame.
 This pool is managed by the Memory Manager.
-When the CUDA Memory and CUDA Stream used by a kernel goes out of scope
+When the\gls{cuda} Memor\gls{cuda} CUDA Stream used by a kernel goes out of scope
 
 Finally, Gstreamer uses their own garbage collecion system and reference counting to manage memory.
 Fortunately the \gls{pygo} bindings for Gstreamer handles this automatically by having the python object participate in the reference counting, ensuring that the underlying Gstreamer object is not freed before the \py object is.
 
 
 \subsection{Debayer Manager}
-The main role of the debayer manager is to integrate the CUDA code with \py.
+The main role of the debayer manager is to integrate the\gls{cuda} code with \py.
 To acheive this \gls{pybind11} was used.
 \gls{pybind11} is a \gls{cpp} library that allows for the creation of \py bindings for \gls{cpp}, also \gls{cpp} funcions that launch \gls{cuda} kernels.
 

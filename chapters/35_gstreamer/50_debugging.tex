@@ -40,7 +40,7 @@ By subtracting the original frame from the decompressed frame and adding 512 to 
 The error image showed that where the original image was bright, the error image was dark, and vice versa.
 This observation indicated that the compressed video could not reproduce the brightest or darkest colors from the original video.
 It was quickly recognized that the encoder was probably was utilizin another color profile, specifically bt.601 instead of bt.709.
-While exact documentation confirming this discrepancy could not be found, after re-implementing the \cuda implementation to utilize bt.601, the noise-to-signal ratios decreased significantly and the error pattern disappeared.
+While exact documentation confirming this discrepancy could not be found, after re-implementing the \gls{cuda} implementation to utilize bt.601, the noise-to-signal ratios decreased significantly and the error pattern disappeared.
 
 \begin{figure}
     \centering

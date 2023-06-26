@@ -29,13 +29,13 @@ On the \sr a \gls{pps} signal from one of the \glsps{f9p} is used to sunchronize
 
 \section{Jetpack}
 The \jx runs an operating system called \gls{jetlinux} which is built on the Linux Kernel \cite{JetsonLinux352023}.
-This operating system is part of a software suite called \gls{jetpack} which also includes things \cuda drivers and multimedia \gls{api} \cite{nvidiaJetPackSDK2023}.
+This operating system is part of a software suite called \gls{jetpack} which also includes things \gls{cuda} drivers and multimedia \gls{api} \cite{nvidiaJetPackSDK2023}.
 The hierarcy is visualized in Figure \ref{fig:jetpack_hierarchy}.
 
 \section{Results from the \preproject}
 During the \preproject \gls{pps} interrupts were enabled on the \jx by following a guide from Mateusz Sadowski \cite{sadowskiEnablingPPSJetson2020} \cite[26]{martensPortableSensorRig2022}.
 Althogh the guide was written for \jetson Nano running \gls{jetpack} 4.3, it worked on the \jx running \gls{jetpack} 4.6 as well after minor modifications \cite{sadowskiEnablingPPSJetson2020} \cite[26]{martensPortableSensorRig2022}.
-The \gls{deepstream} \gls{sdk} is used in the \master and requires the new version of \gls{jetpack}, 5.1, with CUDA 11.4 \cite{nvidiaDeepStreamSDKGet2019}.
+The \gls{deepstream} \gls{sdk} is used in the \master and requires the new version of \gls{jetpack}, 5.1, with\gls{cuda} 11.4 \cite{nvidiaDeepStreamSDKGet2019}.
 The assumption was that it would not be more difficult to enable \gls{pps} on this version than it was with \gls{jetpack} 4.6.
 This assumption turned out to be wrong, and the over all experience is vusialized in Figure \ref{fig:xkcd_cautionary}.
 

@@ -11,7 +11,7 @@ Combining the operations also removed the need for synchonization as each value 
 \begin{table}[H]
     \begin{minipage}[b]{.5\linewidth}
         \subcaptionbox{Separate debayering and color space conversion.
-            Also shows where synchronization would be needed in CUDA.}{
+            Also shows where synchronization would be needed in\gls{cuda}.}{
             \small
             \begin{tabular}{|l|c| c|}
                 \hline
@@ -57,7 +57,7 @@ Combining the operations also removed the need for synchonization as each value 
     \label{table:debayer_coefficients}
 \end{table}
 
-With the algebraic formulation available, it was possible to write a custom code generator that would generate the CUDA code needed for the 6 functions needed to calculate the 6 YCbCr 4:2:0 values for a single \gls{cg}.
+With the algebraic formulation available, it was possible to write a custom code generator that would generate the\gls{cuda} code needed for the 6 functions needed to calculate the 6 YCbCr 4:2:0 values for a single \gls{cg}.
 Listing \ref{listing:generated_function} shows parts of the generated code for calculating the Cr value for a \gls{cg} and Figure \ref{fig:transformation} shows the pixel values that accessed to calculate the values for one \gls{cg}.
 A big advantage of algebraic formulation and automatic code generation is that it is easy to change what's calculated.
 When it was discovered that the selected color profile was wrong in Section \ref{sec:inspection_and_comparison_of_the_final_output}, the only thing that needed to be changed to generate the correct code was the color space conversion matrix.
